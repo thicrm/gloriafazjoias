@@ -1,0 +1,47 @@
+# Image Links Storage
+# Store all cloud-hosted image URLs here
+# Format: [Description] - [URL]
+
+# ============================================
+# LOGOS
+# ============================================
+# Logo Horizontal: 
+# Logo Vertical: 
+# Adesivo/Sticker: 
+
+# ============================================
+# HOME PAGE IMAGES
+# ============================================
+# Hero Background: 
+# Featured Collection 1: 
+# Featured Collection 2: 
+# Featured Collection 3: 
+# Philosophy Section Image: 
+
+# ============================================
+# PRODUCT IMAGES
+# ============================================
+# [Add product image URLs as they become available]
+# Format: [Product Name] - [Image URL]
+
+# ============================================
+# ABOUT PAGE IMAGES
+# ============================================
+# Profile Image: 
+# Process Step 1 Image: 
+# Process Step 2 Image: 
+# Process Step 3 Image: 
+
+# ============================================
+# GALLERY IMAGES
+# ============================================
+# [Add gallery image URLs as they become available]
+
+# ============================================
+# NOTES
+# ============================================
+# - Always use HTTPS URLs
+# - Recommended image formats: WebP, JPG, PNG
+# - Recommended max width: 2000px for product images
+# - Recommended max width: 1920px for hero/background images
+

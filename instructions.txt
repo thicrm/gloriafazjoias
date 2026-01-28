@@ -1,0 +1,197 @@
+# Gloria Faz Joias - Website Development Instructions
+
+## Overview
+This website works in conjunction with Nuvemshop. Products are registered in Nuvemshop and payments are handled by Nuvemshop. The website serves as a custom storefront that displays products with custom styling and images. **The entire purchase process (add to cart, checkout, payment) should happen within the website using Nuvemshop widgets or embeds** - no redirects to external Nuvemshop pages.
+
+## Nuvemshop Integration Strategy
+
+### Best Integration Approach
+**Hybrid Model**: Custom frontend with Nuvemshop backend (embedded widgets)
+- Products are registered and managed in Nuvemshop
+- Payments and checkout are handled entirely by Nuvemshop **within the website using widgets/embeds**
+- Website displays products with custom images and styling
+- Product pages embed Nuvemshop buy buttons/widgets for seamless in-site checkout
+- Cart and checkout process embedded using Nuvemshop widgets/iframes
+- Optional: Use Nuvemshop API to fetch product metadata (prices, availability) if real-time sync is needed
+
+### Data Structure
+Each product should have:
+- **Name**: Used for organization and routing (slug generation)
+- **Nuvemshop Product Link**: Direct URL to the product page on Nuvemshop
+- **Image Group**: Multiple images provided in a txt file, organized by product name
+- **Category**: For filtering and organization
+- **Material**: For filtering
+- **Price**: Can be fetched from API or stored locally
+
+### Implementation Details
+1. **Product Data Source**: 
+   - Product links will be provided manually
+   - Images will be provided in a txt file, organized by product name
+   - Each product name maps to its image group
+
+2. **Product Cards**:
+   - Display custom images (from provided txt file)
+   - Show product name, category, material, and price
+   - Link to custom product page (not directly to Nuvemshop)
+   - Styled similarly to Prounis Jewelry product grid
+
+3. **Product Pages**:
+   - Individual page for each product: `/products/[product-slug]`
+   - Display all images from the product's image group
+   - Show product details (name, description, price, etc.)
+   - **Embed Nuvemshop buy button/widget** for adding to cart (stays within website)
+   - Styled similarly to Prounis Jewelry individual product pages
+   - All purchase interactions happen on-site using Nuvemshop widgets/embeds
+
+4. **Product Organization**:
+   - Products organized by name
+   - Product name is used to:
+     - Generate URL slug for routing
+     - Match images from the txt file
+     - Organize and display products
+
+## Product Page Styling Reference
+
+### Product Grid Page (All Products)
+Reference: https://www.prounisjewelry.com/collections/allproducts
+- Clean grid layout with product cards
+- Filter buttons (categories, materials)
+- Hover effects on product cards
+- Responsive design
+
+### Individual Product Page
+Reference: https://www.prounisjewelry.com/products/rainbow-moonstone-and-keshi-pearl-pinch-earring
+- Image gallery (multiple images)
+- Product details section
+- Price display
+- **Embedded Nuvemshop buy button/widget** (stays within website)
+- Embedded cart widget (if applicable)
+- Embedded checkout process (all within website)
+
+## Technical Requirements
+
+### File Structure
+```
+app/
+├── products/
+│   ├── page.tsx          # Product grid page (all products)
+│   └── [slug]/
+│       └── page.tsx      # Individual product pages
+components/
+├── ProductCard.tsx       # Product card component
+├── ProductGallery.tsx    # Image gallery for product pages
+└── NuvemshopWidget.tsx   # Nuvemshop widget/embed wrapper component
+lib/
+├── products.ts          # Product data management
+└── nuvemshop.ts         # Nuvemshop API utilities (optional)
+data/
+└── products.txt         # Product links and metadata
+└── product-images.txt   # Image links organized by product name
+```
+
+### Product Data Format
+Products can be stored in a JSON/TypeScript file or fetched from API:
+```typescript
+interface Product {
+  id: string
+  name: string
+  slug: string              // Generated from name
+  nuvemshopId: string       // Nuvemshop product ID for widget embedding
+  nuvemshopUrl?: string     // Optional: Link to Nuvemshop product page (for reference)
+  images: string[]         // Array of image URLs from txt file
+  category: string
+  material: string
+  price?: number            // Optional, can fetch from API
+  description?: string
+}
+```
+
+### Image Organization
+- Images provided in txt file
+- Images grouped by product name
+- Each product name maps to its image group
+- Images displayed in gallery on product page
+
+## Nuvemshop Widget/Embed Integration
+
+### Available Integration Methods
+1. **Buy Button Widget**: Embed Nuvemshop buy button directly on product pages
+2. **Cart Widget**: Embed shopping cart that stays visible on site
+3. **Checkout iframe**: Embed checkout process within website
+4. **Product Widget**: Full product widget with variants, quantity, add to cart
+
+### Implementation Approach
+- Use Nuvemshop's embed/widget scripts or iframes
+- All widgets should be styled to match website design
+- Ensure widgets are responsive and mobile-friendly
+- Cart and checkout should remain within website (no redirects)
+- Use Nuvemshop product IDs to embed correct products
+
+### Widget Integration Steps
+1. Research Nuvemshop widget/embed documentation
+2. Create wrapper component for Nuvemshop widgets
+3. Embed buy buttons on product pages using product IDs
+4. Implement cart widget (if available)
+5. Implement checkout embed (if available)
+6. Style widgets to match website aesthetic
+7. Test complete purchase flow within website
+
+## Development Workflow
+
+1. **Product Setup**:
+   - Receive product links and product IDs from Nuvemshop
+   - Receive image links organized by product name
+   - Create product data structure with Nuvemshop product IDs
+
+2. **Product Grid Page**:
+   - Display all products in a grid
+   - Implement filtering (category, material)
+   - Style similar to Prounis Jewelry reference
+   - Each card links to individual product page
+
+3. **Individual Product Pages**:
+   - Dynamic routing: `/products/[slug]`
+   - Display all images from product's image group
+   - Show product details
+   - **Embed Nuvemshop buy button/widget** (stays within website)
+   - All interactions happen on-site
+
+4. **Widget Integration**:
+   - Implement Nuvemshop widget wrapper component
+   - Embed buy buttons on product pages
+   - Embed cart widget (if applicable)
+   - Embed checkout process (all within website)
+   - Style widgets to match website design
+
+5. **Styling**:
+   - Match Prounis Jewelry aesthetic
+   - Maintain existing design system (refined colors, fonts)
+   - Responsive design
+   - Smooth hover effects and transitions
+   - Ensure embedded widgets match design system
+
+## Key Points
+
+- **No Payment Processing**: All payments handled by Nuvemshop (but embedded within website)
+- **Custom Images**: Use provided images, not Nuvemshop product images
+- **Product Organization**: By name, used for routing and image matching
+- **Styling**: Follow Prounis Jewelry reference for layout and UX
+- **Checkout Flow**: Website → Custom Product Page → Embedded Nuvemshop Widget → Embedded Checkout (all within website)
+- **No Redirects**: Entire purchase process happens within the website using widgets/embeds
+- **Widget Styling**: Nuvemshop widgets should be styled to match website design when possible
+
+## Next Steps
+
+1. Receive product links, product IDs, and image txt file
+2. Research Nuvemshop widget/embed documentation and available options
+3. Create product data structure with Nuvemshop product IDs
+4. Implement product grid page with filtering
+5. Implement individual product pages with image galleries
+6. Create Nuvemshop widget wrapper component
+7. Embed Nuvemshop buy buttons/widgets on product pages
+8. Implement cart widget (if available)
+9. Implement checkout embed (if available)
+10. Style widgets to match website design
+11. Style to match reference websites
+12. Test complete purchase flow: grid → product page → add to cart → checkout (all within website)
+

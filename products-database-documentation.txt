@@ -1,0 +1,101 @@
+# Products Database Documentation
+
+## File: products-database.txt
+
+### Purpose
+This file contains the complete product catalog for Gloria Faz Joias, including product names and their associated image URLs.
+
+### Format Structure
+- **Product Name**: First line of each product entry (e.g., "anel bruto latão")
+- **Image URLs**: One URL per line, listed below the product name
+- **Separator**: Blank line between each product entry
+
+### Example Entry
+```
+anel bruto latão
+https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20bruto%20lat%C3%A3o/DSC00205.jpg
+https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20bruto%20lat%C3%A3o/DSC00206.jpg
+https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20bruto%20lat%C3%A3o/DSC00209.jpg
+
+[blank line before next product]
+```
+
+## How It's Used in Development
+
+### 1. Product Data Parsing
+The `lib/products.ts` file reads this database and:
+- Parses product names and their image URLs
+- Generates URL slugs from product names (e.g., "anel bruto latão" → "anel-bruto-latao")
+- Extracts category from product name (e.g., "anel" → "Anéis", "colar" → "Colares")
+- Extracts material from product name (e.g., "prata", "ouro", "latão")
+- Creates Product objects with all necessary data
+
+### 2. Product Cards
+- **First Image**: Displayed by default on product card
+- **Second Image**: Shown on hover (if product has 2+ images)
+- Product name, category, and material are displayed below the image
+
+### 3. Individual Product Pages
+- **Image Grid**: All product images displayed in a grid (similar to home page grid)
+- **Selected Image**: Large display above the grid showing the currently selected image
+- **Product Info**: Displayed below the selected image
+
+### 4. Category and Material Extraction
+Categories are extracted from product names:
+- "anel" → "Anéis"
+- "colar" → "Colares"
+- "brinco" → "Brincos"
+- "bracelete" → "Braceletes"
+- "pingente" → "Pingentes"
+- "marca páginas" → "Acessórios"
+- "conjunto" → "Conjuntos"
+
+Materials are extracted from product names:
+- "prata" → "Prata"
+- "ouro" → "Ouro"
+- "latão" → "Latão"
+- Default: "Não especificado" if no material found
+
+### 5. Slug Generation
+Product names are converted to URL-friendly slugs:
+- Lowercase
+- Spaces replaced with hyphens
+- Special characters normalized (é → e, ç → c, etc.)
+- Example: "anel céu estrelado" → "anel-ceu-estrelado"
+
+## Data Structure
+
+Each product in the codebase will have this structure:
+```typescript
+{
+  id: string                    // Generated from product name
+  name: string                  // Full product name from database
+  slug: string                  // URL-friendly version of name
+  images: string[]              // Array of all image URLs
+  category: string              // Extracted from name
+  material: string              // Extracted from name
+  nuvemshopId?: string          // To be added when Nuvemshop links are provided
+  nuvemshopUrl?: string         // To be added when Nuvemshop links are provided
+  price?: number                // To be fetched from API or added manually
+  description?: string          // To be added later
+}
+```
+
+## Adding New Products
+
+To add a new product:
+1. Add product name on a new line
+2. Add image URLs below the name (one per line)
+3. Add a blank line before the next product
+4. The system will automatically:
+   - Generate a slug
+   - Extract category and material
+   - Make it available in the shop
+
+## Notes
+
+- All image URLs are hosted on R2 storage
+- Product names are case-sensitive and should match exactly
+- Image order matters: first image is default, second is hover image
+- Products with only one image will show the same image on hover
+
