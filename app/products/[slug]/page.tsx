@@ -2,30 +2,26 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { allProducts, getProductBySlug } from '@/lib/products-data'
 
-interface ProductPageProps {
-  params: {
-    slug: string
-  }
-}
-
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage() {
   const router = useRouter()
-  const product = getProductBySlug(allProducts, params.slug)
+  const params = useParams()
+  const slug = params?.slug as string
+  const product = slug ? getProductBySlug(allProducts, slug) : undefined
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
   useEffect(() => {
-    if (!product) {
+    if (!product && slug) {
       router.push('/products')
     }
-  }, [product, router])
+  }, [product, router, slug])
 
   if (!product) {
     return null
   }
 
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const selectedImage = product.images[selectedImageIndex] || product.images[0]
 
   // Calculate grid columns based on number of images

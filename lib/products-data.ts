@@ -1,6 +1,9 @@
 // Product data - parsed from products-database.txt
 import { Product, parseProductsDatabase } from './products'
 
+// Re-export Product type for use in other files
+export type { Product }
+
 // Raw database content
 const databaseContent = `anel bruto latão
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20bruto%20lat%C3%A3o/DSC00205.jpg

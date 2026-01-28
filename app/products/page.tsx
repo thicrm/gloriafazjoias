@@ -25,7 +25,7 @@ export default function ProductsPage() {
     setFilteredProducts(filtered)
   }, [filters])
 
-  const handleFilterChange = (filterType: string, value: string) => {
+  const handleFilterChange = (filterType: 'category' | 'material', value: string) => {
     setFilters((prev) => ({
       ...prev,
       [filterType]: value === prev[filterType] ? '' : value,
