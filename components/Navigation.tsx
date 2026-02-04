@@ -33,11 +33,11 @@ export default function Navigation() {
   }, [isSidebarOpen])
 
   const navItems = [
-    { href: '/', numeral: 'I', label: 'Inicio' },
-    { href: '/products', numeral: 'II', label: 'Joias' },
-    { href: '/about', numeral: 'III', label: 'Sobre' },
-    { href: '/encomendas', numeral: 'IV', label: 'Encomendas' },
-    { href: '/contato', numeral: 'V', label: 'Contato' },
+    { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/INICIO_MENU.jpg' },
+    { href: '/products', numeral: 'II', label: 'Joias', image: '/images/titulos_menu/JOIAS_MENU.jpg' },
+    { href: '/about', numeral: 'III', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
+    { href: '/encomendas', numeral: 'IV', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
+    { href: '/contato', numeral: 'V', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
   ]
 
   const closeSidebar = () => {
@@ -49,16 +49,21 @@ export default function Navigation() {
       <div className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-out ${isScrolled ? '-translate-y-0' : 'translate-y-0'}`}>
         {/* Main navigation */}
         <nav 
-          className="bg-white border-b border-refined-charcoal/10 relative"
+          className="bg-white border-b border-black relative"
         >
           {/* Menu Button - Left - positioned relative to nav */}
           <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 text-lg tracking-wider transition-colors duration-500 ease-in-out text-refined-charcoal/70 hover:text-refined-charcoal z-10 cursor-pointer"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-opacity duration-500 ease-in-out hover:opacity-70"
             onClick={() => setIsSidebarOpen(true)}
             aria-label="Open menu"
           >
-            <span className="font-title not-italic">I.</span>{' '}
-            <span className="font-body italic">Inicio</span>
+            <Image
+              src="/images/titulos_menu/INICIO_MENU.jpg"
+              alt="Inicio"
+              width={120}
+              height={30}
+              className="h-6 w-auto object-contain"
+            />
           </button>
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between h-20 relative">
@@ -101,25 +106,33 @@ export default function Navigation() {
 
       {/* Navigation Items - Appear on page when sidebar opens */}
       {isSidebarOpen && (
-        <nav className="fixed left-6 z-[80]" style={{ top: '40px' }}>
+        <nav className="fixed left-6 z-[80]" style={{ top: '28px' }}>
           <ul className="space-y-6">
             {/* Navigation items */}
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`block text-lg tracking-wider transition-colors duration-500 ease-in-out ${
-                    pathname === item.href
-                      ? 'text-refined-charcoal'
-                      : 'text-refined-charcoal/70 hover:text-refined-charcoal'
-                  }`}
-                  onClick={closeSidebar}
-                >
-                  <span className="font-title not-italic">{item.numeral}.</span>{' '}
-                  <span className="font-body italic">{item.label}</span>
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const isEncomendasOrContato = item.href === '/encomendas' || item.href === '/contato'
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`block transition-opacity duration-500 ease-in-out ${
+                      pathname === item.href
+                        ? 'opacity-100'
+                        : 'opacity-70 hover:opacity-100'
+                    }`}
+                    onClick={closeSidebar}
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.label}
+                      width={isEncomendasOrContato ? 90 : 120}
+                      height={isEncomendasOrContato ? 22.5 : 30}
+                      className={`w-auto object-contain ${isEncomendasOrContato ? 'h-[18px]' : 'h-6'}`}
+                    />
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </nav>
       )}

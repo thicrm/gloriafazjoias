@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="text-refined-charcoal bg-white mt-24 border-t border-refined-charcoal/10">
+    <footer className="text-refined-charcoal bg-white mt-24 border-t border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-start">
           <Link href="/" className="flex-shrink-0 group">
