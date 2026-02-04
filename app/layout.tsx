@@ -42,7 +42,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${oldBaskerville.variable} ${amasisMT.variable}`}>
       <body className="font-body antialiased">
         <Navigation />
-        <main className="min-h-screen pt-28">{children}</main>
+        <main className="min-h-screen pt-28 relative z-10">{children}</main>
         <Footer />
       </body>
     </html>

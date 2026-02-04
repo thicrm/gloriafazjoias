@@ -5,6 +5,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
+const navItems = [
+  { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/INICIO_MENU.jpg' },
+  { href: '/products', numeral: 'II', label: 'Joias', image: '/images/titulos_menu/JOIAS_MENU.jpg' },
+  { href: '/about', numeral: 'III', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
+  { href: '/encomendas', numeral: 'IV', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
+  { href: '/contato', numeral: 'V', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
+]
+
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -32,13 +40,16 @@ export default function Navigation() {
     }
   }, [isSidebarOpen])
 
-  const navItems = [
-    { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/INICIO_MENU.jpg' },
-    { href: '/products', numeral: 'II', label: 'Joias', image: '/images/titulos_menu/JOIAS_MENU.jpg' },
-    { href: '/about', numeral: 'III', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
-    { href: '/encomendas', numeral: 'IV', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
-    { href: '/contato', numeral: 'V', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
-  ]
+  // Preload menu images when component mounts
+  useEffect(() => {
+    navItems.forEach((item) => {
+      const link = document.createElement('link')
+      link.rel = 'preload'
+      link.as = 'image'
+      link.href = item.image
+      document.head.appendChild(link)
+    })
+  }, [])
 
   const closeSidebar = () => {
     setIsSidebarOpen(false)
@@ -49,7 +60,8 @@ export default function Navigation() {
       <div className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-out ${isScrolled ? '-translate-y-0' : 'translate-y-0'}`}>
         {/* Main navigation */}
         <nav 
-          className="bg-white border-b border-black relative"
+          className="bg-white border-b border-black relative z-50"
+          style={{ backgroundColor: '#ffffff' }}
         >
           {/* Menu Button - Left - positioned relative to nav */}
           <button
@@ -63,6 +75,8 @@ export default function Navigation() {
               width={120}
               height={30}
               className="h-6 w-auto object-contain"
+              priority
+              loading="eager"
             />
           </button>
           <div className="max-w-7xl mx-auto">
@@ -100,7 +114,7 @@ export default function Navigation() {
         className={`fixed top-0 left-0 h-full bg-white z-[70] transform transition-transform duration-300 ease-out shadow-2xl ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ width: '170px' }}
+        style={{ width: '170px', backgroundColor: '#ffffff' }}
       >
       </div>
 
@@ -128,6 +142,8 @@ export default function Navigation() {
                       width={isEncomendasOrContato ? 90 : 120}
                       height={isEncomendasOrContato ? 22.5 : 30}
                       className={`w-auto object-contain ${isEncomendasOrContato ? 'h-[18px]' : 'h-6'}`}
+                      priority={item.href === '/' || item.href === '/products'}
+                      loading={item.href === '/' || item.href === '/products' ? 'eager' : 'lazy'}
                     />
                   </Link>
                 </li>
