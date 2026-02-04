@@ -33,9 +33,11 @@ export default function Navigation() {
   }, [isSidebarOpen])
 
   const navItems = [
-    { href: '/', numeral: 'I', label: 'Home' },
+    { href: '/', numeral: 'I', label: 'Inicio' },
     { href: '/products', numeral: 'II', label: 'Joias' },
     { href: '/about', numeral: 'III', label: 'Sobre' },
+    { href: '/encomendas', numeral: 'IV', label: 'Encomendas' },
+    { href: '/contato', numeral: 'V', label: 'Contato' },
   ]
 
   const closeSidebar = () => {
@@ -51,12 +53,12 @@ export default function Navigation() {
         >
           {/* Menu Button - Left - positioned relative to nav */}
           <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 text-lg tracking-wider transition-colors duration-300 text-refined-charcoal/70 hover:text-refined-charcoal z-10 cursor-pointer"
+            className="absolute left-6 top-1/2 -translate-y-1/2 text-lg tracking-wider transition-colors duration-500 ease-in-out text-refined-charcoal/70 hover:text-refined-charcoal z-10 cursor-pointer"
             onClick={() => setIsSidebarOpen(true)}
             aria-label="Open menu"
           >
             <span className="font-title not-italic">I.</span>{' '}
-            <span className="font-body italic">Home</span>
+            <span className="font-body italic">Inicio</span>
           </button>
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between h-20 relative">
@@ -68,7 +70,7 @@ export default function Navigation() {
                   alt="Gloria Faz Joias"
                   width={200}
                   height={60}
-                  className="h-9 md:h-11 w-auto object-contain transition-transform duration-500 ease-out group-hover:scale-110"
+                  className="h-9 md:h-11 w-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
                   priority
                 />
               </Link>
@@ -93,7 +95,7 @@ export default function Navigation() {
         className={`fixed top-0 left-0 h-full bg-white z-[70] transform transition-transform duration-300 ease-out shadow-2xl ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ width: '150px' }}
+        style={{ width: '170px' }}
       >
       </div>
 
@@ -101,27 +103,12 @@ export default function Navigation() {
       {isSidebarOpen && (
         <nav className="fixed left-6 z-[80]" style={{ top: '40px' }}>
           <ul className="space-y-6">
-            {/* I. Home - aligned with header button (centered at 40px from top, same as header button) */}
-            <li style={{ marginTop: 0 }}>
-              <Link
-                href="/"
-                className={`block text-lg leading-none tracking-wider transition-colors duration-300 ${
-                  pathname === '/'
-                    ? 'text-refined-charcoal'
-                    : 'text-refined-charcoal/70 hover:text-refined-charcoal'
-                }`}
-                onClick={closeSidebar}
-              >
-                <span className="font-title not-italic">I.</span>{' '}
-                <span className="font-body italic">Home</span>
-              </Link>
-            </li>
-            {/* II. Joias and III. Sobre */}
-            {navItems.slice(1).map((item) => (
+            {/* Navigation items */}
+            {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`block text-lg tracking-wider transition-colors duration-300 ${
+                  className={`block text-lg tracking-wider transition-colors duration-500 ease-in-out ${
                     pathname === item.href
                       ? 'text-refined-charcoal'
                       : 'text-refined-charcoal/70 hover:text-refined-charcoal'

@@ -12,7 +12,7 @@ export default function Footer() {
               alt="Gloria Faz Joias Logo"
               width={150}
               height={200}
-              className="object-contain transition-transform duration-500 ease-out group-hover:scale-110"
+              className="object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
             />
           </Link>
         </div>

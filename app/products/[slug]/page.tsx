@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import ImageWithLoading from '@/components/ImageWithLoading'
 import { useRouter, useParams } from 'next/navigation'
 import { allProducts, getProductBySlug } from '@/lib/products-data'
 
@@ -40,11 +40,12 @@ export default function ProductPage() {
           {/* Image Section */}
           <div>
             {/* Selected Image Display */}
-            <div className="relative w-full aspect-square bg-refined-cream overflow-hidden mb-8">
-              <Image
+            <div className="relative w-full mb-8">
+              <ImageWithLoading
                 src={selectedImage}
                 alt={product.name}
                 fill
+                aspectRatio="1/1"
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
@@ -57,17 +58,18 @@ export default function ProductPage() {
                 <button
                   key={index}
                   onClick={() => setSelectedImageIndex(index)}
-                  className={`relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer transition-all duration-300 ${
+                  className={`relative w-full overflow-hidden group cursor-pointer transition-all duration-500 ease-in-out ${
                     selectedImageIndex === index
                       ? 'ring-2 ring-refined-charcoal'
                       : 'opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <Image
+                  <ImageWithLoading
                     src={image}
                     alt={`${product.name} - Imagem ${index + 1}`}
                     fill
-                    className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+                    aspectRatio="1/1.3"
+                    className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
                     sizes="(max-width: 1024px) 25vw, 10vw"
                   />
                 </button>
@@ -76,7 +78,7 @@ export default function ProductPage() {
           </div>
 
           {/* Product Info Section */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-start">
             <h1 className="font-title text-4xl md:text-5xl mb-6 text-refined-charcoal">
               {product.name}
             </h1>

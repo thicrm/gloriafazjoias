@@ -33,9 +33,9 @@
 
   body {
     @apply text-refined-charcoal;
-    background-image: url('/images/paperboard-texture.jpg');
+    background-image: url('/images/letras papel reciclado.jpg');
     background-repeat: repeat;
-    background-size: 200px 200px;
+    background-size: 800px 800px;
     background-attachment: fixed;
   }
 
@@ -99,5 +99,26 @@
 .grain-texture > * {
   position: relative;
   z-index: 2;
+}
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background-size: 1000px 100%;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
 }
 

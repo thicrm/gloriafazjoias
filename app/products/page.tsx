@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import ProductCard from '@/components/ProductCard'
-import { allProducts, getCategories, getMaterials, filterByCategory, filterByMaterial, Product } from '@/lib/products-data'
+import { allProducts, getCategories, filterByCategory, Product } from '@/lib/products-data'
 
 export default function ProductsPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(allProducts)
   const [filters, setFilters] = useState({
     category: '',
-    material: '',
   })
 
   useEffect(() => {
@@ -18,14 +17,10 @@ export default function ProductsPage() {
       filtered = filterByCategory(filtered, filters.category)
     }
 
-    if (filters.material) {
-      filtered = filterByMaterial(filtered, filters.material)
-    }
-
     setFilteredProducts(filtered)
   }, [filters])
 
-  const handleFilterChange = (filterType: 'category' | 'material', value: string) => {
+  const handleFilterChange = (filterType: 'category', value: string) => {
     setFilters((prev) => ({
       ...prev,
       [filterType]: value === prev[filterType] ? '' : value,
@@ -35,12 +30,10 @@ export default function ProductsPage() {
   const clearFilters = () => {
     setFilters({
       category: '',
-      material: '',
     })
   }
 
   const categories = getCategories(allProducts)
-  const materials = getMaterials(allProducts)
   
   // Map categories to filter-friendly names
   const categoryMap: { [key: string]: string } = {
@@ -52,13 +45,6 @@ export default function ProductsPage() {
     'Acessórios': 'acessórios',
     'Conjuntos': 'conjuntos',
   }
-  
-  // Map materials to filter-friendly names
-  const materialMap: { [key: string]: string } = {
-    'Ouro': 'ouro',
-    'Prata': 'prata',
-    'Latão': 'latão',
-  }
 
   return (
     <div className="min-h-screen py-16 px-4">
@@ -69,14 +55,14 @@ export default function ProductsPage() {
           </h1>
           
           {/* Filters below title */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
             {/* Todos button */}
             <button
               onClick={() => clearFilters()}
-              className={`px-6 py-2 font-body text-sm tracking-wider transition-all duration-300 ${
-                !filters.category && !filters.material
-                  ? 'bg-refined-charcoal text-white'
-                  : 'border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-white'
+              className={`font-body text-xl tracking-wider transition-all duration-500 ease-in-out text-refined-charcoal hover:text-refined-charcoal/70 ${
+                !filters.category
+                  ? 'font-bold'
+                  : 'font-normal'
               }`}
             >
               todos
@@ -89,28 +75,10 @@ export default function ProductsPage() {
                 <button
                   key={category}
                   onClick={() => handleFilterChange('category', category)}
-                  className={`px-6 py-2 font-body text-sm tracking-wider transition-all duration-300 ${
+                  className={`font-body text-xl tracking-wider transition-all duration-500 ease-in-out text-refined-charcoal hover:text-refined-charcoal/70 ${
                     filters.category === category
-                      ? 'bg-refined-charcoal text-white'
-                      : 'border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-white'
-                  }`}
-                >
-                  {filterValue}
-                </button>
-              )
-            })}
-            
-            {/* Material filters */}
-            {materials.map((material) => {
-              const filterValue = materialMap[material] || material.toLowerCase()
-              return (
-                <button
-                  key={material}
-                  onClick={() => handleFilterChange('material', material)}
-                  className={`px-6 py-2 font-body text-sm tracking-wider transition-all duration-300 ${
-                    filters.material === material
-                      ? 'bg-refined-charcoal text-white'
-                      : 'border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-white'
+                      ? 'font-bold'
+                      : 'font-normal'
                   }`}
                 >
                   {filterValue}
@@ -136,7 +104,7 @@ export default function ProductsPage() {
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="px-6 py-2 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-300 font-body"
+                  className="px-6 py-2 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-500 ease-in-out font-body"
                 >
                   Limpar Filtros
                 </button>

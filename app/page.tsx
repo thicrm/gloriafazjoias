@@ -1,75 +1,81 @@
-import Image from 'next/image'
+import ImageWithLoading from '@/components/ImageWithLoading'
 import Link from 'next/link'
 
 export default function Home() {
   return (
     <div className="min-h-screen relative">
-      {/* Simbolo Carimbo - Overlay on Grid */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 scale-[0.85]" style={{ top: '80px', zIndex: 10 }}>
-        <Image
-          src="/images/adesivo01.png"
-          alt="Gloria Faz Joias"
-          width={600}
-          height={600}
-          className="object-contain transition-all duration-500 ease-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
-          priority
-        />
-      </div>
-
       {/* Picture Grid Section */}
       <section className="w-full -mt-8 relative" style={{ zIndex: 1 }}>
-        <div className="grid grid-cols-6 w-full">
-          <Link href="/products" className="relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer">
-            <Image
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full relative">
+          {/* Simbolo Carimbo - Center aligned with bottom edge of grid */}
+          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] pointer-events-none">
+            <ImageWithLoading
+              src="/images/adesivo01.png"
+              alt="Gloria Faz Joias"
+              fill
+              aspectRatio="1/1"
+              className="object-contain transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] pointer-events-auto"
+              priority
+              sizes="(max-width: 640px) 42.5vw, (max-width: 768px) 35vw, (max-width: 1024px) 30vw, 25vw"
+            />
+          </div>
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00506.jpg"
               alt="anel céu estrealdo"
               fill
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+              aspectRatio="1/1.3"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer">
-            <Image
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00521.jpg"
               alt="anel céu estrelado"
               fill
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+              aspectRatio="1/1.3"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer">
-            <Image
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00500.jpg"
               alt="anel domo do céu II"
               fill
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+              aspectRatio="1/1.3"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer">
-            <Image
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00260.jpg"
               alt="anel onsen"
               fill
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+              aspectRatio="1/1.3"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer">
-            <Image
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00263.jpg"
               alt="anel onsen"
               fill
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+              aspectRatio="1/1.3"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full aspect-[1/1.3] overflow-hidden group cursor-pointer">
-            <Image
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00266.jpg"
               alt="anel onsen"
               fill
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+              aspectRatio="1/1.3"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
@@ -85,7 +91,7 @@ export default function Home() {
           </p>
           <Link
             href="/products"
-            className="inline-block mt-8 px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-300 font-body"
+            className="inline-block mt-8 px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-500 ease-in-out font-body"
           >
             conheça nossos produtos
           </Link>
@@ -99,17 +105,17 @@ export default function Home() {
             {/* First Image */}
             <Link href="/products" className="flex flex-col items-center group">
               <div className="relative w-full overflow-hidden">
-                <Image
+                <ImageWithLoading
                   src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00308.jpg"
                   alt="anel ondas ouro"
                   width={800}
                   height={600}
-                  className="w-full h-auto object-contain transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+                  className="w-full h-auto object-contain transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="mt-6 text-center">
-                <h3 className="font-title text-xl md:text-2xl text-refined-charcoal mb-2 group-hover:text-refined-charcoal/80 transition-colors">
+                <h3 className="font-title text-xl md:text-2xl text-refined-charcoal mb-2 group-hover:text-refined-charcoal/80 transition-colors duration-500 ease-in-out">
                   anel ondas ouro
                 </h3>
                 <p className="font-body text-sm md:text-base text-refined-charcoal/70 underline">
@@ -121,17 +127,17 @@ export default function Home() {
             {/* Second Image */}
             <Link href="/products" className="flex flex-col items-center group">
               <div className="relative w-full overflow-hidden">
-                <Image
+                <ImageWithLoading
                   src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00304.jpg"
                   alt="anel ondas ouro"
                   width={800}
                   height={600}
-                  className="w-full h-auto object-contain transition-all duration-500 ease-out group-hover:scale-110 group-hover:brightness-110"
+                  className="w-full h-auto object-contain transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="mt-6 text-center">
-                <h3 className="font-title text-xl md:text-2xl text-refined-charcoal mb-2 group-hover:text-refined-charcoal/80 transition-colors">
+                <h3 className="font-title text-xl md:text-2xl text-refined-charcoal mb-2 group-hover:text-refined-charcoal/80 transition-colors duration-500 ease-in-out">
                   anel ondas ouro
                 </h3>
                 <p className="font-body text-sm md:text-base text-refined-charcoal/70 underline">
