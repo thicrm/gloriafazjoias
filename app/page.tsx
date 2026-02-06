@@ -4,21 +4,65 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <div className="min-h-screen relative">
-      {/* Picture Grid Section */}
+      {/* Envelope images - Free disposition, behind symbol carimbo */}
+      <section className="w-full relative" style={{ zIndex: 0 }}>
+        {/* Envelope verso */}
+        <div className="relative w-auto max-w-lg group p-4" style={{ position: 'absolute', top: '10px', left: '20%', transform: 'translateX(20px)' }}>
+          <ImageWithLoading
+            src="/images/envelope verso.PNG"
+            alt=""
+            width={520}
+            height={780}
+            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
+            sizes="520px"
+          />
+        </div>
+        
+        {/* Postal */}
+        <div className="relative w-auto max-w-lg group p-4" style={{ position: 'absolute', top: '150px', right: '10%' }}>
+          <ImageWithLoading
+            src="/images/postal.PNG"
+            alt=""
+            width={520}
+            height={780}
+            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
+            sizes="520px"
+          />
+        </div>
+        
+        {/* Envelope fechado */}
+        <div className="relative w-auto max-w-lg group p-4" style={{ position: 'absolute', top: '120px', left: '30%' }}>
+          <ImageWithLoading
+            src="/images/enevelope_fechado.PNG"
+            alt=""
+            width={520}
+            height={780}
+            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
+            sizes="520px"
+          />
+        </div>
+      </section>
+
+      {/* Simbolo Carimbo - Visible on page */}
       <section className="w-full -mt-8 relative" style={{ zIndex: 1 }}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full relative">
-          {/* Simbolo Carimbo - Center aligned with bottom edge of grid */}
-          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] pointer-events-none">
+        <div className="flex justify-center items-center py-20">
+          <div className="relative w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] aspect-square">
             <ImageWithLoading
               src="/images/adesivo01.png"
               alt="Gloria Faz Joias"
               fill
               aspectRatio="1/1"
-              className="object-contain transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] pointer-events-auto"
+              className="object-contain transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
               priority
               sizes="(max-width: 640px) 42.5vw, (max-width: 768px) 35vw, (max-width: 1024px) 30vw, 25vw"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Picture Grid Section - Hidden for now, structure preserved for future use */}
+      <section className="w-full -mt-8 relative hidden" style={{ zIndex: 1 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full relative">
           <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00506.jpg"
@@ -97,19 +141,20 @@ export default function Home() {
               conheça nossos produtos
             </Link>
           </div>
-          {/* Página.png - Below text/button, positioned to the left */}
-          <div className="flex justify-start mb-16">
-            <div className="relative w-auto max-w-2xl group p-8">
-              <ImageWithLoading
-                src="/images/página.png"
-                alt=""
-                width={800}
-                height={1200}
-                className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
-                sizes="(max-width: 1024px) 100vw, 800px"
-              />
-            </div>
-          </div>
+        </div>
+      </section>
+      
+      {/* Página.png - Free positioning, no container restrictions */}
+      <section className="w-full relative">
+        <div className="relative w-auto max-w-2xl group p-8">
+          <ImageWithLoading
+            src="/images/página.png"
+            alt=""
+            width={800}
+            height={1200}
+            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
+            sizes="(max-width: 1024px) 100vw, 800px"
+          />
         </div>
       </section>
 
