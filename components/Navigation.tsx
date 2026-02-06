@@ -61,8 +61,13 @@ export default function Navigation() {
       <div className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-out ${isScrolled ? '-translate-y-0' : 'translate-y-0'}`}>
         {/* Main navigation */}
         <nav 
-          className="bg-white border-b border-black relative z-50"
-          style={{ backgroundColor: '#ffffff' }}
+          className="border-b border-black relative z-50"
+          style={{ 
+            backgroundImage: "url('/images/ azul.jpg')",
+            backgroundSize: '30%',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'repeat'
+          }}
         >
           {/* Menu Button - Left - positioned relative to nav */}
           <button
