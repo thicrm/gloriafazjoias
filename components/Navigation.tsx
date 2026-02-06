@@ -8,9 +8,10 @@ import { usePathname } from 'next/navigation'
 const navItems = [
   { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/INICIO_MENU.jpg' },
   { href: '/products', numeral: 'II', label: 'Joias', image: '/images/titulos_menu/JOIAS_MENU.jpg' },
-  { href: '/about', numeral: 'III', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
-  { href: '/encomendas', numeral: 'IV', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
-  { href: '/contato', numeral: 'V', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
+  { href: '/colecoes', numeral: 'III', label: 'Coleções', image: '/images/titulos_menu/COLEÇOES_MENU.jpeg' },
+  { href: '/about', numeral: 'IV', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
+  { href: '/encomendas', numeral: 'V', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
+  { href: '/contato', numeral: 'VI', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
 ]
 
 export default function Navigation() {
@@ -72,9 +73,9 @@ export default function Navigation() {
             <Image
               src="/images/titulos_menu/INICIO_MENU.jpg"
               alt="Inicio"
-              width={120}
-              height={30}
-              className="h-6 w-auto object-contain"
+              width={144}
+              height={36}
+              className="h-[29px] w-auto object-contain"
               priority
               loading="eager"
             />
@@ -124,7 +125,35 @@ export default function Navigation() {
           <ul className="space-y-6">
             {/* Navigation items */}
             {navItems.map((item) => {
-              const isEncomendasOrContato = item.href === '/encomendas' || item.href === '/contato'
+              const isScaledUp = item.href === '/colecoes' || item.href === '/about' || item.href === '/encomendas' || item.href === '/contato'
+              const isFullSize = item.href === '/' || item.href === '/products'
+              
+              // All sizes scaled up by 20% (×1.2)
+              // Inicio & Joias: 120×30 → 144×36
+              // Sobre: 132×33 → 158.4×39.6
+              // Coleções: 109×27.225 → 130.8×32.67
+              // Encomendas & Contato: 99×24.75 → 118.8×29.7
+              let width, height, heightClass
+              
+              if (item.href === '/colecoes') {
+                width = 131
+                height = 32.67
+                heightClass = 'h-[26px]'
+              } else if (item.href === '/encomendas' || item.href === '/contato') {
+                width = 119
+                height = 29.7
+                heightClass = 'h-[24px]'
+              } else if (item.href === '/about') {
+                width = 158
+                height = 39.6
+                heightClass = 'h-[32px]'
+              } else {
+                // Inicio & Joias
+                width = 144
+                height = 36
+                heightClass = 'h-[29px]'
+              }
+              
               return (
                 <li key={item.href}>
                   <Link
@@ -139,9 +168,9 @@ export default function Navigation() {
                     <Image
                       src={item.image}
                       alt={item.label}
-                      width={isEncomendasOrContato ? 90 : 120}
-                      height={isEncomendasOrContato ? 22.5 : 30}
-                      className={`w-auto object-contain ${isEncomendasOrContato ? 'h-[18px]' : 'h-6'}`}
+                      width={width}
+                      height={height}
+                      className={`w-auto object-contain ${heightClass}`}
                       priority={item.href === '/' || item.href === '/products'}
                       loading={item.href === '/' || item.href === '/products' ? 'eager' : 'lazy'}
                     />
