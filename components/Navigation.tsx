@@ -86,11 +86,11 @@ export default function Navigation() {
               {/* Logo - Centered */}
               <Link href="/" className="absolute left-1/2 transform -translate-x-1/2 flex items-center group">
                 <Image
-                  src="/images/logo_horizontal.jpg"
+                  src="/images/nova logo gloria vertical.png"
                   alt="Gloria Faz Joias"
-                  width={200}
-                  height={60}
-                  className="h-9 md:h-11 w-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
+                  width={400}
+                  height={120}
+                  className="h-[72px] md:h-[88px] w-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
                   priority
                 />
               </Link>

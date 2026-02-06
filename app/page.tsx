@@ -84,17 +84,32 @@ export default function Home() {
 
       {/* Philosophy Section - Moved to top of pictures */}
       <section className="w-full pt-40 px-4">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed mb-6 italic">
-            Cada joia é uma obra de arte, criada com atenção aos detalhes. Nossas peças são mais que acessórios;
-            são histórias transformadas em ouro e pedras preciosas.
-          </p>
-          <Link
-            href="/products"
-            className="inline-block mt-8 px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-500 ease-in-out font-body"
-          >
-            conheça nossos produtos
-          </Link>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed mb-6 italic">
+              Cada joia é uma obra de arte, criada com atenção aos detalhes. Nossas peças são mais que acessórios;
+              são histórias transformadas em ouro e pedras preciosas.
+            </p>
+            <Link
+              href="/products"
+              className="inline-block mt-8 px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-500 ease-in-out font-body"
+            >
+              conheça nossos produtos
+            </Link>
+          </div>
+          {/* Página.png - Below text/button, positioned to the left */}
+          <div className="flex justify-start mb-16">
+            <div className="relative w-auto max-w-2xl group p-8">
+              <ImageWithLoading
+                src="/images/página.png"
+                alt=""
+                width={800}
+                height={1200}
+                className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
+                sizes="(max-width: 1024px) 100vw, 800px"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
