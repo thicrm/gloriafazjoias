@@ -8,10 +8,9 @@ import { usePathname } from 'next/navigation'
 const navItems = [
   { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/INICIO_MENU.jpg' },
   { href: '/products', numeral: 'II', label: 'Joias', image: '/images/titulos_menu/JOIAS_MENU.jpg' },
-  { href: '/colecoes', numeral: 'III', label: 'Coleções', image: '/images/titulos_menu/COLEÇOES_MENU.jpeg' },
+  { href: '/encomendas', numeral: 'III', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
   { href: '/about', numeral: 'IV', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
-  { href: '/encomendas', numeral: 'V', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
-  { href: '/contato', numeral: 'VI', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
+  { href: '/contato', numeral: 'V', label: 'Contato', image: '/images/titulos_menu/CONTATO_MENU.jpg' },
 ]
 
 export default function Navigation() {
@@ -76,7 +75,7 @@ export default function Navigation() {
             aria-label="Open menu"
           >
             <Image
-              src="/images/titulos_menu/INICIO_MENU.jpg"
+              src="/images/titulos_menu/inicio_branco.PNG"
               alt="Inicio"
               width={144}
               height={36}
@@ -130,21 +129,13 @@ export default function Navigation() {
           <ul className="space-y-6">
             {/* Navigation items */}
             {navItems.map((item) => {
-              const isScaledUp = item.href === '/colecoes' || item.href === '/about' || item.href === '/encomendas' || item.href === '/contato'
-              const isFullSize = item.href === '/' || item.href === '/products'
-              
               // All sizes scaled up by 20% (×1.2)
               // Inicio & Joias: 120×30 → 144×36
               // Sobre: 132×33 → 158.4×39.6
-              // Coleções: 109×27.225 → 130.8×32.67
               // Encomendas & Contato: 99×24.75 → 118.8×29.7
               let width, height, heightClass
               
-              if (item.href === '/colecoes') {
-                width = 131
-                height = 32.67
-                heightClass = 'h-[26px]'
-              } else if (item.href === '/encomendas' || item.href === '/contato') {
+              if (item.href === '/encomendas' || item.href === '/contato') {
                 width = 119
                 height = 29.7
                 heightClass = 'h-[24px]'

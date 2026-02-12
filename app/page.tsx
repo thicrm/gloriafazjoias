@@ -130,15 +130,14 @@ export default function Home() {
       <section className="w-full pt-40 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed mb-6 italic">
-              Cada joia é uma obra de arte, criada com atenção aos detalhes. Nossas peças são mais que acessórios;
-              são histórias transformadas em ouro e pedras preciosas.
-            </p>
+            <h1 className="font-title text-4xl md:text-5xl lg:text-6xl text-refined-charcoal mb-8">
+              Jóias que criam histórias.
+            </h1>
             <Link
               href="/products"
               className="inline-block mt-8 px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-500 ease-in-out font-body"
             >
-              conheça nossos produtos
+              conheça nossas coleções
             </Link>
           </div>
         </div>

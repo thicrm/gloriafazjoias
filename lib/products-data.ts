@@ -1,5 +1,6 @@
 // Product data - parsed from products-database.txt
 import { Product, parseProductsDatabase } from './products'
+import { getProductDescription, formatProductDescription } from './product-descriptions'
 
 // Re-export Product type for use in other files
 export type { Product }
@@ -140,8 +141,20 @@ https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/pingente%20estrela/DSC00525.
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/pingente%20estrela/DSC00550.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/pingente%20estrela/DSC00551.jpg`
 
-// Parse and export products
-export const allProducts: Product[] = parseProductsDatabase(databaseContent)
+// Parse products and add descriptions
+const parsedProducts = parseProductsDatabase(databaseContent)
+
+// Add descriptions to products
+export const allProducts: Product[] = parsedProducts.map(product => {
+  const description = getProductDescription(product.name)
+  if (description) {
+    return {
+      ...product,
+      description: formatProductDescription(description),
+    }
+  }
+  return product
+})
 
 // Export helper functions
 export { getProductBySlug, filterByCategory, filterByMaterial, getCategories, getMaterials } from './products'

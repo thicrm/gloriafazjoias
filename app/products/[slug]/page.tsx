@@ -88,13 +88,14 @@ export default function ProductPage() {
               </p>
             </div>
             
-            {/* Product Description - Placeholder for now */}
-            <div className="mb-8">
-              <p className="font-body text-lg text-refined-charcoal/80 leading-relaxed">
-                Cada peça é única e feita à mão com atenção aos detalhes. 
-                Esta joia reflete a paixão pela arte e pela literatura que inspira cada criação.
-              </p>
-            </div>
+            {/* Product Description */}
+            {product.description && (
+              <div className="mb-8">
+                <div className="font-body text-lg text-refined-charcoal/80 leading-relaxed whitespace-pre-line">
+                  {product.description}
+                </div>
+              </div>
+            )}
 
             {/* Nuvemshop Widget Placeholder - To be implemented */}
             <div className="border-t border-refined-charcoal/10 pt-8">
