@@ -2,6 +2,7 @@
 
 import ImageWithLoading from '@/components/ImageWithLoading'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Home() {
@@ -283,13 +284,14 @@ function MacaricoAnimation() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
+      <Image
         src={isHovered 
           ? "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-aberto.png"
           : "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-fechado.png"
         }
         alt="Maçarico"
-        className="w-full h-full object-contain transition-opacity duration-300"
+        fill
+        className="object-contain transition-opacity duration-300"
       />
     </div>
   )
@@ -306,13 +308,14 @@ function AlicateAnimation() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
+      <Image
         src={isHovered 
           ? "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-aberto.png"
           : "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-fechado.png"
         }
         alt="Alicate"
-        className="w-full h-full object-contain transition-opacity duration-300"
+        fill
+        className="object-contain transition-opacity duration-300"
       />
     </div>
   )

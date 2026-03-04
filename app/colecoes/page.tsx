@@ -104,12 +104,13 @@ const colecoes: CollectionSection[] = [
   },
 ]
 
-export default function ColecoesPage({
+export default async function ColecoesPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const rawKey = searchParams.colecao
+  const params = await searchParams
+  const rawKey = params.colecao
   const key = Array.isArray(rawKey) ? rawKey[0] : rawKey
 
   const active =
