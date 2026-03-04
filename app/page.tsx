@@ -285,13 +285,18 @@ function MacaricoAnimation() {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Image
-        src={isHovered 
-          ? "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-aberto.png"
-          : "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-fechado.png"
-        }
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-fechado.png"
         alt="Maçarico"
         fill
-        className="object-contain transition-opacity duration-300"
+        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-aberto.png"
+        alt="Maçarico"
+        fill
+        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
       />
     </div>
   )
@@ -309,13 +314,18 @@ function AlicateAnimation() {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Image
-        src={isHovered 
-          ? "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-aberto.png"
-          : "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-fechado.png"
-        }
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-fechado.png"
         alt="Alicate"
         fill
-        className="object-contain transition-opacity duration-300"
+        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-aberto.png"
+        alt="Alicate"
+        fill
+        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
       />
     </div>
   )

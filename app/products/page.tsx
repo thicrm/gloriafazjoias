@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ProductCard from '@/components/ProductCard'
 import { allProducts, getCategories, filterByCategory, Product } from '@/lib/products-data'
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams()
   const initialCategory = searchParams.get('category') || ''
 
@@ -117,6 +117,18 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen py-16 px-4 flex items-center justify-center">
+        <p className="font-body text-lg text-refined-charcoal/70">Carregando...</p>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   )
 }
 
