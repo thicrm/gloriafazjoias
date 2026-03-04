@@ -1,59 +1,89 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      {/* Picture Grid Section */}
-      <section className="w-full -mt-8 relative" style={{ zIndex: 1 }}>
-        <div className="grid grid-cols-2 w-full">
-          <div className="relative w-full overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/%20galeira%20%5Bgfj%5D/brutalita-autoral-83.JPEG"
-              alt="Brutalita Autoral 83"
-              fill
-              aspectRatio="1/0.8"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="50vw"
-            />
-          </div>
-          <div className="relative w-full overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/%20galeira%20%5Bgfj%5D/brutalita-autoral-39.JPEG"
-              alt="Brutalita Autoral 39"
-              fill
-              aspectRatio="1/0.8"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="50vw"
-            />
-          </div>
+    <div className="min-h-screen -mt-28">
+      {/* Hero GIF Section */}
+      <section className="w-full relative z-10">
+        <div className="relative w-full">
+          <Image
+            src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/viI%CC%80%C2%81deo_com_objetos.gif"
+            alt="Glória Faz Jóias - Objetos"
+            width={1920}
+            height={1080}
+            unoptimized
+            className="w-full h-auto"
+            sizes="100vw"
+            priority
+          />
         </div>
       </section>
 
       {/* Text Section */}
-      <section className="w-full pt-16 px-4 pb-24">
+      <section className="w-full pt-16 px-4 pb-16">
         <div className="max-w-4xl mx-auto">
-          <div className="space-y-6">
-            <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
-              Sobre
-            </h1>
-            <div className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed space-y-6">
-              <p>
-                Eu sou a Glória, uma artista com um pé no Brasil e o outro no mundo, formada em Artes Visuais e Filosofia na Bard College Berlin, Alemanha. Minha jornada no mundo das joias começou em 2024, com um curso de joalheria de bancada, despretensioso e livre para experimentações. O que era para ser apenas um hiato entre o bacharelado na Alemanha e o mestrado na Holanda logo se tornou algo muito mais profundo e gratificante do que era possível imaginar naquele começo, traçado entre a intimidação do maçarico e o fascínio de ver o espelho líquido do metal derretido.
-              </p>
-              <p>
-                Minha formação acadêmica havia começado anos antes com a manualidade da argila na pele, do pincel nas mãos, mas logo percebi que minha busca era por algo mais profundo, que precedia o objeto de arte. Eu me aventurei na filosofia e na história procurando a origem do processo criativo, as mensagens e sentimentos que afetam nossa experiência tão fortemente que precisamos manifestá-los em um objeto físico. Quando, sem querer, esbarrei na joalheria, o cadinho coberto por metal líquido, espelhado, dançando sob as luzes baixas da área de fundição, tive uma epifania.
-              </p>
-              <p>
-                O fogo abriu para mim um caminho capaz de unir minha pesquisa material à intelectual. A joia, mais do que um objeto, é um veículo de significados usado desde os primórdios da criatividade humana. Com elas, nos adornamos de nossas histórias, vestimos o que acreditamos, comunicamos quem somos e quem queremos ser. Nossos sonhos tomam a forma do metal, nossos amores as cores das pedras. As joias mais preciosas para nós são aquelas que mais puramente destilam e carregam nossa identidade, seja ela feita dos materiais mais raros ou mais mundanos.
-              </p>
-              <p>
-                Minha prática artística é fundamentalmente manual. Os materiais chegam a mim brutos e puros, e sua jornada até a obra final é guiada pelas minhas mãos, na bancada. O processo artesanal me permite trabalhar com ternura cada peça, da maneira mais cuidadosa possível, dando atenção às necessidades únicas de cada projeto. Que maneira mais bela há, de manusear algo tão precioso como memórias, afetos e ideias que fazem de nós, nós?
-              </p>
+          <div className="space-y-12 md:space-y-16">
+            <div>
+              <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
+                Sobre
+              </h1>
+              <div className="space-y-8">
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  Glória Nogueira é uma joalheira de bancada baseada em São Paulo, Brasil. Formada em Artes Visuais e Filosofia pela Bard College Berlin, passou grande parte de sua carreira artística entre o Brasil e a Alemanha.
+                </p>
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  Na bancada, o metal é moldado à visão artística da joalheira, transformando-se de matéria bruta em obra de arte. O calor das mãos que a criam é imbuído na joia, tornando-a um objeto vivo. As suas formas, a sensação do metal na pele, o brilho das pedras que saltam aos olhos comunicam, além da beleza, a história de joia, tornando cada uma um tesouro único e singular.
+                </p>
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  As mãos da artista pensam e produzem cada joia, celebrando o tempo e cuidado que cada uma precisa para nascer. Na Glória faz Jóias, cultiva-se tesouros à mão.
+                </p>
+              </div>
             </div>
+
+            <div>
+              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
+                O joalheiro como aventureiro
+              </h2>
+              <div className="space-y-8">
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  Em suas aventuras na Europa, Ásia, e América Latina, a coleção mais preciosa adquirida pela Glória como artista foi a que seus olhos capturaram. Ao longo dos anos, o caos dos museus com alas vastas e arrebatadas de artefatos, calçadas pisadas por milhares de sapatos estrangeiros todos os dias, e o relevo do interior populado por espécies inimaginavelmente diversas de fauna e flora, foram lentamente destilados em um olhar apurado para a beleza que se esconde nos detalhes. Do estrangeiro ao cotidiano, a vida artística da Glória é guiada por um instinto curioso que informa todos os elementos do seu processo criativo.
+                </p>
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  A riqueza de impressões, intelectuais e sensoriais, trazidas pela vida de viajante despertou na Glória um repertório rico de referências que se traduz, na bancada de joalheria, em joias infinitamente imaginativas: a fluidez da caligrafia persa pode ser traduzido na disposição de ornamentos em um anel; os círculos concêntricos em um pingente podem remeter à pintura de cerâmicas centenárias; a escolha de cores e formas em um conjunto podem ter nascido da sobreposição de obras contemporâneas e clássicas. Quanto maior a riqueza do olhar da artista, mais abundantes e transformadores se tornam suas criações.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
+                O joalheiro como jardineiro
+              </h2>
+              <div className="space-y-8">
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  Uma boa coleção nasce não apenas da quantidade dos artefatos que contém, mas de sua curadoria — somente assim podem meros objetos transformarem-se em tesouros. No jardim bem cuidado, as melhores flores são aquelas que juntam-se em harmonia para criar uma visão única: um dente-de-leão pode ser intrusivo e desagradável quando cresce em um tapete de grama imaculadamente arrumado, ou um lindo ornamento em um jardim cheio de florzinhas silvestres. O dever do jardineiro é o de selecionar, dentre a impressionante diversidade de plantas do mundo, apenas aquelas que servem a sua visão para certo jardim. Cultivar um jardim é, desta maneira, construir um universo.
+                </p>
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  A investigação artística da Glória, como joalheira, foca na criação de universos vestíveis: como pode uma joia criar e conter, dentro de si, um mundo precioso? Como um jardim, que contém na sua particularidade a beleza universal da natureza selvagem, cada joia é um receptáculo para sua história. Cada elemento contido nela carrega em si parte da visão contemplada na joia como um todo. As cores das gemas, a forma dos metais, os detalhes que formam a joia trabalham em harmonia para que venha à vida um mundo impressionante. A preciosidade da joia está na beleza do universo vislumbrado quando é vestida.
+                </p>
+                <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
+                  A Glória Faz Jóias celebra a preciosidade do mundo com joias que criam histórias.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center pt-16">
+              <Link
+                href="/colecoes"
+                className="inline-block mt-4 px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body tracking-wide text-base md:text-lg"
+              >
+                conheça nossas coleções
+              </Link>
           </div>
         </div>
       </section>
     </div>
   )
 }
-

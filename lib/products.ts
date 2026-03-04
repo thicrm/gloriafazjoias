@@ -31,9 +31,12 @@ function extractCategory(name: string): string {
   if (lowerName.includes('colar')) return 'Colares'
   if (lowerName.includes('brinco')) return 'Brincos'
   if (lowerName.includes('bracelete')) return 'Braceletes'
+  if (lowerName.includes('broche')) return 'Broches'
   if (lowerName.includes('pingente')) return 'Pingentes'
   if (lowerName.includes('marca páginas')) return 'Acessórios'
   if (lowerName.includes('conjunto')) return 'Conjuntos'
+  if (lowerName.includes('objeto')) return 'Objetos'
+  if (lowerName.includes('penduricalho')) return 'Penduricalhos'
   return 'Geral'
 }
 

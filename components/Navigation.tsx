@@ -16,6 +16,8 @@ const navItems = [
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isColecoesOpen, setIsColecoesOpen] = useState(true)
+  const [isCategoriasOpen, setIsCategoriasOpen] = useState(true)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -65,12 +67,24 @@ export default function Navigation() {
             backgroundImage: "url('/images/ azul.jpg')",
             backgroundSize: '30%',
             backgroundPosition: 'center',
-            backgroundRepeat: 'repeat'
+            backgroundRepeat: 'repeat',
+            boxShadow: '0 1px 10px rgba(212, 175, 55, 0.5), 0 1px 20px rgba(212, 175, 55, 0.3)'
           }}
         >
+          {/* Stars overlay - above texture, below content */}
+          <div 
+            className="absolute inset-0 z-0 transition-all duration-700 ease-in-out hover:drop-shadow-[0_0_30px_rgba(212,175,55,0.6)]"
+            style={{
+              backgroundImage: "url('/images/header01-estrelas.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              pointerEvents: 'auto'
+            }}
+          />
           {/* Menu Button - Left - positioned relative to nav */}
           <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-opacity duration-500 ease-in-out hover:opacity-70"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 cursor-pointer transition-opacity duration-500 ease-in-out hover:opacity-70"
             onClick={() => setIsSidebarOpen(true)}
             aria-label="Open menu"
           >
@@ -84,7 +98,7 @@ export default function Navigation() {
               loading="eager"
             />
           </button>
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto relative z-10">
             <div className="flex items-center justify-between h-20 relative">
 
               {/* Logo - Centered */}
@@ -119,61 +133,372 @@ export default function Navigation() {
         className={`fixed top-0 left-0 h-full bg-white z-[70] transform transition-transform duration-300 ease-out shadow-2xl ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ width: '170px', backgroundColor: '#ffffff' }}
+        style={{ width: '260px', backgroundColor: '#ffffff' }}
       >
       </div>
 
-      {/* Navigation Items - Appear on page when sidebar opens */}
+      {/* Navigation Items - Aparecem quando o menu abre */}
       {isSidebarOpen && (
-        <nav className="fixed left-6 z-[80]" style={{ top: '28px' }}>
-          <ul className="space-y-6">
-            {/* Navigation items */}
-            {navItems.map((item) => {
-              // All sizes scaled up by 20% (×1.2)
-              // Inicio & Joias: 120×30 → 144×36
-              // Sobre: 132×33 → 158.4×39.6
-              // Encomendas & Contato: 99×24.75 → 118.8×29.7
-              let width, height, heightClass
-              
-              if (item.href === '/encomendas' || item.href === '/contato') {
-                width = 119
-                height = 29.7
-                heightClass = 'h-[24px]'
-              } else if (item.href === '/about') {
-                width = 158
-                height = 39.6
-                heightClass = 'h-[32px]'
-              } else {
-                // Inicio & Joias
-                width = 144
-                height = 36
-                heightClass = 'h-[29px]'
-              }
-              
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`block transition-opacity duration-500 ease-in-out ${
-                      pathname === item.href
-                        ? 'opacity-100'
-                        : 'opacity-70 hover:opacity-100'
-                    }`}
-                    onClick={closeSidebar}
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.label}
-                      width={width}
-                      height={height}
-                      className={`w-auto object-contain ${heightClass}`}
-                      priority={item.href === '/' || item.href === '/products'}
-                      loading={item.href === '/' || item.href === '/products' ? 'eager' : 'lazy'}
-                    />
-                  </Link>
+        <nav
+          className="fixed left-6 z-[80] max-h-[calc(100vh-56px)] overflow-y-auto pr-2 no-scrollbar"
+          style={{ top: '28px' }}
+        >
+          <ul className="space-y-4">
+            {/* Início (image) */}
+            <li>
+              <Link
+                href="/"
+                className={`block transition-opacity duration-500 ease-in-out ${
+                  pathname === '/' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={closeSidebar}
+              >
+                <Image
+                  src="/images/titulos_menu/INICIO_MENU.jpg"
+                  alt="Inicio"
+                  width={144}
+                  height={36}
+                  className="w-auto h-[29px] object-contain"
+                  priority
+                  loading="eager"
+                />
+              </Link>
+            </li>
+
+            {/* Jóias (image) */}
+            <li>
+              <Link
+                href="/products"
+                className={`block transition-opacity duration-500 ease-in-out ${
+                  pathname === '/products' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={closeSidebar}
+              >
+                <Image
+                  src="/images/titulos_menu/JOIAS_MENU.jpg"
+                  alt="Joias"
+                  width={144}
+                  height={36}
+                  className="w-auto h-[29px] object-contain"
+                  priority={false}
+                  loading="eager"
+                />
+              </Link>
+            </li>
+
+            {/* Coleções (texto simples) + seta minimalista */}
+            <li className="pt-4 ml-6 flex items-center justify-between">
+              <Link
+                href="/colecoes"
+                className={`font-granito text-sm tracking-wide transition-colors duration-500 ease-in-out ${
+                  pathname === '/colecoes'
+                    ? 'text-refined-charcoal'
+                    : 'text-refined-charcoal/70 hover:text-refined-charcoal'
+                }`}
+                onClick={closeSidebar}
+              >
+                Coleções
+              </Link>
+              <button
+                type="button"
+                className="ml-2 text-xs font-body text-refined-charcoal/60 hover:text-refined-charcoal transition-colors duration-300"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  e.preventDefault()
+                  setIsColecoesOpen((prev) => !prev)
+                }}
+                aria-label={isColecoesOpen ? 'Recolher coleções' : 'Expandir coleções'}
+              >
+                <span
+                  className={`inline-block transform transition-transform duration-300 ${
+                    isColecoesOpen ? 'rotate-90' : ''
+                  }`}
+                >
+                  &gt;
+                </span>
+              </button>
+            </li>
+
+            {isColecoesOpen && (
+              <>
+                {/* Na água */}
+                <li className="pt-1 -mt-3 ml-8">
+                  <span className="font-body text-xs text-refined-charcoal/70">
+                    Na água
+                  </span>
+                  <ul className="mt-2 ml-4 space-y-1">
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=piscina"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Piscina
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=vidro-romano"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Vidro Romano
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
-              )
-            })}
+
+                {/* No céu */}
+                <li className="pt-1 ml-8">
+                  <span className="font-body text-xs text-refined-charcoal/70">
+                    No céu
+                  </span>
+                  <ul className="mt-2 ml-4 space-y-1">
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=domo-do-ceu"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Domo do Céu
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=ceu-estrelado"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Céu Estrelado
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+
+                {/* Na terra */}
+                <li className="pt-1 ml-8">
+                  <span className="font-body text-xs text-refined-charcoal/70">
+                    Na terra
+                  </span>
+                  <ul className="mt-2 ml-4 space-y-1">
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=jardins"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Jardins
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=amitis"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Amitis
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+
+                {/* Para presentear */}
+                <li className="pt-1 ml-8">
+                  <span className="font-body text-xs text-refined-charcoal/70">
+                    Para presentear
+                  </span>
+                  <ul className="mt-2 ml-4 space-y-1">
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=ad-astra-ad-amor"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Ad Astra, Ad Amor
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=mae"
+                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Mãe
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              </>
+            )}
+
+            {/* Categorias + seta minimalista */}
+            <li className="pt-4 ml-6 flex items-center justify-between">
+              <span className="font-granito text-sm text-refined-charcoal/70">
+                Categorias
+              </span>
+              <button
+                type="button"
+                className="ml-2 text-xs font-body text-refined-charcoal/60 hover:text-refined-charcoal transition-colors duration-300"
+                onClick={() => setIsCategoriasOpen((prev) => !prev)}
+                aria-label={isCategoriasOpen ? 'Recolher categorias' : 'Expandir categorias'}
+              >
+                <span
+                  className={`inline-block transform transition-transform duration-300 ${
+                    isCategoriasOpen ? 'rotate-90' : ''
+                  }`}
+                >
+                  &gt;
+                </span>
+              </button>
+            </li>
+
+            {isCategoriasOpen && (
+              <li className="ml-6">
+                <ul className="mt-2 ml-2 space-y-1">
+                  <li>
+                    <Link
+                      href="/products"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Todas as jóias
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Anéis"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Anéis
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Braceletes"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Braceletes e Pulseiras
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Brincos"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Brincos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Broches"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Broches
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Colares"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Colares
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Penduricalhos"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Penduricalhos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Pingentes"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Pingentes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products?category=Objetos"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      onClick={closeSidebar}
+                    >
+                      Objetos
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            )}
+
+            {/* Encomendas (image) */}
+            <li className="pt-4">
+              <Link
+                href="/encomendas"
+                className={`block transition-opacity duration-500 ease-in-out ${
+                  pathname === '/encomendas' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={closeSidebar}
+              >
+                <Image
+                  src="/images/titulos_menu/ECOMENDAS_MENU.jpg"
+                  alt="Encomendas"
+                  width={119}
+                  height={29.7}
+                  className="w-auto h-[24px] object-contain"
+                  priority={false}
+                />
+              </Link>
+            </li>
+
+            {/* Sobre (image) */}
+            <li>
+              <Link
+                href="/about"
+                className={`block transition-opacity duration-500 ease-in-out ${
+                  pathname === '/about' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={closeSidebar}
+              >
+                <Image
+                  src="/images/titulos_menu/SOBRE_MENU.jpg"
+                  alt="Sobre"
+                  width={158}
+                  height={39.6}
+                  className="w-auto h-[32px] object-contain"
+                  priority={false}
+                />
+              </Link>
+            </li>
+
+            {/* Contato (image) */}
+            <li>
+              <Link
+                href="/contato"
+                className={`block transition-opacity duration-500 ease-in-out ${
+                  pathname === '/contato' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={closeSidebar}
+              >
+                <Image
+                  src="/images/titulos_menu/CONTATO_MENU.jpg"
+                  alt="Contato"
+                  width={119}
+                  height={29.7}
+                  className="w-auto h-[24px] object-contain"
+                  priority={false}
+                />
+              </Link>
+            </li>
           </ul>
         </nav>
       )}

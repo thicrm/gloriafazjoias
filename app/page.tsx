@@ -1,68 +1,27 @@
+'use client'
+
 import ImageWithLoading from '@/components/ImageWithLoading'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home() {
   return (
     <div className="min-h-screen relative">
-      {/* Envelope images - Free disposition, behind symbol carimbo */}
-      <section className="w-full relative" style={{ zIndex: 0 }}>
-        {/* Envelope verso */}
-        <div className="relative w-auto max-w-lg group p-4" style={{ position: 'absolute', top: '10px', left: '20%', transform: 'translateX(20px)' }}>
-          <ImageWithLoading
-            src="/images/envelope verso.PNG"
-            alt=""
-            width={520}
-            height={780}
-            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
-            sizes="520px"
-          />
-        </div>
-        
-        {/* Postal */}
-        <div className="relative w-auto max-w-lg group p-4" style={{ position: 'absolute', top: '150px', right: '10%' }}>
-          <ImageWithLoading
-            src="/images/postal.PNG"
-            alt=""
-            width={520}
-            height={780}
-            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
-            sizes="520px"
-          />
-        </div>
-        
-        {/* Envelope fechado */}
-        <div className="relative w-auto max-w-lg group p-4" style={{ position: 'absolute', top: '120px', left: '30%' }}>
-          <ImageWithLoading
-            src="/images/enevelope_fechado.PNG"
-            alt=""
-            width={520}
-            height={780}
-            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
-            sizes="520px"
-          />
-        </div>
-      </section>
-
-      {/* Simbolo Carimbo - Visible on page */}
-      <section className="w-full -mt-8 relative" style={{ zIndex: 1 }}>
-        <div className="flex justify-center items-center py-20">
-          <div className="relative w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] aspect-square">
+      {/* Grid de imagens: logo abaixo da header, sem espaço */}
+      <section className="w-full -mt-8 relative z-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full relative">
+          {/* Simbolo Carimbo - Center aligned with bottom edge of grid */}
+          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] pointer-events-none">
             <ImageWithLoading
               src="/images/adesivo01.png"
               alt="Gloria Faz Joias"
               fill
               aspectRatio="1/1"
-              className="object-contain transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+              className="object-contain transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] pointer-events-auto"
               priority
               sizes="(max-width: 640px) 42.5vw, (max-width: 768px) 35vw, (max-width: 1024px) 30vw, 25vw"
             />
           </div>
-        </div>
-      </section>
-
-      {/* Picture Grid Section - Hidden for now, structure preserved for future use */}
-      <section className="w-full -mt-8 relative hidden" style={{ zIndex: 1 }}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full relative">
           <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00506.jpg"
@@ -126,42 +85,144 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Philosophy Section - Moved to top of pictures */}
-      <section className="w-full pt-40 px-4">
+      {/* Philosophy Section - Próxima ao selo, texto responsivo */}
+      <section className="w-full pt-[116px] px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="font-title text-4xl md:text-5xl lg:text-6xl text-refined-charcoal mb-8">
+          <div className="text-center mb-[52px] md:mb-[60px] scale-[0.8]">
+            <h1 className="font-title text-xl sm:text-2xl md:text-3xl lg:text-4xl text-refined-charcoal mb-4">
               Jóias que criam histórias.
             </h1>
             <Link
               href="/products"
-              className="inline-block mt-8 px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-refined-ivory transition-all duration-500 ease-in-out font-body"
+              className="inline-block mt-2 px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
             >
               conheça nossas coleções
             </Link>
           </div>
-        </div>
-      </section>
-      
-      {/* Página.png - Free positioning, no container restrictions */}
-      <section className="w-full relative">
-        <div className="relative w-auto max-w-2xl group p-8">
-          <ImageWithLoading
-            src="/images/página.png"
-            alt=""
-            width={800}
-            height={1200}
-            className="w-auto h-auto object-contain transition-transform duration-700 ease-in-out group-hover:scale-[1.03]"
-            sizes="(max-width: 1024px) 100vw, 800px"
-          />
+
+          {/* Página.png and Picture Slot - Positioned on sides */}
+          <div className="relative mt-[10px]">
+            {/* Picture Slot - Right side */}
+            <div className="absolute right-[200px] top-0 w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+              {/* Placeholder for future image */}
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot
+              </div>
+            </div>
+
+            {/* Página.png - Left side */}
+            <div className="ml-[150px] relative top-[30px]">
+              <div className="relative w-[54%] md:w-[45%] lg:w-[36%] transform rotate-90 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] cursor-pointer">
+                <ImageWithLoading
+                  src="/images/página.png"
+                  alt="Glória Faz Jóias"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-contain"
+                  sizes="(max-width: 768px) 54vw, (max-width: 1024px) 45vw, 36vw"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Three Picture Slots - Centered below */}
+          <div className="flex justify-center gap-8 mt-[130px]">
+            {/* Picture Slot 1 */}
+            <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot 1
+              </div>
+            </div>
+
+            {/* Picture Slot 2 */}
+            <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot 2
+              </div>
+            </div>
+
+            {/* Picture Slot 3 */}
+            <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot 3
+              </div>
+            </div>
+          </div>
+
+          {/* Encomendas Button with Maçarico and Alicate Animations - Centered below slots */}
+          <div className="flex items-center justify-center gap-8 mt-[100px] mb-[180px]">
+            {/* Maçarico Animation */}
+            <MacaricoAnimation />
+            
+            {/* Encomendas Button */}
+            <Link
+              href="/encomendas"
+              className="inline-block px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
+            >
+              encomendas
+            </Link>
+
+            {/* Alicate Animation */}
+            <AlicateAnimation />
+          </div>
         </div>
       </section>
 
-      {/* Featured Product Images Section */}
+      {/* Full Width 3-Column Picture Grid - Coleção Mãe */}
+      <section className="w-full relative -mt-[120px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full">
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
+              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00359.jpg"
+              alt="brinco mãe"
+              fill
+              aspectRatio="1/0.91"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+              sizes="(max-width: 768px) 50vw, 33.33vw"
+            />
+          </Link>
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
+              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00357.jpg"
+              alt="colar mãe prata"
+              fill
+              aspectRatio="1/0.91"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+              sizes="(max-width: 768px) 50vw, 33.33vw"
+            />
+          </Link>
+          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+            <ImageWithLoading
+              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00381.jpg"
+              alt="colar mãe ouro"
+              fill
+              aspectRatio="1/0.91"
+              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+              sizes="(max-width: 768px) 50vw, 33.33vw"
+            />
+          </Link>
+        </div>
+      </section>
+
+      {/* Envelope Fechado - Centered */}
+      <section className="w-full flex justify-center mt-[50px] mb-4">
+        <Link href="/contato" className="relative w-[1350px] h-[900px] transition-transform duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] cursor-pointer">
+          <ImageWithLoading
+            src="/images/enevelope_fechado.PNG"
+            alt="Envelope Fechado"
+            fill
+            aspectRatio="16/9"
+            className="object-contain"
+            sizes="1350px"
+          />
+        </Link>
+      </section>
+
+      {/* Featured Product Images Section - Hidden for now */}
+      {/*
       <section className="w-full px-4 pb-24">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            {/* First Image */}
             <Link href="/products" className="flex flex-col items-center group">
               <div className="relative w-full overflow-hidden">
                 <ImageWithLoading
@@ -169,7 +230,7 @@ export default function Home() {
                   alt="anel ondas ouro"
                   width={800}
                   height={600}
-                  className="w-full h-auto object-contain transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                  className="w-[70%] md:w-[70%] h-auto mx-auto object-contain transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -183,7 +244,6 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Second Image */}
             <Link href="/products" className="flex flex-col items-center group">
               <div className="relative w-full overflow-hidden">
                 <ImageWithLoading
@@ -191,7 +251,7 @@ export default function Home() {
                   alt="anel ondas ouro"
                   width={800}
                   height={600}
-                  className="w-full h-auto object-contain transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                  className="w-[70%] md:w-[70%] h-auto mx-auto object-contain transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -207,6 +267,53 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
+    </div>
+  )
+}
+
+// Maçarico Animation Component
+function MacaricoAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <div 
+      className="relative w-[300px] h-[300px] cursor-pointer ml-[-200px] -mt-16 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      style={{ transform: 'rotate(-20deg) translateY(30px)' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={isHovered 
+          ? "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-aberto.png"
+          : "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-fechado.png"
+        }
+        alt="Maçarico"
+        className="w-full h-full object-contain transition-opacity duration-300"
+      />
+    </div>
+  )
+}
+
+// Alicate Animation Component
+function AlicateAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <div 
+      className="relative w-[300px] h-[300px] cursor-pointer mr-[-200px] -mt-16 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      style={{ transform: 'rotate(90deg) translateY(-30px)' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={isHovered 
+          ? "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-aberto.png"
+          : "https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate-fechado.png"
+        }
+        alt="Alicate"
+        className="w-full h-full object-contain transition-opacity duration-300"
+      />
     </div>
   )
 }

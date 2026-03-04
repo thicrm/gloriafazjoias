@@ -1,13 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import ProductCard from '@/components/ProductCard'
 import { allProducts, getCategories, filterByCategory, Product } from '@/lib/products-data'
 
 export default function ProductsPage() {
+  const searchParams = useSearchParams()
+  const initialCategory = searchParams.get('category') || ''
+
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(allProducts)
   const [filters, setFilters] = useState({
-    category: '',
+    category: initialCategory,
   })
 
   useEffect(() => {
