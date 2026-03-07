@@ -100,34 +100,19 @@ export default function Home() {
               conheça nossas coleções
             </Link>
           </div>
+        </div>
+      </section>
 
-          {/* Página.png and Picture Slot - Positioned on sides */}
-          <div className="relative mt-[10px]">
-            {/* Picture Slot - Right side */}
-            <div className="absolute right-[200px] top-0 w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
-              {/* Placeholder for future image */}
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot
-              </div>
-            </div>
+      {/* Caderno Animation - Centered below button */}
+      <section className="w-full flex justify-center -mt-[120px] -mb-[115px]">
+        <CadernoAnimation />
+      </section>
 
-            {/* Página.png - Left side */}
-            <div className="ml-[150px] relative top-[30px]">
-              <div className="relative w-[54%] md:w-[45%] lg:w-[36%] transform rotate-90 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] cursor-pointer">
-                <ImageWithLoading
-                  src="/images/página.png"
-                  alt="Glória Faz Jóias"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain"
-                  sizes="(max-width: 768px) 54vw, (max-width: 1024px) 45vw, 36vw"
-                />
-              </div>
-            </div>
-          </div>
-
+      {/* Picture Slots Section */}
+      <section className="w-full px-4">
+        <div className="max-w-7xl mx-auto">
           {/* Three Picture Slots - Centered below */}
-          <div className="flex justify-center gap-8 mt-[130px]">
+          <div className="flex justify-center gap-8 mt-[50px]">
             {/* Picture Slot 1 */}
             <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
               <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
@@ -205,18 +190,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Envelope Fechado - Centered */}
+      {/* Envelope Animation - Centered */}
       <section className="w-full flex justify-center mt-[50px] mb-4">
-        <Link href="/contato" className="relative w-[1350px] h-[900px] transition-transform duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] cursor-pointer">
-          <ImageWithLoading
-            src="/images/enevelope_fechado.PNG"
-            alt="Envelope Fechado"
-            fill
-            aspectRatio="16/9"
-            className="object-contain"
-            sizes="1350px"
-          />
-        </Link>
+        <EnvelopeAnimation />
       </section>
 
       {/* Featured Product Images Section - Hidden for now */}
@@ -328,6 +304,64 @@ function AlicateAnimation() {
         unoptimized
       />
     </div>
+  )
+}
+
+// Caderno Animation Component
+function CadernoAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <Link 
+      href="/about"
+      className="relative w-[891px] h-[594px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[50px] scale-[0.9]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-2.png"
+        alt="Caderno Sobre"
+        fill
+        className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-1.png"
+        alt="Caderno Sobre Hover"
+        fill
+        className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
+      />
+    </Link>
+  )
+}
+
+// Envelope Animation Component
+function EnvelopeAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <Link 
+      href="/contato"
+      className="relative w-[891px] h-[594px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato_2.png"
+        alt="Envelope Contato"
+        fill
+        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato_1.png"
+        alt="Envelope Contato Hover"
+        fill
+        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
+      />
+    </Link>
   )
 }
 
