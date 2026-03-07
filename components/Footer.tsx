@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
 
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 group">
+          <Link href="/" className="flex-shrink-0 group translate-x-[45px]">
             <div className="flex flex-col items-center">
               <Image
                 src="/images/vertical-garramondtype.png"

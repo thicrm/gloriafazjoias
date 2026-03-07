@@ -1,6 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { useState } from 'react'
+
+const CARTA_IMAGE_URL = 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/carta-p%C3%A1gina-encomendas.png'
 
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
@@ -48,17 +51,41 @@ export default function ContatoPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Main Content */}
-      <section className="py-24 px-4">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="font-title text-4xl md:text-5xl mb-12 text-refined-charcoal text-center">
-            Contato
-          </h1>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-0">
+      {/* Background image - centered, scaled so form fits within it */}
+      <div className="relative w-full max-w-2xl flex items-center justify-center mt-[10.5rem]">
+        <div className="relative w-full min-h-[500px] max-h-[85vh]">
+          <svg className="absolute w-0 h-0" aria-hidden="true">
+            <defs>
+              <filter id="carta-filter" x="0" y="0">
+                <feComponentTransfer in="SourceGraphic" result="darkened">
+                  <feFuncR type="linear" slope="0.82" intercept="0"/>
+                  <feFuncG type="linear" slope="0.82" intercept="0"/>
+                  <feFuncB type="linear" slope="0.82" intercept="0"/>
+                </feComponentTransfer>
+                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
+                <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0" result="noiseAlpha"/>
+                <feBlend in="darkened" in2="noiseAlpha" mode="multiply"/>
+              </filter>
+            </defs>
+          </svg>
+          <Image
+            src={CARTA_IMAGE_URL}
+            alt=""
+            fill
+            className="object-contain scale-[1.85]"
+            style={{ filter: 'url(#carta-filter)' }}
+            sizes="(max-width: 768px) 100vw, 672px"
+            priority
+          />
+          {/* Form overlay - positioned within the letter area */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-[12%] sm:p-[14%] md:p-[16%]">
+            <h1 className="font-title text-4xl md:text-5xl mb-12 text-refined-gold text-center" style={{ textShadow: '0 0 15px rgba(212,175,55,0.9), 0 0 30px rgba(212,175,55,0.6), 0 0 45px rgba(212,175,55,0.4)' }}>
+              Contato
+            </h1>
+            <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">
             <div>
-              <label htmlFor="name" className="block font-body text-sm text-refined-charcoal/80 mb-2">
+              <label htmlFor="name" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
                 Nome
               </label>
               <input
@@ -68,12 +95,12 @@ export default function ContatoPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-refined-charcoal/20 bg-white font-body text-refined-charcoal focus:outline-none focus:border-refined-charcoal transition-colors"
+                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block font-body text-sm text-refined-charcoal/80 mb-2">
+              <label htmlFor="email" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
                 Email
               </label>
               <input
@@ -83,12 +110,12 @@ export default function ContatoPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-refined-charcoal/20 bg-white font-body text-refined-charcoal focus:outline-none focus:border-refined-charcoal transition-colors"
+                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block font-body text-sm text-refined-charcoal/80 mb-2">
+              <label htmlFor="message" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
                 Mensagem
               </label>
               <textarea
@@ -98,14 +125,14 @@ export default function ContatoPage() {
                 onChange={handleChange}
                 required
                 rows={8}
-                className="w-full px-4 py-3 border border-refined-charcoal/20 bg-white font-body text-refined-charcoal focus:outline-none focus:border-refined-charcoal transition-colors resize-none"
+                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full px-8 py-3 border border-refined-charcoal text-refined-charcoal hover:bg-refined-charcoal hover:text-white transition-all duration-500 ease-in-out font-body disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-8 py-3 border border-refined-gold text-refined-gold shadow-[0_0_25px_rgba(212,175,55,0.6)] hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_35px_rgba(212,175,55,0.9)] transition-all duration-500 ease-in-out font-body text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-refined-gold disabled:shadow-[0_0_15px_rgba(212,175,55,0.4)]"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar'}
             </button>
@@ -121,9 +148,10 @@ export default function ContatoPage() {
                 Erro ao enviar mensagem. Por favor, tente novamente.
               </p>
             )}
-          </form>
+            </form>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

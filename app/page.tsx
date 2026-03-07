@@ -14,7 +14,7 @@ export default function Home() {
           {/* Simbolo Carimbo - Center aligned with bottom edge of grid */}
           <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] pointer-events-none">
             <ImageWithLoading
-              src="/images/adesivo01.png"
+              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/selo_o%CC%81.png"
               alt="Gloria Faz Joias"
               fill
               aspectRatio="1/1"

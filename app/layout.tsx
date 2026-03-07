@@ -3,6 +3,7 @@ import { Baskervville } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 // Using Baskervville as a close alternative to Old Baskerville
 // For exact fonts, you'll need to load them via @font-face in CSS
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <Navigation />
         <main className="min-h-screen pt-28 relative z-10">{children}</main>
+        <WhatsAppButton />
         <Footer />
       </body>
     </html>

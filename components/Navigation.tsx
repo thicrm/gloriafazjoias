@@ -16,8 +16,8 @@ const navItems = [
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isColecoesOpen, setIsColecoesOpen] = useState(true)
-  const [isCategoriasOpen, setIsCategoriasOpen] = useState(true)
+  const [isColecoesOpen, setIsColecoesOpen] = useState(false)
+  const [isCategoriasOpen, setIsCategoriasOpen] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -34,6 +34,8 @@ export default function Navigation() {
     // Prevent body scroll when sidebar is open
     if (isSidebarOpen) {
       document.body.style.overflow = 'hidden'
+      setIsColecoesOpen(false)
+      setIsCategoriasOpen(false)
     } else {
       document.body.style.overflow = 'unset'
     }
@@ -44,11 +46,16 @@ export default function Navigation() {
 
   // Preload menu images when component mounts
   useEffect(() => {
-    navItems.forEach((item) => {
+    const menuImages = [
+      ...navItems.map((item) => item.image),
+      '/images/titulos_menu/COLEÇOES_MENU.jpeg',
+      '/images/titulos_menu/CATEGORIAS_MENU.jpeg',
+    ]
+    menuImages.forEach((href) => {
       const link = document.createElement('link')
       link.rel = 'preload'
       link.as = 'image'
-      link.href = item.image
+      link.href = href
       document.head.appendChild(link)
     })
   }, [])
@@ -186,18 +193,27 @@ export default function Navigation() {
               </Link>
             </li>
 
-            {/* Coleções (texto simples) + seta minimalista */}
+            {/* Coleções (image) + seta minimalista */}
             <li className="pt-4 ml-6 flex items-center justify-between">
               <Link
                 href="/colecoes"
-                className={`font-granito text-sm tracking-wide transition-colors duration-500 ease-in-out ${
-                  pathname === '/colecoes'
-                    ? 'text-refined-charcoal'
-                    : 'text-refined-charcoal/70 hover:text-refined-charcoal'
+                className={`block transition-opacity duration-500 ease-in-out cursor-pointer ${
+                  pathname === '/colecoes' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
                 }`}
-                onClick={closeSidebar}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsColecoesOpen((prev) => !prev)
+                }}
               >
-                Coleções
+                <Image
+                  src="/images/titulos_menu/COLEÇOES_MENU.jpeg"
+                  alt="Coleções"
+                  width={144}
+                  height={36}
+                  className="w-auto h-[29px] object-contain scale-[0.8]"
+                  priority={false}
+                  loading="eager"
+                />
               </Link>
               <button
                 type="button"
@@ -222,7 +238,7 @@ export default function Navigation() {
             {isColecoesOpen && (
               <>
                 {/* Na água */}
-                <li className="pt-1 -mt-3 ml-8">
+                <li className="mt-2 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70">
                     Na água
                   </span>
@@ -230,7 +246,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=piscina"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Piscina
@@ -239,7 +255,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=vidro-romano"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Vidro Romano
@@ -249,7 +265,7 @@ export default function Navigation() {
                 </li>
 
                 {/* No céu */}
-                <li className="pt-1 ml-8">
+                <li className="mt-3 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70">
                     No céu
                   </span>
@@ -257,7 +273,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=domo-do-ceu"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Domo do Céu
@@ -266,7 +282,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=ceu-estrelado"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Céu Estrelado
@@ -276,7 +292,7 @@ export default function Navigation() {
                 </li>
 
                 {/* Na terra */}
-                <li className="pt-1 ml-8">
+                <li className="mt-3 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70">
                     Na terra
                   </span>
@@ -284,7 +300,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=jardins"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Jardins
@@ -293,7 +309,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=amitis"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Amitis
@@ -303,7 +319,7 @@ export default function Navigation() {
                 </li>
 
                 {/* Para presentear */}
-                <li className="pt-1 ml-8">
+                <li className="mt-3 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70">
                     Para presentear
                   </span>
@@ -311,7 +327,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=ad-astra-ad-amor"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Ad Astra, Ad Amor
@@ -320,7 +336,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=mae"
-                        className="font-body text-xs italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Mãe
@@ -331,11 +347,24 @@ export default function Navigation() {
               </>
             )}
 
-            {/* Categorias + seta minimalista */}
+            {/* Categorias (image) + seta minimalista */}
             <li className="pt-4 ml-6 flex items-center justify-between">
-              <span className="font-granito text-sm text-refined-charcoal/70">
-                Categorias
-              </span>
+              <button
+                type="button"
+                className="block opacity-70 hover:opacity-100 transition-opacity duration-500 ease-in-out cursor-pointer text-left"
+                onClick={() => setIsCategoriasOpen((prev) => !prev)}
+                aria-label={isCategoriasOpen ? 'Recolher categorias' : 'Expandir categorias'}
+              >
+                <Image
+                  src="/images/titulos_menu/CATEGORIAS_MENU.jpeg"
+                  alt="Categorias"
+                  width={144}
+                  height={36}
+                  className="w-auto h-[29px] object-contain scale-[0.8]"
+                  priority={false}
+                  loading="eager"
+                />
+              </button>
               <button
                 type="button"
                 className="ml-2 text-xs font-body text-refined-charcoal/60 hover:text-refined-charcoal transition-colors duration-300"
