@@ -1,5 +1,6 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import { allProducts } from '@/lib/products-data'
+import Link from 'next/link'
 
 type CollectionKey =
   | 'piscina'
@@ -126,12 +127,24 @@ export default async function ColecoesPage({
   return (
     <div className="min-h-screen px-4 pb-24">
       <div className="max-w-6xl mx-auto pt-16 md:pt-20 lg:pt-24">
-        {/* Título da página */}
+        {/* Título da página - dourado com brilho */}
         <div className="text-center mb-12">
-          <h1 className="font-title text-3xl md:text-4xl lg:text-5xl text-refined-charcoal mb-4">
+          <h1
+            className="font-title text-3xl md:text-4xl lg:text-5xl text-refined-gold mb-4"
+            style={{
+              textShadow:
+                '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)',
+            }}
+          >
             Coleções
           </h1>
-          <p className="font-body text-sm md:text-base text-refined-charcoal/70">
+          <p
+            className="font-body text-sm md:text-base text-refined-gold"
+            style={{
+              textShadow:
+                '0 0 15px rgba(212,175,55,0.5), 0 0 30px rgba(212,175,55,0.3)',
+            }}
+          >
             Explore universos de joias agrupadas por narrativa, matéria e
             imaginação.
           </p>
@@ -149,7 +162,14 @@ export default async function ColecoesPage({
           )}
         </div>
 
-        {/* Grid de imagens da coleção */}
+        {/* Texto da coleção - antes das imagens */}
+        <section className="w-full max-w-3xl mx-auto text-center mb-12">
+          <p className="font-body text-base md:text-lg text-refined-charcoal/80 leading-relaxed">
+            {active.descricao}
+          </p>
+        </section>
+
+        {/* Grid de imagens da coleção - no final */}
         <section className="w-full mb-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full">
             {productsForCollection.map((product) => {
@@ -157,9 +177,10 @@ export default async function ColecoesPage({
               if (!firstImage) return null
 
               return (
-                <div
+                <Link
                   key={product.slug}
-                  className="relative w-full overflow-hidden group cursor-pointer aspect-[3/4]"
+                  href={`/products/${product.slug}`}
+                  className="relative w-full overflow-hidden group cursor-pointer aspect-[3/4] block"
                 >
                   <ImageWithLoading
                     src={firstImage}
@@ -169,17 +190,10 @@ export default async function ColecoesPage({
                     className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
                     sizes="(max-width: 768px) 50vw, 33vw"
                   />
-                </div>
+                </Link>
               )
             })}
           </div>
-        </section>
-
-        {/* Texto da coleção */}
-        <section className="w-full max-w-3xl mx-auto text-center">
-          <p className="font-body text-base md:text-lg text-refined-charcoal/80 leading-relaxed">
-            {active.descricao}
-          </p>
         </section>
       </div>
     </div>

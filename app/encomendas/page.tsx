@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-const CARTA_IMAGE_URL = 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/carta-p%C3%A1gina-encomendas.png'
+const CARTA_IMAGE_URL = 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/carta-pa%CC%81gina-encomendas.png'
 
 export default function EncomendasPage() {
   const [formData, setFormData] = useState({
@@ -53,26 +53,11 @@ export default function EncomendasPage() {
       {/* Background image - centered, scaled so form fits within it */}
       <div className="relative w-full max-w-2xl flex items-center justify-center mt-[10.5rem]">
         <div className="relative w-full min-h-[500px] max-h-[85vh]">
-          <svg className="absolute w-0 h-0" aria-hidden="true">
-            <defs>
-              <filter id="carta-filter-encomendas" x="0" y="0">
-                <feComponentTransfer in="SourceGraphic" result="darkened">
-                  <feFuncR type="linear" slope="0.82" intercept="0"/>
-                  <feFuncG type="linear" slope="0.82" intercept="0"/>
-                  <feFuncB type="linear" slope="0.82" intercept="0"/>
-                </feComponentTransfer>
-                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
-                <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0" result="noiseAlpha"/>
-                <feBlend in="darkened" in2="noiseAlpha" mode="multiply"/>
-              </filter>
-            </defs>
-          </svg>
           <Image
             src={CARTA_IMAGE_URL}
             alt=""
             fill
             className="object-contain scale-[1.85]"
-            style={{ filter: 'url(#carta-filter-encomendas)' }}
             sizes="(max-width: 768px) 100vw, 672px"
             priority
           />

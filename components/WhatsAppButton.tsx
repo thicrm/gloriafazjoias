@@ -8,8 +8,8 @@ const WHATSAPP_NUMBER = '5511999999999'
 export default function WhatsAppButton() {
   const pathname = usePathname()
 
-  // Hide on homepage only
-  if (pathname === '/') return null
+  // Show only on contato and encomendas pages
+  if (pathname !== '/contato' && pathname !== '/encomendas') return null
 
   return (
     <div className="flex justify-center mt-16 pt-0 pb-6">
