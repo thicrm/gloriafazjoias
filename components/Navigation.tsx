@@ -217,7 +217,11 @@ export default function Navigation() {
               </Link>
               <button
                 type="button"
-                className="ml-2 text-xs font-body text-refined-charcoal/60 hover:text-refined-charcoal transition-colors duration-300"
+                className="ml-2 text-xs font-body text-refined-gold transition-all duration-300"
+                style={{
+                  textShadow:
+                    '0 0 10px rgba(212,175,55,0.6), 0 0 20px rgba(212,175,55,0.4)',
+                }}
                 onClick={(e) => {
                   e.stopPropagation()
                   e.preventDefault()
@@ -239,14 +243,14 @@ export default function Navigation() {
               <>
                 {/* Na água */}
                 <li className="mt-2 ml-8">
-                  <span className="font-body text-xs text-refined-charcoal/70">
+                  <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
                     Na água
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
                       <Link
                         href="/colecoes?colecao=piscina"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Piscina
@@ -255,7 +259,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=vidro-romano"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Vidro Romano
@@ -266,14 +270,14 @@ export default function Navigation() {
 
                 {/* No céu */}
                 <li className="mt-3 ml-8">
-                  <span className="font-body text-xs text-refined-charcoal/70">
+                  <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
                     No céu
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
                       <Link
                         href="/colecoes?colecao=domo-do-ceu"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Domo do Céu
@@ -282,7 +286,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=ceu-estrelado"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Céu Estrelado
@@ -293,14 +297,14 @@ export default function Navigation() {
 
                 {/* Na terra */}
                 <li className="mt-3 ml-8">
-                  <span className="font-body text-xs text-refined-charcoal/70">
+                  <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
                     Na terra
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
                       <Link
                         href="/colecoes?colecao=jardins"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Jardins
@@ -309,7 +313,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=amitis"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Amitis
@@ -320,14 +324,14 @@ export default function Navigation() {
 
                 {/* Para presentear */}
                 <li className="mt-3 ml-8">
-                  <span className="font-body text-xs text-refined-charcoal/70">
+                  <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
                     Para presentear
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
                       <Link
                         href="/colecoes?colecao=ad-astra-ad-amor"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Ad Astra, Ad Amor
@@ -336,7 +340,7 @@ export default function Navigation() {
                     <li>
                       <Link
                         href="/colecoes?colecao=mae"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
                       >
                         Mãe
@@ -367,7 +371,11 @@ export default function Navigation() {
               </button>
               <button
                 type="button"
-                className="ml-2 text-xs font-body text-refined-charcoal/60 hover:text-refined-charcoal transition-colors duration-300"
+                className="ml-2 text-xs font-body text-refined-gold transition-all duration-300"
+                style={{
+                  textShadow:
+                    '0 0 10px rgba(212,175,55,0.6), 0 0 20px rgba(212,175,55,0.4)',
+                }}
                 onClick={() => setIsCategoriasOpen((prev) => !prev)}
                 aria-label={isCategoriasOpen ? 'Recolher categorias' : 'Expandir categorias'}
               >
@@ -387,7 +395,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Todas as jóias
@@ -396,7 +404,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Anéis"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Anéis
@@ -405,7 +413,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Braceletes"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Braceletes e Pulseiras
@@ -414,7 +422,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Brincos"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Brincos
@@ -423,7 +431,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Broches"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Broches
@@ -432,7 +440,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Colares"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Colares
@@ -441,7 +449,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Penduricalhos"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Penduricalhos
@@ -450,7 +458,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Pingentes"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Pingentes
@@ -459,7 +467,7 @@ export default function Navigation() {
                   <li>
                     <Link
                       href="/products?category=Objetos"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-charcoal transition-colors duration-500 ease-in-out"
+                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
                       Objetos
