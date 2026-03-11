@@ -1,15 +1,19 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
-
-const CARTA_IMAGE_URL = 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/carta-pa%CC%81gina-encomendas.png'
 
 export default function EncomendasPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
+    afirmacao: '',
+    tipoPeça: [] as string[],
+    tipoPeçaOutro: '',
+    ocasiao: [] as string[],
+    ocasiaoOutro: '',
+    materiais: [] as string[],
+    materiaisOutro: '',
+    mensagem: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -19,18 +23,55 @@ export default function EncomendasPage() {
     setIsSubmitting(true)
     setSubmitStatus('idle')
 
+    const formatList = (arr: string[], outro: string) =>
+      arr.map((x) => (x === 'Outro' && outro ? `Outro: ${outro}` : x)).join(', ')
+
+    const message = `
+Encomenda - Formulário
+
+1. Com qual afirmação você mais se identifica?
+${formData.afirmacao}
+
+2. Que tipo de peça você gostaria de criar?
+${formatList(formData.tipoPeça, formData.tipoPeçaOutro)}
+
+3. Está celebrando alguma ocasião especial?
+${formatList(formData.ocasiao, formData.ocasiaoOutro)}
+
+4. Quais materiais fazem seus olhos brilharem?
+${formatList(formData.materiais, formData.materiaisOutro)}
+
+5. Nos conte mais…
+${formData.mensagem}
+`.trim()
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message,
+        }),
       })
 
       if (response.ok) {
         setSubmitStatus('success')
-        setFormData({ name: '', email: '', message: '' })
+        setFormData({
+          name: '',
+          email: '',
+          afirmacao: '',
+          tipoPeça: [],
+          tipoPeçaOutro: '',
+          ocasiao: [],
+          ocasiaoOutro: '',
+          materiais: [],
+          materiaisOutro: '',
+          mensagem: '',
+        })
       } else {
         setSubmitStatus('error')
       }
@@ -41,81 +82,278 @@ export default function EncomendasPage() {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+  const handleCheckboxChange = (field: 'tipoPeça' | 'ocasiao' | 'materiais', value: string, checked: boolean) => {
+    setFormData((prev) => {
+      const arr = [...prev[field]]
+      if (checked) {
+        arr.push(value)
+      } else {
+        arr.splice(arr.indexOf(value), 1)
+      }
+      return { ...prev, [field]: arr }
     })
   }
 
+  const inputClass = 'w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-refined-gold/50 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out'
+  const labelClass = 'block font-body text-sm text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300'
+  const checkboxClass = 'w-4 h-4 border border-refined-gold rounded accent-[#D4AF37]'
+
   return (
-    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-0">
-      {/* Background image - centered, scaled so form fits within it */}
-      <div className="relative w-full max-w-2xl flex items-center justify-center mt-[10.5rem]">
-        <div className="relative w-full min-h-[500px] max-h-[85vh]">
-          <Image
-            src={CARTA_IMAGE_URL}
-            alt=""
-            fill
-            className="object-contain scale-[1.85]"
-            sizes="(max-width: 768px) 100vw, 672px"
-            priority
-          />
-          {/* Form overlay - positioned within the letter area */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-[12%] sm:p-[14%] md:p-[16%]">
-            <h1 className="font-title text-4xl md:text-5xl mb-12 text-refined-gold text-center" style={{ textShadow: '0 0 15px rgba(212,175,55,0.9), 0 0 30px rgba(212,175,55,0.6), 0 0 45px rgba(212,175,55,0.4)' }}>
-              Encomendas
-            </h1>
-            <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">
+    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-16">
+      <div className="w-full max-w-2xl mx-auto">
+        {/* Title */}
+        <h1 className="font-title text-4xl md:text-5xl mb-16 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
+          Encomendas
+        </h1>
+
+        {/* Hero text */}
+        <h2 className="font-title text-3xl md:text-4xl text-refined-gold text-center mb-16" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
+          Jóias que criam histórias.
+        </h2>
+
+        {/* Como funciona? */}
+        <section className="mb-16">
+          <h3 className="font-title text-2xl md:text-3xl text-black mb-8">Como funciona?</h3>
+
+          <div className="space-y-10">
             <div>
-              <label htmlFor="name" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
-                Nome
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
-              />
+              <h4 className="font-title text-xl text-refined-gold mb-3">1. Co-criação</h4>
+              <p className="font-body text-black leading-relaxed">
+                Preencha o formulário abaixo. Em alguns dias, você será convidado para um encontro com a designer, onde vocês discutirão mais profundamente sobre suas ideias e sentimentos sobre o que a peça vai representar, sendo eles dos mais definidos aos mais abstratos. Falaremos sobre o que mais combina com seu estilo (ou de quem você vai presentear), do que faz seus olhos brilharem, inspirações e desejos — afinal, com a encomenda personalizada queremos criar a expressão certa para você.
+              </p>
             </div>
 
             <div>
-              <label htmlFor="email" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
-              />
+              <h4 className="font-title text-xl text-refined-gold mb-3">2. Desenhando um mapa</h4>
+              <p className="font-body text-black leading-relaxed">
+                Depois de definir o design, o orçamento será discutido. Consideram-se os materiais, horas de trabalho, complexidade do design, e suas expectativas para chegar em um número que represente o valor da sua visão. Uma entrada de 30% é requerida para passarmos para a próxima etapa.
+              </p>
             </div>
 
             <div>
-              <label htmlFor="message" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
-                Mensagem
+              <h4 className="font-title text-xl text-refined-gold mb-3">3. Mãos na massa</h4>
+              <p className="font-body text-black leading-relaxed">
+                O prazo de produção é acordado, dependendo da complexidade da peça e da agenda de produção. Cada etapa do nascimento da sua jóia será documentada e compartilhada com você, para que possa experienciar de perto a tradução da sua intenção no metal. A produção vai à todo vapor nesta fase mais intensa de derreter metais, cravar pedras, polir e dar toques finais. Para melhor adequar a peça aos seus desejos, possíveis revisões que surgirem no processo de criação serão atendidas, estando sujeitas a alterações de prazo e valor. Afinal, a encomenda personalizada é um processo colaborativo entre você e a Glória.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-title text-xl text-refined-gold mb-3">4. Da bancada, ao presente</h4>
+              <p className="font-body text-black leading-relaxed">
+                Com a sua joia finalizada, o restante do pagamento será feito e a entrega combinada. Sua visão é imortalizada em uma joia que se entrelaça na sua história. Será uma honra te acompanhar neste marco tão significativo.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Comece sua encomenda */}
+        <section className="mb-16">
+          <h2 className="font-title text-3xl md:text-4xl text-refined-gold text-center mb-12" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
+            Comece sua encomenda aqui.
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <h3 className="font-title text-xl text-black mb-6">Formulário</h3>
+
+            {/* Name and Email */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className={labelClass}>Nome</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className={labelClass}>Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  className={inputClass}
+                />
+              </div>
+            </div>
+
+            {/* Q1 - Afirmação (radio) */}
+            <div>
+              <label className={labelClass}>1. Com qual afirmação você mais se identifica?</label>
+              <div className="space-y-3">
+                {[
+                  'Tenho uma visão clara da minha joia',
+                  'Tive algumas ideias, mas ainda não tenho tudo definido',
+                  'Preciso de ajuda para imaginar minha joia ideal',
+                ].map((opt) => (
+                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                    <input
+                      type="radio"
+                      name="afirmacao"
+                      value={opt}
+                      checked={formData.afirmacao === opt}
+                      onChange={(e) => setFormData({ ...formData, afirmacao: e.target.value })}
+                      required
+                      className="w-4 h-4 border border-refined-gold accent-[#D4AF37]"
+                    />
+                    {opt}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Q2 - Tipo de peça (checkboxes) */}
+            <div>
+              <label className={labelClass}>2. Que tipo de peça você gostaria de criar?</label>
+              <div className="space-y-3">
+                {['Anéis', 'Bracelete ou Pulseira', 'Brincos', 'Broche', 'Colar', 'Pingente'].map((opt) => (
+                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                    <input
+                      type="checkbox"
+                      checked={formData.tipoPeça.includes(opt)}
+                      onChange={(e) => handleCheckboxChange('tipoPeça', opt, e.target.checked)}
+                      className={checkboxClass}
+                    />
+                    {opt}
+                  </label>
+                ))}
+                <label className="flex items-center gap-3 font-body text-black cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.tipoPeça.includes('Outro')}
+                    onChange={(e) => handleCheckboxChange('tipoPeça', 'Outro', e.target.checked)}
+                    className={checkboxClass}
+                  />
+                  Outro:
+                  <input
+                    type="text"
+                    value={formData.tipoPeçaOutro}
+                    onChange={(e) => setFormData({ ...formData, tipoPeçaOutro: e.target.value })}
+                    placeholder=""
+                    className={`flex-1 ${inputClass} py-2`}
+                    disabled={!formData.tipoPeça.includes('Outro')}
+                  />
+                </label>
+                <label className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                  <input
+                    type="checkbox"
+                    checked={formData.tipoPeça.includes('Ainda não sei')}
+                    onChange={(e) => handleCheckboxChange('tipoPeça', 'Ainda não sei', e.target.checked)}
+                    className={checkboxClass}
+                  />
+                  Ainda não sei
+                </label>
+              </div>
+            </div>
+
+            {/* Q3 - Ocasiao (checkboxes) */}
+            <div>
+              <label className={labelClass}>3. Está celebrando alguma ocasião especial?</label>
+              <div className="space-y-3">
+                {['Aniversário', 'Noivado', 'Casamento', 'Dia das Mães'].map((opt) => (
+                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                    <input
+                      type="checkbox"
+                      checked={formData.ocasiao.includes(opt)}
+                      onChange={(e) => handleCheckboxChange('ocasiao', opt, e.target.checked)}
+                      className={checkboxClass}
+                    />
+                    {opt}
+                  </label>
+                ))}
+                <label className="flex items-center gap-3 font-body text-black cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.ocasiao.includes('Outro')}
+                    onChange={(e) => handleCheckboxChange('ocasiao', 'Outro', e.target.checked)}
+                    className={checkboxClass}
+                  />
+                  Outro:
+                  <input
+                    type="text"
+                    value={formData.ocasiaoOutro}
+                    onChange={(e) => setFormData({ ...formData, ocasiaoOutro: e.target.value })}
+                    className={`flex-1 ${inputClass} py-2`}
+                    disabled={!formData.ocasiao.includes('Outro')}
+                  />
+                </label>
+              </div>
+            </div>
+
+            {/* Q4 - Materiais (checkboxes) */}
+            <div>
+              <label className={labelClass}>4. Quais materiais fazem seus olhos brilharem?</label>
+              <div className="space-y-3">
+                {['Ouro', 'Prata', 'Pedras preciosas', 'Pérolas'].map((opt) => (
+                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                    <input
+                      type="checkbox"
+                      checked={formData.materiais.includes(opt)}
+                      onChange={(e) => handleCheckboxChange('materiais', opt, e.target.checked)}
+                      className={checkboxClass}
+                    />
+                    {opt}
+                  </label>
+                ))}
+                <label className="flex items-center gap-3 font-body text-black cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.materiais.includes('Outro')}
+                    onChange={(e) => handleCheckboxChange('materiais', 'Outro', e.target.checked)}
+                    className={checkboxClass}
+                  />
+                  Outro:
+                  <input
+                    type="text"
+                    value={formData.materiaisOutro}
+                    onChange={(e) => setFormData({ ...formData, materiaisOutro: e.target.value })}
+                    className={`flex-1 ${inputClass} py-2`}
+                    disabled={!formData.materiais.includes('Outro')}
+                  />
+                </label>
+                <label className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                  <input
+                    type="checkbox"
+                    checked={formData.materiais.includes('Ainda não sei')}
+                    onChange={(e) => handleCheckboxChange('materiais', 'Ainda não sei', e.target.checked)}
+                    className={checkboxClass}
+                  />
+                  Ainda não sei
+                </label>
+              </div>
+            </div>
+
+            {/* Q5 - Mensagem */}
+            <div>
+              <label htmlFor="mensagem" className={labelClass}>
+                5. Nos conte mais…
               </label>
+              <p className="font-body text-sm text-black/80 mb-2 italic">
+                referências, ideias, desejos…
+              </p>
+              <p className="font-body text-xs text-black/70 mb-3">
+                (p.s.: não se preocupe se não tiver muitas ideias definidas; o trabalho da designer é ajudar você a trazer sua intenção à vida, por mais abstrata que seja.)
+              </p>
               <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={8}
-                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out resize-none"
+                id="mensagem"
+                name="mensagem"
+                value={formData.mensagem}
+                onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })}
+                rows={6}
+                className={`${inputClass} resize-none`}
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full px-8 py-3 border border-refined-gold text-refined-gold shadow-[0_0_25px_rgba(212,175,55,0.6)] hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_35px_rgba(212,175,55,0.9)] transition-all duration-500 ease-in-out font-body text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-refined-gold disabled:shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+              className="w-full px-8 py-3 border border-refined-gold text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_35px_rgba(212,175,55,0.9)] transition-all duration-500 ease-in-out font-body text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-refined-gold"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar'}
             </button>
@@ -131,9 +369,8 @@ export default function EncomendasPage() {
                 Erro ao enviar mensagem. Por favor, tente novamente.
               </p>
             )}
-            </form>
-          </div>
-        </div>
+          </form>
+        </section>
       </div>
     </div>
   )

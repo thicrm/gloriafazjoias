@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-const CARTA_IMAGE_URL = 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/carta-pa%CC%81gina-encomendas.png'
+const CARTA_IMAGE_URL = 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/carta-pa%CC%81gina-encomendas-calra.png'
 
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
@@ -51,10 +51,10 @@ export default function ContatoPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-0">
-      {/* Background image - centered, scaled so form fits within it */}
+    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-16">
+      {/* Background image - centered, scaled so form fits within it. Container height extended 1.85x to fit scaled image without cropping. */}
       <div className="relative w-full max-w-2xl flex items-center justify-center mt-[10.5rem]">
-        <div className="relative w-full min-h-[500px] max-h-[85vh]">
+        <div className="relative w-full min-h-[925px] max-h-[157.25vh]">
           <Image
             src={CARTA_IMAGE_URL}
             alt=""
@@ -64,13 +64,13 @@ export default function ContatoPage() {
             priority
           />
           {/* Form overlay - positioned within the letter area */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-[12%] sm:p-[14%] md:p-[16%]">
-            <h1 className="font-title text-4xl md:text-5xl mb-12 text-refined-gold text-center" style={{ textShadow: '0 0 15px rgba(212,175,55,0.9), 0 0 30px rgba(212,175,55,0.6), 0 0 45px rgba(212,175,55,0.4)' }}>
+          <div className="group absolute inset-0 flex flex-col items-center justify-center p-[12%] sm:p-[14%] md:p-[16%]">
+            <h1 className="font-title text-4xl md:text-5xl mb-12 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
               Contato
             </h1>
             <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">
             <div>
-              <label htmlFor="name" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
+              <label htmlFor="name" className="block font-body text-sm text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                 Nome
               </label>
               <input
@@ -80,12 +80,12 @@ export default function ContatoPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
+                className="w-full px-4 py-3 border border-black bg-transparent font-body text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-black/30 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
+              <label htmlFor="email" className="block font-body text-sm text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                 Email
               </label>
               <input
@@ -95,12 +95,12 @@ export default function ContatoPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
+                className="w-full px-4 py-3 border border-black bg-transparent font-body text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-black/30 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out"
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block font-body text-sm text-refined-gold mb-2 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
+              <label htmlFor="message" className="block font-body text-sm text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                 Mensagem
               </label>
               <textarea
@@ -110,14 +110,14 @@ export default function ContatoPage() {
                 onChange={handleChange}
                 required
                 rows={8}
-                className="w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-refined-gold shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out resize-none"
+                className="w-full px-4 py-3 border border-black bg-transparent font-body text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-black/30 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full px-8 py-3 border border-refined-gold text-refined-gold shadow-[0_0_25px_rgba(212,175,55,0.6)] hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_35px_rgba(212,175,55,0.9)] transition-all duration-500 ease-in-out font-body text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-refined-gold disabled:shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+              className="w-full px-8 py-3 border border-black text-black hover:bg-refined-gold hover:text-refined-ivory hover:border-refined-gold hover:shadow-[0_0_35px_rgba(212,175,55,0.9)] transition-all duration-500 ease-in-out font-body text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-black disabled:hover:border-black"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar'}
             </button>

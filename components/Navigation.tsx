@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/INICIO_MENU.jpg' },
+  { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/menu_titulo_preto.png' },
   { href: '/products', numeral: 'II', label: 'Joias', image: '/images/titulos_menu/JOIAS_MENU.jpg' },
   { href: '/encomendas', numeral: 'III', label: 'Encomendas', image: '/images/titulos_menu/ECOMENDAS_MENU.jpg' },
   { href: '/about', numeral: 'IV', label: 'Sobre', image: '/images/titulos_menu/SOBRE_MENU.jpg' },
@@ -96,7 +96,7 @@ export default function Navigation() {
             aria-label="Open menu"
           >
             <Image
-              src="/images/titulos_menu/inicio_branco.PNG"
+              src="/images/titulos_menu/menu_titulo_branco.png"
               alt="Inicio"
               width={144}
               height={36}
@@ -161,7 +161,7 @@ export default function Navigation() {
                 onClick={closeSidebar}
               >
                 <Image
-                  src="/images/titulos_menu/INICIO_MENU.jpg"
+                  src="/images/titulos_menu/menu_titulo_preto.png"
                   alt="Inicio"
                   width={144}
                   height={36}
@@ -241,6 +241,17 @@ export default function Navigation() {
 
             {isColecoesOpen && (
               <>
+                {/* Todas as coleções - first item */}
+                <li className="mt-2 ml-8">
+                  <Link
+                    href="/colecoes/todas"
+                    className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
+                    onClick={closeSidebar}
+                  >
+                    Todas as coleções
+                  </Link>
+                </li>
+
                 {/* Na água */}
                 <li className="mt-2 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
@@ -392,15 +403,6 @@ export default function Navigation() {
             {isCategoriasOpen && (
               <li className="ml-6">
                 <ul className="mt-2 ml-2 space-y-1">
-                  <li>
-                    <Link
-                      href="/products"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
-                      onClick={closeSidebar}
-                    >
-                      Todas as jóias
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       href="/products?category=Anéis"
