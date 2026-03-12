@@ -51,9 +51,9 @@ export default function ContatoPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-16">
+    <div className="min-h-screen flex flex-col items-center pt-6 pb-16 px-4">
       {/* Background image - centered, scaled so form fits within it. Container height extended 1.85x to fit scaled image without cropping. */}
-      <div className="relative w-full max-w-2xl flex items-center justify-center mt-[10.5rem]">
+      <div className="relative w-full max-w-2xl flex items-center justify-center mt-8">
         <div className="relative w-full min-h-[925px] max-h-[157.25vh]">
           <Image
             src={CARTA_IMAGE_URL}
@@ -64,8 +64,8 @@ export default function ContatoPage() {
             priority
           />
           {/* Form overlay - positioned within the letter area */}
-          <div className="group absolute inset-0 flex flex-col items-center justify-center p-[12%] sm:p-[14%] md:p-[16%]">
-            <h1 className="font-title text-4xl md:text-5xl mb-12 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
+          <div className="group absolute inset-0 flex flex-col items-center justify-center p-[8%] sm:p-[10%] md:p-[12%]">
+            <h1 className="font-title text-4xl md:text-5xl mb-6 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
               Contato
             </h1>
             <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">

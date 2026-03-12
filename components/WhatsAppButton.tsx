@@ -12,7 +12,7 @@ export default function WhatsAppButton() {
   if (pathname !== '/contato' && pathname !== '/encomendas') return null
 
   return (
-    <div className="relative z-[100] flex justify-center mt-16 pt-0 pb-6">
+    <div className={`relative z-[100] flex justify-center pt-0 pb-6 ${pathname === '/encomendas' ? 'mt-6' : 'mt-16'}`}>
       <Link
         href={`https://wa.me/${WHATSAPP_NUMBER}`}
         target="_blank"

@@ -82,7 +82,7 @@ export default function Navigation() {
           <div 
             className="absolute inset-0 z-0 transition-all duration-700 ease-in-out hover:drop-shadow-[0_0_30px_rgba(212,175,55,0.6)]"
             style={{
-              backgroundImage: "url('/images/header01-estrelas.png')",
+              backgroundImage: "url('/images/header01-estrelas-corrigida.png')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',

@@ -8,14 +8,21 @@ const nextConfig = {
       },
     ],
   },
-  // Optimize file watching for macOS
+  // Optimize file watching for macOS - reduce EMFILE errors
   webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.watchOptions = {
-        poll: 1000, // Check for changes every second
-        aggregateTimeout: 300, // Delay rebuild after the first change
-        ignored: ['**/node_modules', '**/.git', '**/.next'],
-      }
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/.next/**',
+        '**/public/**',
+        '**/.cursor/**',
+        '**/coverage/**',
+        '**/*.md',
+        '**/encomendas_txt.txt',
+      ],
     }
     return config
   },

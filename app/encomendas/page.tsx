@@ -94,13 +94,13 @@ ${formData.mensagem}
     })
   }
 
-  const inputClass = 'w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-refined-gold/50 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out'
-  const labelClass = 'block font-body text-sm text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300'
+  const inputClass = 'w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-base md:text-lg text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-refined-gold/50 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out'
+  const labelClass = 'block font-body text-base md:text-lg text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300'
   const checkboxClass = 'w-4 h-4 border border-refined-gold rounded accent-[#D4AF37]'
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-16">
-      <div className="w-full max-w-2xl mx-auto">
+    <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-6">
+      <div className="w-full max-w-4xl mx-auto">
         {/* Title */}
         <h1 className="font-title text-4xl md:text-5xl mb-16 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
           Encomendas
@@ -115,31 +115,31 @@ ${formData.mensagem}
         <section className="mb-16">
           <h3 className="font-title text-2xl md:text-3xl text-black mb-8">Como funciona?</h3>
 
-          <div className="space-y-10">
+          <div className="space-y-12 md:space-y-16">
             <div>
-              <h4 className="font-title text-xl text-refined-gold mb-3">1. Co-criação</h4>
-              <p className="font-body text-black leading-relaxed">
+              <h4 className="font-title text-xl text-refined-royal-blue mb-3 transition-all duration-300 hover:[text-shadow:0_0_12px_rgba(212,175,55,0.6),0_0_24px_rgba(212,175,55,0.4)] cursor-default">1. Co-criação</h4>
+              <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 Preencha o formulário abaixo. Em alguns dias, você será convidado para um encontro com a designer, onde vocês discutirão mais profundamente sobre suas ideias e sentimentos sobre o que a peça vai representar, sendo eles dos mais definidos aos mais abstratos. Falaremos sobre o que mais combina com seu estilo (ou de quem você vai presentear), do que faz seus olhos brilharem, inspirações e desejos — afinal, com a encomenda personalizada queremos criar a expressão certa para você.
               </p>
             </div>
 
             <div>
-              <h4 className="font-title text-xl text-refined-gold mb-3">2. Desenhando um mapa</h4>
-              <p className="font-body text-black leading-relaxed">
+              <h4 className="font-title text-xl text-refined-royal-blue mb-3 transition-all duration-300 hover:[text-shadow:0_0_12px_rgba(212,175,55,0.6),0_0_24px_rgba(212,175,55,0.4)] cursor-default">2. Desenhando um mapa</h4>
+              <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 Depois de definir o design, o orçamento será discutido. Consideram-se os materiais, horas de trabalho, complexidade do design, e suas expectativas para chegar em um número que represente o valor da sua visão. Uma entrada de 30% é requerida para passarmos para a próxima etapa.
               </p>
             </div>
 
             <div>
-              <h4 className="font-title text-xl text-refined-gold mb-3">3. Mãos na massa</h4>
-              <p className="font-body text-black leading-relaxed">
+              <h4 className="font-title text-xl text-refined-royal-blue mb-3 transition-all duration-300 hover:[text-shadow:0_0_12px_rgba(212,175,55,0.6),0_0_24px_rgba(212,175,55,0.4)] cursor-default">3. Mãos na massa</h4>
+              <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 O prazo de produção é acordado, dependendo da complexidade da peça e da agenda de produção. Cada etapa do nascimento da sua jóia será documentada e compartilhada com você, para que possa experienciar de perto a tradução da sua intenção no metal. A produção vai à todo vapor nesta fase mais intensa de derreter metais, cravar pedras, polir e dar toques finais. Para melhor adequar a peça aos seus desejos, possíveis revisões que surgirem no processo de criação serão atendidas, estando sujeitas a alterações de prazo e valor. Afinal, a encomenda personalizada é um processo colaborativo entre você e a Glória.
               </p>
             </div>
 
             <div>
-              <h4 className="font-title text-xl text-refined-gold mb-3">4. Da bancada, ao presente</h4>
-              <p className="font-body text-black leading-relaxed">
+              <h4 className="font-title text-xl text-refined-royal-blue mb-3 transition-all duration-300 hover:[text-shadow:0_0_12px_rgba(212,175,55,0.6),0_0_24px_rgba(212,175,55,0.4)] cursor-default">4. Da bancada, ao presente</h4>
+              <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 Com a sua joia finalizada, o restante do pagamento será feito e a entrega combinada. Sua visão é imortalizada em uma joia que se entrelaça na sua história. Será uma honra te acompanhar neste marco tão significativo.
               </p>
             </div>
@@ -192,7 +192,7 @@ ${formData.mensagem}
                   'Tive algumas ideias, mas ainda não tenho tudo definido',
                   'Preciso de ajuda para imaginar minha joia ideal',
                 ].map((opt) => (
-                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                  <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                     <input
                       type="radio"
                       name="afirmacao"
@@ -213,7 +213,7 @@ ${formData.mensagem}
               <label className={labelClass}>2. Que tipo de peça você gostaria de criar?</label>
               <div className="space-y-3">
                 {['Anéis', 'Bracelete ou Pulseira', 'Brincos', 'Broche', 'Colar', 'Pingente'].map((opt) => (
-                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                  <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                     <input
                       type="checkbox"
                       checked={formData.tipoPeça.includes(opt)}
@@ -223,7 +223,7 @@ ${formData.mensagem}
                     {opt}
                   </label>
                 ))}
-                <label className="flex items-center gap-3 font-body text-black cursor-pointer">
+                <label className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.tipoPeça.includes('Outro')}
@@ -240,7 +240,7 @@ ${formData.mensagem}
                     disabled={!formData.tipoPeça.includes('Outro')}
                   />
                 </label>
-                <label className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                <label className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                   <input
                     type="checkbox"
                     checked={formData.tipoPeça.includes('Ainda não sei')}
@@ -257,7 +257,7 @@ ${formData.mensagem}
               <label className={labelClass}>3. Está celebrando alguma ocasião especial?</label>
               <div className="space-y-3">
                 {['Aniversário', 'Noivado', 'Casamento', 'Dia das Mães'].map((opt) => (
-                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                  <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                     <input
                       type="checkbox"
                       checked={formData.ocasiao.includes(opt)}
@@ -267,7 +267,7 @@ ${formData.mensagem}
                     {opt}
                   </label>
                 ))}
-                <label className="flex items-center gap-3 font-body text-black cursor-pointer">
+                <label className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.ocasiao.includes('Outro')}
@@ -291,7 +291,7 @@ ${formData.mensagem}
               <label className={labelClass}>4. Quais materiais fazem seus olhos brilharem?</label>
               <div className="space-y-3">
                 {['Ouro', 'Prata', 'Pedras preciosas', 'Pérolas'].map((opt) => (
-                  <label key={opt} className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                  <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                     <input
                       type="checkbox"
                       checked={formData.materiais.includes(opt)}
@@ -301,7 +301,7 @@ ${formData.mensagem}
                     {opt}
                   </label>
                 ))}
-                <label className="flex items-center gap-3 font-body text-black cursor-pointer">
+                <label className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.materiais.includes('Outro')}
@@ -317,7 +317,7 @@ ${formData.mensagem}
                     disabled={!formData.materiais.includes('Outro')}
                   />
                 </label>
-                <label className="flex items-center gap-3 font-body text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
+                <label className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
                   <input
                     type="checkbox"
                     checked={formData.materiais.includes('Ainda não sei')}
@@ -334,10 +334,10 @@ ${formData.mensagem}
               <label htmlFor="mensagem" className={labelClass}>
                 5. Nos conte mais…
               </label>
-              <p className="font-body text-sm text-black/80 mb-2 italic">
+              <p className="font-body text-base md:text-lg text-black/80 mb-2 italic">
                 referências, ideias, desejos…
               </p>
-              <p className="font-body text-xs text-black/70 mb-3">
+              <p className="font-body text-sm md:text-base text-black/70 mb-3">
                 (p.s.: não se preocupe se não tiver muitas ideias definidas; o trabalho da designer é ajudar você a trazer sua intenção à vida, por mais abstrata que seja.)
               </p>
               <textarea
@@ -359,13 +359,13 @@ ${formData.mensagem}
             </button>
 
             {submitStatus === 'success' && (
-              <p className="font-body text-sm text-green-600 text-center">
+              <p className="font-body text-base md:text-lg text-green-600 text-center">
                 Mensagem enviada com sucesso!
               </p>
             )}
 
             {submitStatus === 'error' && (
-              <p className="font-body text-sm text-red-600 text-center">
+              <p className="font-body text-base md:text-lg text-red-600 text-center">
                 Erro ao enviar mensagem. Por favor, tente novamente.
               </p>
             )}

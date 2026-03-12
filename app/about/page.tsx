@@ -1,10 +1,34 @@
-import ImageWithLoading from '@/components/ImageWithLoading'
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useEffect, useRef } from 'react'
+
+const DESKTOP_BREAKPOINT = 1024
+const SCROLL_OFFSET_UP = 480
+const NAVIGATION_DELAY_MS = 350
 
 export default function AboutPage() {
+  const pathname = usePathname()
+  const textSectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (pathname !== '/about' || window.innerWidth < DESKTOP_BREAKPOINT) return
+
+    const runScroll = () => {
+      const el = textSectionRef.current
+      if (!el) return
+      const targetY = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET_UP
+      window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' })
+    }
+
+    const timeout = setTimeout(runScroll, NAVIGATION_DELAY_MS)
+    return () => clearTimeout(timeout)
+  }, [pathname])
+
   return (
-    <div className="min-h-screen -mt-28">
+    <div className="min-h-screen -mt-8">
       {/* Hero GIF Section */}
       <section className="w-full relative z-10">
         <div className="relative w-full">
@@ -22,11 +46,11 @@ export default function AboutPage() {
       </section>
 
       {/* Text Section */}
-      <section className="w-full pt-16 px-4 pb-16">
+      <section ref={textSectionRef} id="sobre-texto" className="w-full pt-16 px-4 pb-16">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-12 md:space-y-16">
             <div>
-              <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
+              <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center">
                 Sobre
               </h1>
               <div className="space-y-8">
@@ -43,7 +67,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
+              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center">
                 O joalheiro como aventureiro
               </h2>
               <div className="space-y-8">
@@ -57,7 +81,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-charcoal text-center">
+              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center">
                 O joalheiro como jardineiro
               </h2>
               <div className="space-y-8">

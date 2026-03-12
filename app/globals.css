@@ -47,7 +47,7 @@
     background-repeat: repeat;
     background-size: 30%;
     pointer-events: none;
-    z-index: -2;
+    z-index: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {

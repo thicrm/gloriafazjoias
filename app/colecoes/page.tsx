@@ -36,15 +36,8 @@ export default async function ColecoesPage({
           >
             Coleções
           </h1>
-          <p
-            className="font-body text-sm md:text-base text-refined-gold"
-            style={{
-              textShadow:
-                '0 0 15px rgba(212,175,55,0.5), 0 0 30px rgba(212,175,55,0.3)',
-            }}
-          >
-            Explore universos de joias agrupadas por narrativa, matéria e
-            imaginação.
+          <p className="font-body text-sm md:text-base text-refined-royal-blue">
+            Explore universos de joias agrupadas por narrativa, matéria e imaginação.
           </p>
         </div>
 
