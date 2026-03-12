@@ -326,7 +326,7 @@ function CadernoAnimation() {
         unoptimized
       />
       <Image
-        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-1.png"
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-1-corrigido.png"
         alt="Caderno Sobre Hover"
         fill
         className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-100' : 'opacity-0'}`}
