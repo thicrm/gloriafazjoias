@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:turbo": "next dev --turbo",
+    "dev": "next dev -H 127.0.0.1",
+    "dev:fresh": "rm -rf .next && next dev -H 127.0.0.1",
+    "dev:turbo": "next dev --turbo -H 127.0.0.1",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

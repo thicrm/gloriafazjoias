@@ -18,7 +18,7 @@ export default function TodasColecoesPage() {
           >
             Coleções
           </h1>
-          <p className="font-body text-sm md:text-base text-refined-royal-blue">
+          <p className="font-body text-sm md:text-base text-black">
             Explore universos de joias agrupadas por narrativa, matéria e imaginação.
           </p>
         </div>

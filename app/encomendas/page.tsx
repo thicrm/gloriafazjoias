@@ -1,6 +1,115 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
+
+function SerraAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+  return (
+    <div
+      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      style={{ transform: 'rotate(-15deg)' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/serra-fechada.png"
+        alt="Serra"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/serra-aberta.png"
+        alt="Serra"
+        fill
+        className={`object-contain scale-125 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
+      />
+    </div>
+  )
+}
+
+function Alicate02Animation() {
+  const [isHovered, setIsHovered] = useState(false)
+  return (
+    <div
+      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 -ml-5 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      style={{ transform: 'rotate(-90deg)' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate02-fechado.png"
+        alt="Alicate"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/alicate02-aberto.png"
+        alt="Alicate"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
+      />
+    </div>
+  )
+}
+
+function MacaricoAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+  return (
+    <div
+      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      style={{ transform: 'rotate(-20deg) translateY(0px)' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-fechado.png"
+        alt="Maçarico"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/ma%C3%A7arico-aberto.png"
+        alt="Maçarico"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
+      />
+    </div>
+  )
+}
+
+function PincaAnimation() {
+  const [isHovered, setIsHovered] = useState(false)
+  return (
+    <div
+      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      style={{ transform: 'rotate(-10deg)' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/pin%C3%A7a-fechada.png"
+        alt="Pinça"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        unoptimized
+      />
+      <Image
+        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/ferramentas%20pb/pin%C3%A7a-aberta.png"
+        alt="Pinça"
+        fill
+        className={`object-contain ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        unoptimized
+      />
+    </div>
+  )
+}
 
 export default function EncomendasPage() {
   const [formData, setFormData] = useState({
@@ -101,15 +210,19 @@ ${formData.mensagem}
   return (
     <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-6">
       <div className="w-full max-w-4xl mx-auto">
-        {/* Title */}
-        <h1 className="font-title text-4xl md:text-5xl mb-16 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
-          Encomendas
-        </h1>
-
-        {/* Hero text */}
-        <h2 className="font-title text-3xl md:text-4xl text-refined-gold text-center mb-16" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
-          Jóias que criam histórias.
-        </h2>
+        {/* Title with Serra and Alicate02 Animations */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-16">
+          <SerraAnimation />
+          <div className="flex flex-col items-center text-center order-first md:order-none">
+            <h1 className="font-title text-4xl md:text-5xl text-black group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
+              Encomendas
+            </h1>
+            <h2 className="font-title text-3xl md:text-4xl text-refined-gold mt-2" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
+              Jóias que criam histórias.
+            </h2>
+          </div>
+          <Alicate02Animation />
+        </div>
 
         {/* Como funciona? */}
         <section className="mb-16">
@@ -146,13 +259,17 @@ ${formData.mensagem}
           </div>
         </section>
 
-        {/* Comece sua encomenda */}
+        {/* Comece sua encomenda with Pinça Animation */}
         <section className="mb-16">
-          <h2 className="font-title text-3xl md:text-4xl text-refined-gold text-center mb-12" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
-            Comece sua encomenda aqui.
-          </h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 py-20">
+            <PincaAnimation />
+            <h2 className="font-title text-3xl md:text-4xl text-refined-gold text-center order-first md:order-none" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
+              Comece sua encomenda aqui.
+            </h2>
+            <MacaricoAnimation />
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8 mt-16">
             <h3 className="font-title text-xl text-black mb-6">Formulário</h3>
 
             {/* Name and Email */}

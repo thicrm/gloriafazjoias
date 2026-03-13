@@ -5,24 +5,31 @@
 
 echo "🚀 Starting Gloria Faz Joias development server..."
 
-# Check if port 3000 is already in use
-if lsof -Pi :3000 -sTCP:LISTEN -t >/dev/null ; then
-    echo "⚠️  Port 3000 is already in use. Attempting to free it..."
-    lsof -ti:3000 | xargs kill -9 2>/dev/null
-    sleep 2
+# Kill any existing Next.js processes on common dev ports
+for port in 3000 3001 3002; do
+    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
+        echo "⚠️  Port $port in use. Freeing it..."
+        lsof -ti:$port | xargs kill -9 2>/dev/null
+        sleep 1
+    fi
+done
+
+# Clear corrupted cache (fixes 404 on homepage)
+if [ -d ".next" ]; then
+    echo "📁 Clearing .next cache..."
+    rm -rf .next
 fi
 
 # Increase file watcher limit on macOS (temporary, for this session)
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "📁 Adjusting file watcher limits for macOS..."
-    ulimit -n 10240 2>/dev/null || echo "⚠️  Could not increase file limit (needs sudo)"
+    ulimit -n 10240 2>/dev/null || true
 fi
 
-# Start the development server
-echo "✨ Starting Next.js..."
+echo "✨ Starting Next.js at http://127.0.0.1:3000"
+echo "   Open this URL in your browser if it doesn't open automatically."
+echo ""
 npm run dev
 
-# If the above fails, try turbo mode as fallback
 if [ $? -ne 0 ]; then
     echo "⚠️  Standard mode failed, trying turbo mode..."
     npm run dev:turbo
