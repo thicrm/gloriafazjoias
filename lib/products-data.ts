@@ -159,3 +159,53 @@ export const allProducts: Product[] = parsedProducts.map(product => {
 // Export helper functions
 export { getProductBySlug, filterByCategory, filterByMaterial, getCategories, getMaterials } from './products'
 
+// Store products - curated list for jóias page (from store-products-config)
+import { STORE_PRODUCTS, STORE_CATEGORIES, type StoreCategory } from './store-products-config'
+
+function slugFromDisplayName(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+/** Build store products list: DB products + placeholders (precisa de correlação de imagens) */
+export function getStoreProducts(): Product[] {
+  return STORE_PRODUCTS.map((entry) => {
+    if (entry.dbSlug) {
+      const dbProduct = allProducts.find((p) => p.slug === entry.dbSlug)
+      if (dbProduct) {
+        return { ...dbProduct, name: entry.displayName, category: entry.category }
+      }
+    }
+    // Placeholder - no images, use display name for slug
+    const slug = slugFromDisplayName(entry.displayName)
+    return {
+      id: slug,
+      name: entry.displayName,
+      slug,
+      images: [],
+      category: entry.category,
+      material: 'Não especificado',
+    }
+  })
+}
+
+export const storeProducts = getStoreProducts()
+
+export function getStoreProductBySlug(slug: string): Product | undefined {
+  return storeProducts.find((p) => p.slug === slug)
+}
+
+export function getStoreCategories(): StoreCategory[] {
+  return [...STORE_CATEGORIES]
+}
+
+export function filterStoreByCategory(products: Product[], category: string): Product[] {
+  if (!category) return products
+  return products.filter((p) => p.category === category)
+}
+

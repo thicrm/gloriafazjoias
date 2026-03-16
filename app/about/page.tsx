@@ -50,7 +50,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           <div className="space-y-12 md:space-y-16">
             <div>
-              <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center">
+              <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
                 Sobre
               </h1>
               <div className="space-y-8">
@@ -67,7 +67,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center">
+              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
                 O joalheiro como aventureiro
               </h2>
               <div className="space-y-8">
@@ -81,7 +81,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center">
+              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
                 O joalheiro como jardineiro
               </h2>
               <div className="space-y-8">

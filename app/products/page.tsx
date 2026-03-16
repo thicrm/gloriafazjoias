@@ -3,22 +3,22 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ProductCard from '@/components/ProductCard'
-import { allProducts, getCategories, filterByCategory, Product } from '@/lib/products-data'
+import { storeProducts, getStoreCategories, filterStoreByCategory, Product } from '@/lib/products-data'
 
 function ProductsContent() {
   const searchParams = useSearchParams()
   const initialCategory = searchParams.get('category') || ''
 
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(allProducts)
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(storeProducts)
   const [filters, setFilters] = useState({
     category: initialCategory,
   })
 
   useEffect(() => {
-    let filtered = [...allProducts]
+    let filtered = [...storeProducts]
 
     if (filters.category) {
-      filtered = filterByCategory(filtered, filters.category)
+      filtered = filterStoreByCategory(filtered, filters.category)
     }
 
     setFilteredProducts(filtered)
@@ -37,24 +37,24 @@ function ProductsContent() {
     })
   }
 
-  const categories = getCategories(allProducts)
+  const categories = getStoreCategories()
   
-  // Map categories to filter-friendly names
+  // Map categories to filter-friendly display names (lowercase)
   const categoryMap: { [key: string]: string } = {
     'Anéis': 'anéis',
-    'Colares': 'colares',
+    'Braceletes e Pulseiras': 'braceletes e pulseiras',
     'Brincos': 'brincos',
-    'Braceletes': 'braceletes',
-    'Pingentes': 'pingentes',
-    'Acessórios': 'acessórios',
+    'Broches': 'broches',
+    'Colares': 'colares',
     'Conjuntos': 'conjuntos',
+    'Objetos': 'objetos',
   }
 
   return (
     <div className="min-h-screen py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="font-title text-5xl md:text-6xl mb-8 text-refined-charcoal">
+          <h1 className="font-title text-5xl md:text-6xl mb-8 text-refined-charcoal font-bold">
             jóias
           </h1>
           

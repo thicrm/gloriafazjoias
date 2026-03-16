@@ -65,7 +65,7 @@ export default function ContatoPage() {
           />
           {/* Form overlay - positioned within the letter area */}
           <div className="group absolute inset-0 flex flex-col items-center justify-center p-[8%] sm:p-[10%] md:p-[12%]">
-            <h1 className="font-title text-4xl md:text-5xl mb-6 text-black text-center group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
+            <h1 className="font-title text-4xl md:text-5xl mb-6 text-black text-center font-bold -translate-y-[60px] group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
               Contato
             </h1>
             <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">

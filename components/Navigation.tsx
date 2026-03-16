@@ -409,16 +409,16 @@ export default function Navigation() {
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Anéis
+                      anéis
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/products?category=Braceletes"
+                      href="/products?category=Braceletes e Pulseiras"
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Braceletes e Pulseiras
+                      braceletes e pulseiras
                     </Link>
                   </li>
                   <li>
@@ -427,7 +427,7 @@ export default function Navigation() {
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Brincos
+                      brincos
                     </Link>
                   </li>
                   <li>
@@ -436,7 +436,7 @@ export default function Navigation() {
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Broches
+                      broches
                     </Link>
                   </li>
                   <li>
@@ -445,25 +445,16 @@ export default function Navigation() {
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Colares
+                      colares
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/products?category=Penduricalhos"
+                      href="/products?category=Conjuntos"
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Penduricalhos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/products?category=Pingentes"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
-                      onClick={closeSidebar}
-                    >
-                      Pingentes
+                      conjuntos
                     </Link>
                   </li>
                   <li>
@@ -472,7 +463,7 @@ export default function Navigation() {
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
                     >
-                      Objetos
+                      objetos
                     </Link>
                   </li>
                 </ul>

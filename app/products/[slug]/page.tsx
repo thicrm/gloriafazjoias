@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react'
 import ImageWithLoading from '@/components/ImageWithLoading'
 import { useRouter, useParams } from 'next/navigation'
-import { allProducts, getProductBySlug } from '@/lib/products-data'
+import { getStoreProductBySlug } from '@/lib/products-data'
 
 export default function ProductPage() {
   const router = useRouter()
   const params = useParams()
   const slug = params?.slug as string
-  const product = slug ? getProductBySlug(allProducts, slug) : undefined
+  const product = slug ? getStoreProductBySlug(slug) : undefined
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function ProductPage() {
     return null
   }
 
+  const hasImages = product.images && product.images.length > 0
   const selectedImage = product.images[selectedImageIndex] || product.images[0]
 
   // Calculate grid columns based on number of images
@@ -41,40 +42,50 @@ export default function ProductPage() {
           <div>
             {/* Selected Image Display */}
             <div className="relative w-full mb-8">
-              <ImageWithLoading
-                src={selectedImage}
-                alt={product.name}
-                fill
-                aspectRatio="1/1"
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
+              {hasImages ? (
+                <ImageWithLoading
+                  src={selectedImage}
+                  alt={product.name}
+                  fill
+                  aspectRatio="1/1"
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                <div className="relative w-full aspect-square flex items-center justify-center border-2 border-dashed border-refined-gold/50 bg-refined-gold/5">
+                  <p className="font-body text-sm md:text-base text-refined-charcoal/60 uppercase tracking-wider text-center px-4">
+                    precisa de correlação de imagens
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Image Grid - Similar to home page */}
-            <div className={`grid ${getGridCols(product.images.length)} w-full gap-2`}>
-              {product.images.map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImageIndex(index)}
-                  className={`relative w-full overflow-hidden group cursor-pointer transition-all duration-500 ease-in-out ${
-                    selectedImageIndex === index
-                      ? 'ring-2 ring-refined-charcoal'
-                      : 'opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <ImageWithLoading
-                    src={image}
-                    alt={`${product.name} - Imagem ${index + 1}`}
-                    fill
-                    aspectRatio="1/1.3"
-                    className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-                    sizes="(max-width: 1024px) 25vw, 10vw"
-                  />
-                </button>
-              ))}
-            </div>
+            {hasImages && product.images.length > 1 && (
+              <div className={`grid ${getGridCols(product.images.length)} w-full gap-2`}>
+                {product.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className={`relative w-full overflow-hidden group cursor-pointer transition-all duration-500 ease-in-out ${
+                      selectedImageIndex === index
+                        ? 'ring-2 ring-refined-charcoal'
+                        : 'opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <ImageWithLoading
+                      src={image}
+                      alt={`${product.name} - Imagem ${index + 1}`}
+                      fill
+                      aspectRatio="1/1.3"
+                      className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                      sizes="(max-width: 1024px) 25vw, 10vw"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Product Info Section */}

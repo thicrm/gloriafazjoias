@@ -10,7 +10,7 @@ export default function TodasColecoesPage() {
         {/* Page title - same as individual collection page */}
         <div className="text-center mb-12">
           <h1
-            className="font-title text-3xl md:text-4xl lg:text-5xl text-refined-gold mb-4"
+            className="font-title text-3xl md:text-4xl lg:text-5xl text-refined-gold mb-4 font-bold"
             style={{
               textShadow:
                 '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)',
@@ -43,7 +43,7 @@ export default function TodasColecoesPage() {
                     {colecao.titulo}
                   </p>
                   {colecao.subtitulo && (
-                    <h2 className="font-title text-2xl md:text-3xl text-refined-charcoal">
+                    <h2 className="font-title text-2xl md:text-3xl text-refined-charcoal font-bold">
                       {colecao.subtitulo}
                     </h2>
                   )}
