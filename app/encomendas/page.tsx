@@ -205,6 +205,7 @@ ${formData.mensagem}
 
   const inputClass = 'w-full px-4 py-3 border border-refined-gold bg-transparent font-body text-base md:text-lg text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] focus:outline-none focus:ring-2 focus:ring-refined-gold/50 focus:shadow-[0_0_25px_rgba(212,175,55,0.7)] transition-all duration-500 ease-in-out'
   const labelClass = 'block font-body text-base md:text-lg text-black mb-2 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300'
+  const questionLabelClass = 'block font-body text-base md:text-lg text-black mb-2 font-bold'
   const checkboxClass = 'w-4 h-4 border border-refined-gold rounded accent-[#D4AF37]'
 
   return (
@@ -270,8 +271,6 @@ ${formData.mensagem}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8 mt-16">
-            <h3 className="font-title text-xl text-black mb-6">Formulário</h3>
-
             {/* Name and Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -302,7 +301,7 @@ ${formData.mensagem}
 
             {/* Q1 - Afirmação (radio) */}
             <div>
-              <label className={labelClass}>1. Com qual afirmação você mais se identifica?</label>
+              <label className={questionLabelClass}>1. Com qual afirmação você mais se identifica?</label>
               <div className="space-y-3">
                 {[
                   'Tenho uma visão clara da minha joia',
@@ -327,7 +326,7 @@ ${formData.mensagem}
 
             {/* Q2 - Tipo de peça (checkboxes) */}
             <div>
-              <label className={labelClass}>2. Que tipo de peça você gostaria de criar?</label>
+              <label className={questionLabelClass}>2. Que tipo de peça você gostaria de criar?</label>
               <div className="space-y-3">
                 {['Anéis', 'Bracelete ou Pulseira', 'Brincos', 'Broche', 'Colar', 'Pingente'].map((opt) => (
                   <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
@@ -371,7 +370,7 @@ ${formData.mensagem}
 
             {/* Q3 - Ocasiao (checkboxes) */}
             <div>
-              <label className={labelClass}>3. Está celebrando alguma ocasião especial?</label>
+              <label className={questionLabelClass}>3. Está celebrando alguma ocasião especial?</label>
               <div className="space-y-3">
                 {['Aniversário', 'Noivado', 'Casamento', 'Dia das Mães'].map((opt) => (
                   <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
@@ -405,7 +404,7 @@ ${formData.mensagem}
 
             {/* Q4 - Materiais (checkboxes) */}
             <div>
-              <label className={labelClass}>4. Quais materiais fazem seus olhos brilharem?</label>
+              <label className={questionLabelClass}>4. Quais materiais fazem seus olhos brilharem?</label>
               <div className="space-y-3">
                 {['Ouro', 'Prata', 'Pedras preciosas', 'Pérolas'].map((opt) => (
                   <label key={opt} className="flex items-center gap-3 font-body text-base md:text-lg text-black cursor-pointer hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] transition-all duration-300">
@@ -448,7 +447,7 @@ ${formData.mensagem}
 
             {/* Q5 - Mensagem */}
             <div>
-              <label htmlFor="mensagem" className={labelClass}>
+              <label htmlFor="mensagem" className={questionLabelClass}>
                 5. Nos conte mais…
               </label>
               <p className="font-body text-base md:text-lg text-black/80 mb-2 italic">
