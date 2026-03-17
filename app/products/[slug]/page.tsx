@@ -37,9 +37,9 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-2 gap-4 md:gap-12 mb-16 min-w-0">
           {/* Image Section */}
-          <div>
+          <div className="min-w-0">
             {/* Selected Image Display */}
             <div className="relative w-full mb-8">
               {hasImages ? (
@@ -89,7 +89,7 @@ export default function ProductPage() {
           </div>
 
           {/* Product Info Section */}
-          <div className="flex flex-col justify-start">
+          <div className="flex flex-col justify-start min-w-0">
             <h1 className="font-title text-4xl md:text-5xl mb-6 text-refined-charcoal">
               {product.name}
             </h1>

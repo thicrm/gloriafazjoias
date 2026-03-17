@@ -62,7 +62,7 @@ export default async function ColecoesPage({
 
         {/* Grid de imagens da coleção - no final */}
         <section className="w-full mb-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full">
+          <div className="grid grid-cols-3 gap-4 md:gap-6 w-full">
             {productsForCollection.map((product) => {
               const firstImage = product.images[0]
               if (!firstImage) return null
@@ -71,7 +71,7 @@ export default async function ColecoesPage({
                 <Link
                   key={product.slug}
                   href={`/products/${product.slug}`}
-                  className="relative w-full overflow-hidden group cursor-pointer aspect-[3/4] block"
+                  className="relative w-full min-w-0 overflow-hidden group cursor-pointer aspect-[3/4] block"
                 >
                   <ImageWithLoading
                     src={firstImage}

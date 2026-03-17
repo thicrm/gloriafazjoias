@@ -12,7 +12,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const secondImage = product.images[1] || firstImage
 
   return (
-    <Link href={`/products/${product.slug}`}>
+    <Link href={`/products/${product.slug}`} className="min-w-0 block">
       <div className="group cursor-pointer">
         <div className="relative mb-4 aspect-square overflow-hidden">
           {hasImages ? (

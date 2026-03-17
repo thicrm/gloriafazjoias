@@ -7,7 +7,7 @@ function SerraAnimation() {
   const [isHovered, setIsHovered] = useState(false)
   return (
     <div
-      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-[80px] h-[80px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
       style={{ transform: 'rotate(-15deg)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -34,7 +34,7 @@ function Alicate02Animation() {
   const [isHovered, setIsHovered] = useState(false)
   return (
     <div
-      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 -ml-5 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] cursor-pointer flex-shrink-0 -ml-1 sm:-ml-3 md:-ml-5 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
       style={{ transform: 'rotate(-90deg)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -61,7 +61,7 @@ function MacaricoAnimation() {
   const [isHovered, setIsHovered] = useState(false)
   return (
     <div
-      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
       style={{ transform: 'rotate(-20deg) translateY(0px)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -88,7 +88,7 @@ function PincaAnimation() {
   const [isHovered, setIsHovered] = useState(false)
   return (
     <div
-      className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
       style={{ transform: 'rotate(-10deg)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -211,10 +211,10 @@ ${formData.mensagem}
   return (
     <div className="min-h-screen flex flex-col items-center py-12 px-4 pb-6">
       <div className="w-full max-w-4xl mx-auto">
-        {/* Title with Serra and Alicate02 Animations */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-16">
+        {/* Title with Serra and Alicate02 Animations - always in a row */}
+        <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mb-16 overflow-hidden">
           <SerraAnimation />
-          <div className="flex flex-col items-center text-center order-first md:order-none">
+          <div className="flex flex-col items-center text-center flex-shrink-0">
             <h1 className="font-title text-4xl md:text-5xl text-black font-bold group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
               Encomendas
             </h1>
@@ -226,7 +226,7 @@ ${formData.mensagem}
         </div>
 
         {/* Como funciona? */}
-        <section className="mb-16">
+        <section className="mb-8 md:mb-16">
           <h3 className="font-title text-2xl md:text-3xl text-black mb-8 font-bold">Como funciona?</h3>
 
           <div className="space-y-12 md:space-y-16">
@@ -261,18 +261,18 @@ ${formData.mensagem}
         </section>
 
         {/* Comece sua encomenda with Pinça Animation */}
-        <section className="mb-16">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 py-20">
+        <section className="mb-8 md:mb-16">
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 py-8 sm:py-12 md:py-20 overflow-hidden">
             <PincaAnimation />
-            <h2 className="font-title text-2xl md:text-3xl text-refined-gold text-center order-first md:order-none" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
+            <h2 className="font-title text-base sm:text-lg md:text-2xl lg:text-3xl text-refined-gold text-center flex-shrink min-w-0" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
               Comece sua encomenda aqui
             </h2>
             <MacaricoAnimation />
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8 mt-16">
+          <form onSubmit={handleSubmit} className="space-y-8 mt-8 sm:mt-12 md:mt-16">
             {/* Name and Email */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
               <div>
                 <label htmlFor="name" className={labelClass}>Nome</label>
                 <input

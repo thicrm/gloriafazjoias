@@ -29,11 +29,13 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply text-refined-charcoal bg-white;
     position: relative;
+    overflow-x: hidden;
   }
 
   body::before {
@@ -49,6 +51,7 @@
     pointer-events: none;
     z-index: 0;
   }
+
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-title;
@@ -76,6 +79,19 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none; /* Chrome, Safari, etc. */
+  }
+}
+
+/* Header: uniform background on mobile (no vertical repeat), stars overlay fits */
+@media (max-width: 767px) {
+  .nav-header-bg {
+    background-size: auto 100% !important;
+    background-repeat: repeat-x !important;
+    background-position: left top !important;
+  }
+  .nav-header-stars {
+    background-size: cover !important;
+    background-position: center !important;
   }
 }
 

@@ -7,10 +7,10 @@ import { useState } from 'react'
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-x-hidden">
       {/* Grid de imagens: logo abaixo da header, sem espaço */}
-      <section className="w-full -mt-8 relative z-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full relative">
+      <section className="w-full relative z-0 overflow-x-clip">
+        <div className="grid grid-cols-6 w-full relative">
           {/* Simbolo Carimbo - Center aligned with bottom edge of grid */}
           <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] pointer-events-none">
             <ImageWithLoading
@@ -23,7 +23,7 @@ export default function Home() {
               sizes="(max-width: 640px) 42.5vw, (max-width: 768px) 35vw, (max-width: 1024px) 30vw, 25vw"
             />
           </div>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00506.jpg"
               alt="anel céu estrealdo"
@@ -33,7 +33,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00521.jpg"
               alt="anel céu estrelado"
@@ -43,7 +43,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00500.jpg"
               alt="anel domo do céu II"
@@ -53,7 +53,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00260.jpg"
               alt="anel onsen"
@@ -63,7 +63,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00263.jpg"
               alt="anel onsen"
@@ -73,7 +73,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 16.66vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00266.jpg"
               alt="anel onsen"
@@ -87,9 +87,9 @@ export default function Home() {
       </section>
 
       {/* Philosophy Section - Próxima ao selo, texto responsivo */}
-      <section className="w-full pt-[116px] px-4">
+      <section className="w-full pt-[60px] sm:pt-[90px] md:pt-[116px] px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-[52px] md:mb-[60px] scale-[0.8]">
+          <div className="text-center mb-[12px] sm:mb-[56px] md:mb-[72px] scale-[0.7] sm:scale-[0.75] md:scale-[0.8]">
             <h1 className="font-title text-xl sm:text-2xl md:text-3xl lg:text-4xl text-refined-charcoal mb-4">
               Jóias que criam histórias.
             </h1>
@@ -104,46 +104,46 @@ export default function Home() {
       </section>
 
       {/* Caderno Animation - Centered below button */}
-      <section className="w-full flex justify-center -mt-[120px] -mb-[115px]">
+      <section className="w-full flex justify-center -mt-[20px] sm:-mt-[60px] md:-mt-[90px] lg:-mt-[120px] -mb-[30px] sm:-mb-[50px] md:-mb-[80px] lg:-mb-[115px] pt-4 pb-10 sm:pt-14 sm:pb-14 md:pt-0 md:pb-0 px-4 overflow-hidden">
         <CadernoAnimation />
       </section>
 
       {/* Picture Slots Section */}
       <section className="w-full px-4">
         <div className="max-w-7xl mx-auto">
-          {/* Three Picture Slots - Centered below */}
-          <div className="flex justify-center gap-8 mt-[50px]">
+          {/* Three Picture Slots - Centered below, always 3 in a row */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-[50px] w-full max-w-[964px] mx-auto">
             {/* Picture Slot 1 */}
-            <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
               <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
                 Picture Slot 1
               </div>
             </div>
 
             {/* Picture Slot 2 */}
-            <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
               <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
                 Picture Slot 2
               </div>
             </div>
 
             {/* Picture Slot 3 */}
-            <div className="w-[300px] h-[400px] border-2 border-dashed border-refined-gold/50">
+            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
               <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
                 Picture Slot 3
               </div>
             </div>
           </div>
 
-          {/* Encomendas Button with Maçarico and Alicate Animations - Centered below slots */}
-          <div className="flex items-center justify-center gap-8 mt-[100px] mb-[180px]">
+          {/* Encomendas Button with Maçarico and Alicate Animations - always in a row, scaled to fit */}
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-[50px] sm:mt-[70px] md:mt-[85px] lg:mt-[100px] mb-[180px] overflow-visible w-full py-16 md:py-24 px-8 md:px-52">
             {/* Maçarico Animation */}
             <MacaricoAnimation />
             
             {/* Encomendas Button */}
             <Link
               href="/encomendas"
-              className="inline-block px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
+              className="inline-block flex-shrink-0 px-6 py-2 sm:px-10 sm:py-3 md:px-12 md:py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-sm sm:text-base md:text-lg"
             >
               encomendas
             </Link>
@@ -155,9 +155,9 @@ export default function Home() {
       </section>
 
       {/* Full Width 3-Column Picture Grid - Coleção Mãe */}
-      <section className="w-full relative -mt-[120px]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full">
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+      <section className="w-full relative -mt-[120px] overflow-hidden">
+        <div className="grid grid-cols-3 w-full">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00359.jpg"
               alt="brinco mãe"
@@ -167,7 +167,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 33.33vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00357.jpg"
               alt="colar mãe prata"
@@ -177,7 +177,7 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 33.33vw"
             />
           </Link>
-          <Link href="/products" className="relative w-full overflow-hidden group cursor-pointer">
+          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00381.jpg"
               alt="colar mãe ouro"
@@ -191,7 +191,7 @@ export default function Home() {
       </section>
 
       {/* Envelope Animation - Centered */}
-      <section className="w-full flex justify-center mt-[50px] mb-4">
+      <section className="w-full flex justify-center mt-[50px] mb-4 px-4 overflow-visible py-8">
         <EnvelopeAnimation />
       </section>
 
@@ -255,8 +255,7 @@ function MacaricoAnimation() {
 
   return (
     <div 
-      className="relative w-[300px] h-[300px] cursor-pointer ml-[-200px] -mt-16 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
-      style={{ transform: 'rotate(-20deg) translateY(30px)' }}
+      className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 ml-0 sm:ml-[-80px] md:ml-[-200px] -mt-4 sm:-mt-8 md:-mt-16 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] rotate-[-20deg] translate-y-0 md:translate-y-[30px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -284,8 +283,7 @@ function AlicateAnimation() {
 
   return (
     <div 
-      className="relative w-[300px] h-[300px] cursor-pointer mr-[-200px] -mt-16 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
-      style={{ transform: 'rotate(90deg) translateY(-30px)' }}
+      className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[300px] md:h-[300px] cursor-pointer flex-shrink-0 mr-0 sm:mr-[-80px] md:mr-[-200px] -mt-4 sm:-mt-8 md:-mt-16 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] rotate-90 translate-y-0 md:-translate-y-[30px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -314,7 +312,7 @@ function CadernoAnimation() {
   return (
     <Link 
       href="/about"
-      className="relative w-[891px] h-[594px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[50px] scale-[0.9]"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-0 sm:translate-x-[25px] md:translate-x-[50px] scale-[1] sm:scale-[0.88] md:scale-[0.9]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -343,7 +341,7 @@ function EnvelopeAnimation() {
   return (
     <Link 
       href="/contato"
-      className="relative w-[891px] h-[594px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
