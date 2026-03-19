@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import ImageWithLoading from '@/components/ImageWithLoading'
 import { useRouter, useParams } from 'next/navigation'
 import { getStoreProductBySlug } from '@/lib/products-data'
+import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 
 export default function ProductPage() {
   const router = useRouter()
@@ -24,6 +25,7 @@ export default function ProductPage() {
 
   const hasImages = product.images && product.images.length > 0
   const selectedImage = product.images[selectedImageIndex] || product.images[0]
+  const pricing = getProductPricing(product.slug)
 
   // Calculate grid columns based on number of images
   const getGridCols = (count: number) => {
@@ -63,7 +65,7 @@ export default function ProductPage() {
 
             {/* Image Grid - Similar to home page */}
             {hasImages && product.images.length > 1 && (
-              <div className={`grid ${getGridCols(product.images.length)} w-full gap-2`}>
+              <div className={`grid ${getGridCols(product.images.length)} w-full gap-2 mb-8`}>
                 {product.images.map((image, index) => (
                   <button
                     key={index}
@@ -86,6 +88,20 @@ export default function ProductPage() {
                 ))}
               </div>
             )}
+
+            {/* Comprar button - below images */}
+            {pricing && (
+              <div className="pt-4 w-full">
+                <a
+                  href={pricing.checkoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center px-12 py-4 bg-refined-gold text-refined-ivory border border-refined-gold hover:shadow-[0_0_25px_rgba(212,175,55,0.8),0_0_50px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
+                >
+                  comprar
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Product Info Section */}
@@ -97,6 +113,11 @@ export default function ProductPage() {
               <p className="font-body text-lg text-refined-charcoal/70 mb-2">
                 {product.category} • {product.material}
               </p>
+              {pricing && (
+                <p className="font-body text-lg text-refined-charcoal font-medium mb-4">
+                  {formatPrice(pricing.price)}
+                </p>
+              )}
             </div>
             
             {/* Product Description */}
@@ -107,14 +128,6 @@ export default function ProductPage() {
                 </div>
               </div>
             )}
-
-            {/* Nuvemshop Widget Placeholder - To be implemented */}
-            <div className="border-t border-refined-charcoal/10 pt-8">
-              <p className="font-body text-sm text-refined-charcoal/60 mb-4">
-                Widget de compra Nuvemshop será integrado aqui
-              </p>
-              {/* TODO: Add Nuvemshop buy button/widget */}
-            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import ImageWithLoading from './ImageWithLoading'
 import Link from 'next/link'
 import { Product } from '@/lib/products'
+import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 
 interface ProductCardProps {
   product: Product
@@ -10,6 +11,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const hasImages = product.images && product.images.length > 0
   const firstImage = product.images[0] || ''
   const secondImage = product.images[1] || firstImage
+  const pricing = getProductPricing(product.slug)
 
   return (
     <Link href={`/products/${product.slug}`} className="min-w-0 block">
@@ -53,8 +55,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
           <p className="font-body text-refined-charcoal/70 mb-2">
-            {product.category} • {product.material}
+            {product.category}
+            {product.material && product.material !== 'Não especificado' && ` • ${product.material}`}
           </p>
+          {pricing && (
+            <p className="font-body text-refined-charcoal font-medium">
+              {formatPrice(pricing.price)}
+            </p>
+          )}
         </div>
       </div>
     </Link>
