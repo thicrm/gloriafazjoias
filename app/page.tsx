@@ -313,12 +313,12 @@ function CadernoAnimation() {
   return (
     <Link 
       href="/about"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[5px] sm:translate-x-[25px] md:translate-x-[50px] scale-[1.4] sm:scale-[0.88] md:scale-[0.9] touch:translate-x-[25px] touch:sm:translate-x-[25px] touch:md:translate-x-[50px] touch:scale-[1.32] touch:sm:scale-[0.88] touch:md:scale-[0.9] block"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[5px] sm:translate-x-[25px] md:translate-x-[50px] scale-[1.4] sm:scale-[0.88] md:scale-[0.9] touch:translate-x-[25px] touch:sm:translate-x-[25px] touch:md:translate-x-[50px] touch:scale-[0.88] touch:sm:scale-[0.88] touch:md:scale-[0.9] block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Touch devices: looping GIF (no hover) */}
-      <span className="hidden touch:block absolute inset-0">
+      {/* Touch devices: looping GIF (no hover) - scaled up 50% on mobile viewport */}
+      <span className="hidden touch:block absolute inset-0 scale-150 sm:scale-100 origin-center">
         <Image
           src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/gif_caderno_abrindo.gif"
           alt="Caderno Sobre"
