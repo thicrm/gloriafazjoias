@@ -63,10 +63,10 @@ function ProductsContent() {
             {/* Todos button */}
             <button
               onClick={() => clearFilters()}
-              className={`font-body text-xl tracking-wider transition-all duration-500 ease-in-out text-refined-charcoal hover:text-refined-charcoal/70 ${
+              className={`font-body text-xl tracking-wider transition-all duration-500 ease-in-out ${
                 !filters.category
-                  ? 'font-bold'
-                  : 'font-normal'
+                  ? 'text-refined-gold font-bold drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] hover:text-refined-gold'
+                  : 'text-refined-charcoal font-normal hover:text-refined-charcoal/70'
               }`}
             >
               todos
@@ -79,10 +79,10 @@ function ProductsContent() {
                 <button
                   key={category}
                   onClick={() => handleFilterChange('category', category)}
-                  className={`font-body text-xl tracking-wider transition-all duration-500 ease-in-out text-refined-charcoal hover:text-refined-charcoal/70 ${
+                  className={`font-body text-xl tracking-wider transition-all duration-500 ease-in-out ${
                     filters.category === category
-                      ? 'font-bold'
-                      : 'font-normal'
+                      ? 'text-refined-gold font-bold drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] hover:text-refined-gold'
+                      : 'text-refined-charcoal font-normal hover:text-refined-charcoal/70'
                   }`}
                 >
                   {filterValue}
@@ -96,7 +96,7 @@ function ProductsContent() {
         <div className="flex-1">
 
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-3 gap-4 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 {filteredProducts.map((product) => (
                   <ProductCard key={product.slug} product={product} />
                 ))}

@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        // Touch devices where hover doesn't work (primary input is touch)
+        touch: { raw: '(hover: none)' },
+      },
       fontFamily: {
         'title': ['Old Baskerville', 'serif'],
         'body': ['Amasis MT Pro Light', 'serif'],

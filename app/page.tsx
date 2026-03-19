@@ -306,59 +306,87 @@ function AlicateAnimation() {
 }
 
 // Caderno Animation Component
+// On touch devices: looping GIF (hover doesn't work). On desktop: hover-based image swap.
 function CadernoAnimation() {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
     <Link 
       href="/about"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-0 sm:translate-x-[25px] md:translate-x-[50px] scale-[1] sm:scale-[0.88] md:scale-[0.9]"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[5px] sm:translate-x-[25px] md:translate-x-[50px] scale-[1.4] sm:scale-[0.88] md:scale-[0.9] touch:translate-x-[25px] touch:sm:translate-x-[25px] touch:md:translate-x-[50px] touch:scale-[0.88] touch:sm:scale-[0.88] touch:md:scale-[0.9] block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Image
-        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-2.png"
-        alt="Caderno Sobre"
-        fill
-        className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-0' : 'opacity-100'}`}
-        unoptimized
-      />
-      <Image
-        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-1-corrigido.png"
-        alt="Caderno Sobre Hover"
-        fill
-        className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        unoptimized
-      />
+      {/* Touch devices: looping GIF (no hover) */}
+      <span className="hidden touch:block absolute inset-0">
+        <Image
+          src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/gif_caderno_abrindo.gif"
+          alt="Caderno Sobre"
+          fill
+          className="object-contain scale-[0.9]"
+          unoptimized
+        />
+      </span>
+      {/* Desktop: hover-based image swap */}
+      <span className="block touch:hidden absolute inset-0">
+        <Image
+          src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-2.png"
+          alt="Caderno Sobre"
+          fill
+          className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+          unoptimized
+        />
+        <Image
+          src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/caderno-sobre-1-corrigido.png"
+          alt="Caderno Sobre Hover"
+          fill
+          className={`object-contain transition-opacity duration-300 scale-[0.9] ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          unoptimized
+        />
+      </span>
     </Link>
   )
 }
 
 // Envelope Animation Component
+// On touch devices: looping GIF (hover doesn't work). On desktop: hover-based image swap.
 function EnvelopeAnimation() {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
     <Link 
       href="/contato"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Image
-        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato_2.png"
-        alt="Envelope Contato"
-        fill
-        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
-        unoptimized
-      />
-      <Image
-        src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato_1.png"
-        alt="Envelope Contato Hover"
-        fill
-        className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        unoptimized
-      />
+      {/* Touch devices: looping GIF (no hover) */}
+      <span className="hidden touch:block absolute inset-0">
+        <Image
+          src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato.gif"
+          alt="Envelope Contato"
+          fill
+          className="object-contain"
+          unoptimized
+        />
+      </span>
+      {/* Desktop: hover-based image swap */}
+      <span className="block touch:hidden absolute inset-0">
+        <Image
+          src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato_2.png"
+          alt="Envelope Contato"
+          fill
+          className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+          unoptimized
+        />
+        <Image
+          src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/envelope_contato_1.png"
+          alt="Envelope Contato Hover"
+          fill
+          className={`object-contain transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          unoptimized
+        />
+      </span>
     </Link>
   )
 }
