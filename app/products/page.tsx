@@ -7,12 +7,19 @@ import { storeProducts, getStoreCategories, filterStoreByCategory, Product } fro
 
 function ProductsContent() {
   const searchParams = useSearchParams()
-  const initialCategory = searchParams.get('category') || ''
+  const categoryFromUrl = searchParams.get('category') || ''
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(storeProducts)
   const [filters, setFilters] = useState({
-    category: initialCategory,
+    category: categoryFromUrl,
   })
+
+  // Sync filters when URL changes (e.g. from menu category links)
+  useEffect(() => {
+    setFilters((prev) =>
+      prev.category !== categoryFromUrl ? { ...prev, category: categoryFromUrl } : prev
+    )
+  }, [categoryFromUrl])
 
   useEffect(() => {
     let filtered = [...storeProducts]
