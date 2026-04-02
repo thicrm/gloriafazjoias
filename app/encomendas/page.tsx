@@ -7,7 +7,7 @@ function SerraAnimation() {
   const [isHovered, setIsHovered] = useState(false)
   return (
     <div
-      className="relative w-[80px] h-[80px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
+      className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] cursor-pointer flex-shrink-0 transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)]"
       style={{ transform: 'rotate(-15deg)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -214,8 +214,10 @@ ${formData.mensagem}
         {/* Title with Serra and Alicate02 Animations - always in a row, centered */}
         <div className="flex flex-row flex-nowrap items-center justify-center mb-16 overflow-visible w-full">
           <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 scale-[0.75] sm:scale-90 md:scale-100 origin-center">
-            <SerraAnimation />
-            <div className="flex flex-col items-center text-center flex-shrink-0">
+            <div className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] flex items-center justify-center flex-shrink-0">
+              <SerraAnimation />
+            </div>
+            <div className="flex flex-col items-center text-center flex-shrink-0 w-[220px] sm:w-auto">
               <h1 className="font-title text-4xl md:text-5xl text-black font-bold group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
                 Encomendas
               </h1>
@@ -223,7 +225,9 @@ ${formData.mensagem}
                 Jóias que criam histórias
               </h2>
             </div>
-            <Alicate02Animation />
+            <div className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] flex items-center justify-center flex-shrink-0">
+              <Alicate02Animation />
+            </div>
           </div>
         </div>
 

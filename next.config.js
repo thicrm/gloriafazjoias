@@ -8,8 +8,12 @@ const nextConfig = {
       },
     ],
   },
-  // Optimize file watching for macOS - reduce EMFILE errors
-  webpack: (config, { isServer }) => {
+  // Optimize file watching for macOS - reduce EMFILE errors.
+  // Disable webpack persistent cache in dev to avoid stale chunk refs (e.g. Cannot find module './196.js').
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.cache = false
+    }
     config.watchOptions = {
       poll: 1000,
       aggregateTimeout: 300,

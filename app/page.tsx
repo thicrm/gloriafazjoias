@@ -3,14 +3,37 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  const novidadesImages = [
+    {
+      src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20caminhos/DSC00293.jpg',
+      alt: 'anel caminhos',
+    },
+    {
+      src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00400.jpg',
+      alt: 'colar concha',
+    },
+    {
+      src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20andorinhas/DSC00058.jpg',
+      alt: 'brinco andorinhas',
+    },
+  ]
+  const [novidadesIndex, setNovidadesIndex] = useState(0)
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setNovidadesIndex((prev) => (prev + 1) % novidadesImages.length)
+    }, 5000)
+    return () => window.clearInterval(intervalId)
+  }, [novidadesImages.length])
+
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       {/* Grid de imagens: logo abaixo da header, sem espaço */}
       <section className="w-full relative z-0 overflow-x-clip">
-        <div className="grid grid-cols-6 w-full relative">
+        <div className="grid grid-cols-3 w-full relative">
           {/* Simbolo Carimbo - Center aligned with bottom edge of grid */}
           <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 w-[42.5%] sm:w-[35%] md:w-[30%] lg:w-[25%] pointer-events-none">
             <ImageWithLoading
@@ -23,140 +46,6 @@ export default function Home() {
               sizes="(max-width: 640px) 42.5vw, (max-width: 768px) 35vw, (max-width: 1024px) 30vw, 25vw"
             />
           </div>
-          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00506.jpg"
-              alt="anel céu estrealdo"
-              fill
-              aspectRatio="1/1.3"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 50vw, 16.66vw"
-            />
-          </Link>
-          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00521.jpg"
-              alt="anel céu estrelado"
-              fill
-              aspectRatio="1/1.3"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 50vw, 16.66vw"
-            />
-          </Link>
-          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00500.jpg"
-              alt="anel domo do céu II"
-              fill
-              aspectRatio="1/1.3"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 50vw, 16.66vw"
-            />
-          </Link>
-          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00260.jpg"
-              alt="anel onsen"
-              fill
-              aspectRatio="1/1.3"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 50vw, 16.66vw"
-            />
-          </Link>
-          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00263.jpg"
-              alt="anel onsen"
-              fill
-              aspectRatio="1/1.3"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 50vw, 16.66vw"
-            />
-          </Link>
-          <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
-            <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00266.jpg"
-              alt="anel onsen"
-              fill
-              aspectRatio="1/1.3"
-              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 50vw, 16.66vw"
-            />
-          </Link>
-        </div>
-      </section>
-
-      {/* Philosophy Section - Próxima ao selo, texto responsivo */}
-      <section className="w-full pt-[60px] sm:pt-[90px] md:pt-[116px] px-4 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-[12px] sm:mb-[56px] md:mb-[72px] scale-[0.7] sm:scale-[0.75] md:scale-[0.8]">
-            <h1 className="font-title text-xl sm:text-2xl md:text-3xl lg:text-4xl text-refined-charcoal mb-4">
-              Jóias que criam histórias.
-            </h1>
-            <Link
-              href="/products"
-              className="inline-block mt-2 px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
-            >
-              conheça nossas coleções
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Caderno Animation - Centered below button */}
-      <section className="w-full flex justify-center -mt-[20px] sm:-mt-[60px] md:-mt-[90px] lg:-mt-[120px] -mb-[30px] sm:-mb-[50px] md:-mb-[80px] lg:-mb-[115px] pt-4 pb-10 sm:pt-14 sm:pb-14 md:pt-0 md:pb-0 px-4 overflow-hidden">
-        <CadernoAnimation />
-      </section>
-
-      {/* Picture Slots Section */}
-      <section className="w-full px-4">
-        <div className="max-w-7xl mx-auto">
-          {/* Three Picture Slots - Centered below, always 3 in a row */}
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-[50px] w-full max-w-[964px] mx-auto">
-            {/* Picture Slot 1 */}
-            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot 1
-              </div>
-            </div>
-
-            {/* Picture Slot 2 */}
-            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot 2
-              </div>
-            </div>
-
-            {/* Picture Slot 3 */}
-            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot 3
-              </div>
-            </div>
-          </div>
-
-          {/* Encomendas Button with Maçarico and Alicate Animations - always in a row, scaled to fit */}
-          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-[50px] sm:mt-[70px] md:mt-[85px] lg:mt-[100px] mb-[180px] overflow-visible w-full py-16 md:py-24 px-8 md:px-52">
-            {/* Maçarico Animation */}
-            <MacaricoAnimation />
-            
-            {/* Encomendas Button */}
-            <Link
-              href="/encomendas"
-              className="inline-block flex-shrink-0 px-6 py-2 sm:px-10 sm:py-3 md:px-12 md:py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-sm sm:text-base md:text-lg"
-            >
-              encomendas
-            </Link>
-
-            {/* Alicate Animation */}
-            <AlicateAnimation />
-          </div>
-        </div>
-      </section>
-
-      {/* Full Width 3-Column Picture Grid - Coleção Mãe */}
-      <section className="w-full relative -mt-[120px] overflow-hidden">
-        <div className="grid grid-cols-3 w-full">
           <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
               src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00359.jpg"
@@ -187,6 +76,134 @@ export default function Home() {
               sizes="(max-width: 768px) 50vw, 33.33vw"
             />
           </Link>
+        </div>
+      </section>
+
+      {/* Philosophy Section - Próxima ao selo, texto responsivo */}
+      <section className="w-full pt-[60px] sm:pt-[90px] md:pt-[116px] px-4 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-[12px] sm:mb-[56px] md:mb-[72px] scale-[0.7] sm:scale-[0.75] md:scale-[0.8]">
+            <h1 className="font-title text-xl sm:text-2xl md:text-3xl lg:text-4xl text-refined-charcoal mb-4">
+              Jóias que criam histórias.
+            </h1>
+            <Link
+              href="/products"
+              className="inline-block mt-2 px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
+            >
+              conheça nossas coleções
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Caderno Animation - Centered below button */}
+      <section className="w-full flex justify-center -mt-[20px] sm:-mt-[60px] md:-mt-[90px] lg:-mt-[120px] -mb-[30px] sm:-mb-[50px] md:-mb-[80px] lg:-mb-[115px] pt-4 pb-10 sm:pt-14 sm:pb-14 md:pt-0 md:pb-0 px-4 overflow-hidden">
+        <CadernoAnimation />
+      </section>
+
+      {/* Novidades Section */}
+      <section className="w-full px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop/Tablet: 3 cards in a row */}
+          <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8 mt-[50px] w-full max-w-[964px] mx-auto items-stretch">
+            <Link href="/products" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
+              <Image
+                src={novidadesImages[0].src}
+                alt={novidadesImages[0].alt}
+                fill
+                className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                sizes="(max-width: 1024px) 33vw, 320px"
+                unoptimized
+              />
+            </Link>
+            <Link href="/products" className="relative lg:col-span-2 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
+              <Image
+                src={novidadesImages[1].src}
+                alt={novidadesImages[1].alt}
+                fill
+                className="object-cover object-center transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                sizes="(max-width: 1024px) 33vw, 320px"
+                unoptimized
+              />
+            </Link>
+            <Link href="/products" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
+              <Image
+                src={novidadesImages[2].src}
+                alt={novidadesImages[2].alt}
+                fill
+                className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                sizes="(max-width: 1024px) 33vw, 320px"
+                unoptimized
+              />
+            </Link>
+          </div>
+
+          {/* Phone: auto carousel */}
+          <div className="sm:hidden w-full max-w-[964px] mx-auto mt-[50px]">
+            <Link href="/products" className="relative block w-full h-[320px] overflow-hidden">
+              <Image
+                src={novidadesImages[novidadesIndex].src}
+                alt={novidadesImages[novidadesIndex].alt}
+                fill
+                className="object-cover transition-opacity duration-500 ease-in-out"
+                sizes="100vw"
+                unoptimized
+              />
+            </Link>
+            <div className="flex justify-center gap-2 mt-4">
+              {novidadesImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  aria-label={`Ir para slide ${idx + 1}`}
+                  onClick={() => setNovidadesIndex(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    novidadesIndex === idx ? 'w-6 bg-refined-gold' : 'w-2 bg-refined-charcoal/40'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Encomendas Button with Maçarico and Alicate Animations - always in a row, scaled to fit */}
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-[50px] sm:mt-[70px] md:mt-[85px] lg:mt-[100px] mb-[180px] overflow-visible w-full py-16 md:py-24 px-8 md:px-52">
+            {/* Maçarico Animation */}
+            <MacaricoAnimation />
+            
+            {/* Encomendas Button */}
+            <Link
+              href="/encomendas"
+              className="inline-block flex-shrink-0 px-6 py-2 sm:px-10 sm:py-3 md:px-12 md:py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-sm sm:text-base md:text-lg"
+            >
+              encomendas
+            </Link>
+
+            {/* Alicate Animation */}
+            <AlicateAnimation />
+          </div>
+        </div>
+      </section>
+
+      {/* Picture Slots Section (2) */}
+      <section className="w-full px-4 relative -mt-[120px]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-[50px] w-full max-w-[964px] mx-auto">
+            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot 1
+              </div>
+            </div>
+            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot 2
+              </div>
+            </div>
+            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
+              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
+                Picture Slot 3
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

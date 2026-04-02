@@ -32,25 +32,13 @@ export default function AboutPage() {
       {/* Hero GIF Section */}
       <section className="w-full relative z-10">
         <div className="relative w-full">
-          <div className="hidden lg:block w-full">
-            <Image
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/vi%CC%81deo_com_objetos-cortado.gif"
-              alt="Glória Faz Jóias - Objetos"
-              width={1920}
-              height={1080}
-              unoptimized
-              className="w-full h-auto -translate-y-[201px] -mb-[201px]"
-              sizes="100vw"
-              priority
-            />
-          </div>
           <Image
             src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/viI%CC%80%C2%81deo_com_objetos.gif"
             alt="Glória Faz Jóias - Objetos"
             width={1920}
             height={1080}
             unoptimized
-            className="lg:hidden w-full h-auto"
+            className="w-full h-auto"
             sizes="100vw"
             priority
           />
@@ -59,7 +47,7 @@ export default function AboutPage() {
 
       {/* Text Section */}
       <section ref={textSectionRef} id="sobre-texto" className="w-full pt-16 px-4 pb-16">
-        <div className="max-w-4xl mx-auto lg:-translate-y-[80px] lg:-mb-[80px]">
+        <div className="max-w-4xl mx-auto">
           <div className="space-y-12 md:space-y-16">
             <div>
               <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
