@@ -161,6 +161,7 @@ export { getProductBySlug, filterByCategory, filterByMaterial, getCategories, ge
 
 // Store products - curated list for jóias page (from store-products-config)
 import { STORE_PRODUCTS, STORE_CATEGORIES, type StoreCategory } from './store-products-config'
+import { STORE_PAGE_COPY } from './store-product-copy'
 
 function slugFromDisplayName(name: string): string {
   return name
@@ -178,11 +179,19 @@ export function getStoreProducts(): Product[] {
     if (entry.dbSlug) {
       const dbProduct = allProducts.find((p) => p.slug === entry.dbSlug)
       if (dbProduct) {
-        return { ...dbProduct, name: entry.displayName, category: entry.category }
+        const slug = entry.slugOverride ?? dbProduct.slug
+        const fromSite = STORE_PAGE_COPY[slug]
+        return {
+          ...dbProduct,
+          id: slug,
+          name: entry.displayName,
+          category: entry.category,
+          slug,
+          description: fromSite ?? dbProduct.description,
+        }
       }
     }
-    // Placeholder - no images, use display name for slug
-    const slug = slugFromDisplayName(entry.displayName)
+    const slug = entry.slugOverride ?? slugFromDisplayName(entry.displayName)
     return {
       id: slug,
       name: entry.displayName,
@@ -190,6 +199,7 @@ export function getStoreProducts(): Product[] {
       images: [],
       category: entry.category,
       material: 'Não especificado',
+      description: STORE_PAGE_COPY[slug],
     }
   })
 }

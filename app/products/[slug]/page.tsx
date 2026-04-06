@@ -1,23 +1,36 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import ImageWithLoading from '@/components/ImageWithLoading'
-import { useRouter, useParams } from 'next/navigation'
+import ProductStripeCheckout from '@/components/ProductStripeCheckout'
+import { useRouter, useParams, useSearchParams } from 'next/navigation'
 import { getStoreProductBySlug } from '@/lib/products-data'
 import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 
-export default function ProductPage() {
+function ProductPageInner() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const params = useParams()
   const slug = params?.slug as string
   const product = slug ? getStoreProductBySlug(slug) : undefined
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [showPaidBanner, setShowPaidBanner] = useState(false)
 
   useEffect(() => {
     if (!product && slug) {
       router.push('/products')
     }
   }, [product, router, slug])
+
+  useEffect(() => {
+    if (!slug) return
+    const status = searchParams.get('redirect_status')
+    const paid = searchParams.get('paid')
+    if (status === 'succeeded' || paid === '1') {
+      setShowPaidBanner(true)
+      router.replace(`/products/${encodeURIComponent(slug)}`, { scroll: false })
+    }
+  }, [searchParams, router, slug])
 
   if (!product) {
     return null
@@ -27,7 +40,6 @@ export default function ProductPage() {
   const selectedImage = product.images[selectedImageIndex] || product.images[0]
   const pricing = getProductPricing(product.slug)
 
-  // Calculate grid columns based on number of images
   const getGridCols = (count: number) => {
     if (count <= 2) return 'grid-cols-2'
     if (count <= 3) return 'grid-cols-3'
@@ -39,10 +51,16 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-2 gap-4 md:gap-12 mb-16 min-w-0">
-          {/* Image Section */}
+        {showPaidBanner && (
+          <div
+            className="mb-8 rounded border border-refined-gold/60 bg-refined-gold/10 px-4 py-3 text-center font-body text-refined-charcoal"
+            role="status"
+          >
+            Pagamento recebido. Obrigada pela sua compra.
+          </div>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-16 min-w-0">
           <div className="min-w-0">
-            {/* Selected Image Display */}
             <div className="relative w-full mb-8">
               {hasImages ? (
                 <ImageWithLoading
@@ -51,7 +69,7 @@ export default function ProductPage() {
                   fill
                   aspectRatio="1/1"
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   priority
                 />
               ) : (
@@ -63,7 +81,6 @@ export default function ProductPage() {
               )}
             </div>
 
-            {/* Image Grid - Similar to home page */}
             {hasImages && product.images.length > 1 && (
               <div className={`grid ${getGridCols(product.images.length)} w-full gap-2 mb-8`}>
                 {product.images.map((image, index) => (
@@ -89,27 +106,21 @@ export default function ProductPage() {
               </div>
             )}
 
-            {/* Comprar button - below images */}
-            {pricing && (
-              <div className="pt-4 w-full">
-                <a
-                  href={pricing.checkoutUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center px-12 py-4 bg-refined-gold text-refined-ivory border border-refined-gold hover:shadow-[0_0_25px_rgba(212,175,55,0.8),0_0_50px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
-                >
-                  comprar
-                </a>
-              </div>
+            {pricing?.canPayOnline && (
+              <ProductStripeCheckout
+                productSlug={product.slug}
+                productName={product.name}
+                requiresRingSize={product.category === 'Anéis'}
+                onSuccess={() => setShowPaidBanner(true)}
+              />
             )}
           </div>
 
-          {/* Product Info Section */}
-          <div className="flex flex-col justify-start min-w-0">
-            <h1 className="font-title text-4xl md:text-5xl mb-6 text-refined-charcoal">
+          <div className="flex flex-col justify-start min-w-0 text-center md:text-left items-center md:items-start">
+            <h1 className="font-title w-full text-4xl md:text-5xl mb-6 text-refined-charcoal">
               {product.name}
             </h1>
-            <div className="mb-6">
+            <div className="mb-6 w-full">
               <p className="font-body text-lg text-refined-charcoal/70 mb-2">
                 {product.category} • {product.material}
               </p>
@@ -119,10 +130,9 @@ export default function ProductPage() {
                 </p>
               )}
             </div>
-            
-            {/* Product Description */}
+
             {product.description && (
-              <div className="mb-8">
+              <div className="mb-8 w-full max-md:max-w-[min(100%,36rem)] max-md:mx-auto">
                 <div className="font-body text-lg text-refined-charcoal/80 leading-relaxed whitespace-pre-line">
                   {product.description}
                 </div>
@@ -135,3 +145,16 @@ export default function ProductPage() {
   )
 }
 
+export default function ProductPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen py-16 px-4 flex items-center justify-center font-body text-refined-charcoal">
+          Carregando…
+        </div>
+      }
+    >
+      <ProductPageInner />
+    </Suspense>
+  )
+}

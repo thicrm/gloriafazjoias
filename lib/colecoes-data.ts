@@ -1,13 +1,17 @@
+/**
+ * Coleções — narrative copy from coleções-site.md; product grids use allProducts name filters.
+ */
+
 export type CollectionKey =
   | 'piscina'
   | 'vidro-romano'
-  | 'ostra'
+  | 'mae'
   | 'peixinhos'
   | 'domo-do-ceu'
   | 'ceu-estrelado'
   | 'jardins'
   | 'amitis'
-  | 'mae'
+  | 'abstrata'
   | 'ad-astra-ad-amor'
 
 export type CollectionSection = {
@@ -23,9 +27,9 @@ export const colecoes: CollectionSection[] = [
     key: 'piscina',
     titulo: 'Na Água',
     subtitulo: 'Piscina',
-    productNameFilters: ['ofurô', 'ofuro', 'onsen', 'caminhos', 'ondas'],
+    productNameFilters: ['ofurô', 'ofuro', 'onsen', 'ondas', 'reservatório', 'reservatorio', 'caminhos'],
     descricao:
-      'Ofurô, Onsen, Caminhos — formas circulares e orgânicas inspiradas na piscina como reservatório de fluidez, leveza e água. O contraste entre polimentos fosco e brilhante evoca o reluzir da água na luz do sol, enquanto a prata crua lembra o corpo deitado na borda aquecida depois de um mergulho refrescante.',
+      'Que formas usamos para incorporar a natureza? As formas circulares e orgânicas dos anéis são inspiradas na piscina como reservatório de fluidez, leveza e água. O contraste entre polimentos fosco e brilhante — o reluzir da água na luz do sol veraniço. A prata crua — deitar na borda aquecida pelo sol depois de um mergulho refrescante.',
   },
   {
     key: 'vidro-romano',
@@ -33,15 +37,15 @@ export const colecoes: CollectionSection[] = [
     subtitulo: 'Vidro Romano',
     productNameFilters: ['vidro romano'],
     descricao:
-      'Nos fundos de uma loja de antiguidade em Bangkok, um tesouro se escondia: contas de vidro marcadas por séculos no fundo do mar Mediterrâneo. A coleção Vidro Romano dá nova vida a esses fragmentos de história, restaurando sua glória com um olhar contemporâneo e arrojado. Única e irreplicável: cada conta carrega em sua superfície a própria jornada através dos mares do tempo.',
+      'Nos fundos de uma loja de antiguidade em Bangkok, se escondia um tesouro: centenas de contas de vidro, incrustadas de nácar e corais, guardadas em uma caixa frágil de madeira. Esses vidros, marcados por séculos transitando no fundo do mar Mediterrâneo, ainda trazem vivas as cores de quando foram originalmente produzidos na costa do que era o Império Romano. Os designs da coleção Vidro Romano trazem um sopro de vida nova a esses tesouros esquecidos, restaurando sua glória com um olhar contemporâneo e arrojado. Única e irreplicável: cada conta carrega em sua superfície sua própria jornada através dos mares do tempo.',
   },
   {
-    key: 'ostra',
+    key: 'mae',
     titulo: 'Na Água',
-    subtitulo: 'Ostra',
-    productNameFilters: ['concha'],
+    subtitulo: 'Mãe',
+    productNameFilters: ['mãe', 'mae'],
     descricao:
-      'A coleção Ostra celebra a diversidade de tons e cores das pérolas em designs que amplificam a beleza ímpar de cada uma. Brincos e colares moldam a prata para acolher cada pérola como um pequeno universo luminoso.',
+      'Mãe: abrigo para nossa essência, fonte de coragem para o coração. Uma celebração do ninho de onde partimos, mas ao qual sempre retornamos, através dos tons únicos das pérolas barrocas.',
   },
   {
     key: 'peixinhos',
@@ -49,29 +53,36 @@ export const colecoes: CollectionSection[] = [
     subtitulo: 'Peixinhos',
     productNameFilters: ['marca páginas', 'marca paginas'],
     descricao:
-      'Um peixinho, dois peixinhos, três peixinhos: navegue pelos mares da literatura com estes marca-páginas encantadores. Divertidos e sofisticados, transformam-se, assim como o leitor, a cada nova aventura — as marcas de manuseio tornam cada peixinho único, assim como quem o acompanha.',
+      'Um peixinho, dois peixinhos, três peixinhos: navegue pelos mares da literatura com estes marca-páginas encantadores. Divertidos e sofisticados, os peixinhos transformam-se, assim como o leitor, a cada nova aventura — as marcas de manuseio conforme transitam de livro em livro tornam cada peixinho único, assim como o leitor que o acompanha.',
   },
   {
     key: 'domo-do-ceu',
-    titulo: 'No Céu',
+    titulo: 'Nos Céus',
     subtitulo: 'Domo do Céu',
-    productNameFilters: ['domo do céu', 'domo do ceu', 'andorinhas'],
+    productNameFilters: ['domo do céu', 'domo do ceu', 'andorinhas', 'estrelas'],
     descricao:
-      'No Mundo Antigo, o céu era visto como um domo pontilhado de estrelas, observando em silêncio a história humana. Na coleção Domo do Céu, esse fascínio é trazido às mãos em anéis e brincos que capturam o brilho espelhado da prata e o movimento dos astros.',
+      'Quando se olhava para o céu do Mundo Antigo, seja ao lado das pirâmides no Vale dos Reis ou de dentro dos muros da Babilônia, entendia-se que o mundo era envolto por domo, pontilhado de estrelas e astros em órbita. Este firmamento continha dentro de si os céus, que se movimentavam dançantes, e a terra, onde o espetáculo de impérios, nascendo e caindo, era encenado como em um palco. O domo do céu assistiu o decorrer da história humana de cima, intocável por meros mortais e acessível apenas aos dignos do alcance divino. Nesta coleção, o fascínio do domo do céu é trazido ao alcance das mãos em anéis encantadores. Descubra de perto o fascínio dos astros no brilho espelhado da prata.',
   },
   {
     key: 'ceu-estrelado',
-    titulo: 'No Céu',
+    titulo: 'Nos Céus',
     subtitulo: 'Céu Estrelado',
-    productNameFilters: ['céu estrelado', 'ceu estrelado', 'sobreposição ii', 'pingente estrela', 'conjunto martelado estrela'],
+    productNameFilters: [
+      'céu estrelado',
+      'ceu estrelado',
+      'explosão',
+      'explosao',
+      'conjunto martelado estrela',
+      'pingente estrela',
+    ],
     descricao:
-      'Hipnotize-se com o brilho dos astros capturado em joias. A coleção Céu Estrelado reúne anéis, brincos, pingentes e conjuntos que traduzem constelações em superfícies marteladas e polidas, sempre em diálogo com a luz.',
+      'Hipnotize-se com o brilho dos astros, capturado em joias.',
   },
   {
     key: 'jardins',
     titulo: 'Na Terra',
     subtitulo: 'Jardins',
-    productNameFilters: ['jardins'],
+    productNameFilters: ['concha'],
     descricao:
       'Jardins são universos em miniatura: cada flor, folha e textura encontra seu lugar em composições pensadas. Nesta coleção, as joias evocam o gesto paciente de cultivar um jardim, onde o tempo e o cuidado revelam lentamente a sua beleza.',
   },
@@ -81,22 +92,29 @@ export const colecoes: CollectionSection[] = [
     subtitulo: 'Amitis',
     productNameFilters: ['amitis'],
     descricao:
-      'A coleção Amitis homenageia os jardins suspensos e as narrativas de reinos antigos. Brincos e colares entrelaçam formas e volumes que sugerem arquitetura, folhagens e luz dourada ao entardecer.',
+      'Os Jardins Suspensos da Babilônia, uma das sete maravilhas do mundo antigo, foi um presente do rei Nabucodonosor II para sua rainha Amitis. As plantas tropicais coloriam a cidade milenar, como se flutuando no céu, emaranhando-se nos prédios para que as cores lembrassem a rainha de sua terra natal. Os Jardins eram uma homenagem, fruto da devoção do rei pela sua esposa — um sentimento reverenciado pela coleção Amitis.',
   },
   {
-    key: 'mae',
-    titulo: 'Seleções Especiais',
-    subtitulo: 'Mãe',
-    productNameFilters: ['mãe', 'mae'],
+    key: 'abstrata',
+    titulo: 'Na Terra',
+    subtitulo: 'Abstrata',
+    productNameFilters: [
+      'vão',
+      'vao',
+      'sobreposição ii',
+      'sobreposicao ii',
+      'bracelete oco',
+      'bracelete organico',
+    ],
     descricao:
-      'A coleção Mãe celebra a delicadeza e a força dos laços maternos. Brincos e colares realçam o brilho das pérolas e dos metais em composições que abraçam o colo, o gesto e a memória de quem cuida.',
+      'Um testamento ao desafio do material à intenção da joalheira: não é o desejo das mãos que criam que determinam estas peças, mas o impulso do próprio material de se auto-determinar, tornar-se si.',
   },
   {
     key: 'ad-astra-ad-amor',
     titulo: 'Seleções Especiais',
     subtitulo: 'Ad Astra, ad Amor',
-    productNameFilters: ['estrela', 'amitis'],
+    productNameFilters: ['aliança estrela', 'alianca estrela', 'broche estrela'],
     descricao:
-      'Celebre sua união com símbolos eternos de devoção. A coleção Ad Astra, ad Amor combina estrelas e elementos de Amitis para criar joias que apontam para o alto: "Assim é que se chega aos astros." (Virgílio, Eneida IX 641).',
+      'Celebre sua união com símbolos eternos de devoção. Através do amor — “Assim é que se chega aos astros.” Sic itur ad astra. (Virgílio, Eneida IX 641)',
   },
 ]

@@ -53,7 +53,6 @@ function ProductsContent() {
     'Brincos': 'brincos',
     'Broches': 'broches',
     'Colares': 'colares',
-    'Conjuntos': 'conjuntos',
     'Objetos': 'objetos',
   }
 

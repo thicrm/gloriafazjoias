@@ -50,6 +50,7 @@ export default function Navigation() {
       ...navItems.map((item) => item.image),
       '/images/titulos_menu/COLEÇOES_MENU.jpeg',
       '/images/titulos_menu/CATEGORIAS_MENU.jpeg',
+      '/images/faqs.png',
     ]
     menuImages.forEach((href) => {
       const link = document.createElement('link')
@@ -276,13 +277,31 @@ export default function Navigation() {
                         Vidro Romano
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=mae"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Mãe
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=peixinhos"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Peixinhos
+                      </Link>
+                    </li>
                   </ul>
                 </li>
 
-                {/* No céu */}
+                {/* Nos céus */}
                 <li className="mt-3 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
-                    No céu
+                    Nos céus
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
@@ -330,13 +349,22 @@ export default function Navigation() {
                         Amitis
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        href="/colecoes?colecao=abstrata"
+                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
+                        onClick={closeSidebar}
+                      >
+                        Abstrata
+                      </Link>
+                    </li>
                   </ul>
                 </li>
 
-                {/* Para presentear */}
+                {/* Seleções especiais */}
                 <li className="mt-3 ml-8">
                   <span className="font-body text-xs text-refined-charcoal/70 hover:text-refined-gold hover:[text-shadow:0_0_10px_rgba(212,175,55,0.5)] transition-all duration-300 cursor-default">
-                    Para presentear
+                    Seleções especiais
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
                     <li>
@@ -346,15 +374,6 @@ export default function Navigation() {
                         onClick={closeSidebar}
                       >
                         Ad Astra, Ad Amor
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/colecoes?colecao=mae"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
-                        onClick={closeSidebar}
-                      >
-                        Mãe
                       </Link>
                     </li>
                   </ul>
@@ -450,15 +469,6 @@ export default function Navigation() {
                   </li>
                   <li>
                     <Link
-                      href="/products?category=Conjuntos"
-                      className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
-                      onClick={closeSidebar}
-                    >
-                      conjuntos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href="/products?category=Objetos"
                       className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                       onClick={closeSidebar}
@@ -525,6 +535,26 @@ export default function Navigation() {
                   width={119}
                   height={29.7}
                   className="w-auto h-[24px] object-contain"
+                  priority={false}
+                />
+              </Link>
+            </li>
+
+            {/* FAQ (image) */}
+            <li>
+              <Link
+                href="/faq"
+                className={`block transition-opacity duration-500 ease-in-out ${
+                  pathname === '/faq' ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={closeSidebar}
+              >
+                <Image
+                  src="/images/faqs.png"
+                  alt="FAQ"
+                  width={144}
+                  height={36}
+                  className="w-auto h-[29px] object-contain"
                   priority={false}
                 />
               </Link>

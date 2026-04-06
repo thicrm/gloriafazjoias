@@ -4,18 +4,24 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf .next",
-    "dev": "next dev --turbo -H 127.0.0.1",
-    "dev:webpack": "next dev -H 127.0.0.1",
-    "dev:fresh": "npm run clean && next dev --turbo -H 127.0.0.1",
+    "dev": "next dev -H 127.0.0.1 -p 3000",
+    "dev:webpack": "next dev -H 127.0.0.1 -p 3000",
+    "dev:turbo": "next dev --turbo -H 127.0.0.1 -p 3000",
+    "dev:fresh": "npm run clean && next dev -H 127.0.0.1 -p 3000",
+    "dev:reset": "sh -c 'kill $(lsof -ti :3000) 2>/dev/null || true; rm -rf .next && exec next dev -H 127.0.0.1 -p 3000'",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^6.1.0",
+    "@stripe/stripe-js": "^9.0.1",
     "bootstrap-icons": "^1.13.1",
     "next": "^15.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "server-only": "^0.0.1",
+    "stripe": "^22.0.0",
     "typescript": "^5.4.0"
   },
   "devDependencies": {

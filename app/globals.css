@@ -95,6 +95,20 @@
   }
 }
 
+/* Contato: form 40% smaller on mobile (scale 0.6). Plain CSS — Tailwind scale on <form> was unreliable. */
+@media (max-width: 767px) {
+  .contato-form-mobile-wrap {
+    transform: scale(0.6);
+    transform-origin: top center;
+  }
+}
+
+@media (min-width: 768px) {
+  .contato-form-mobile-wrap {
+    transform: none;
+  }
+}
+
 /* Custom scrollbar - Golden and glowing */
 ::-webkit-scrollbar {
   width: 10px;
