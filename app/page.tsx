@@ -101,11 +101,11 @@ export default function Home() {
         <CadernoAnimation />
       </section>
 
-      {/* Novidades Section */}
-      <section className="w-full px-4">
-        <div className="max-w-7xl mx-auto">
+      {/* Novidades + encomendas row: scaled together on md+; equal top/bottom spacing in this section */}
+      <section className="w-full overflow-visible px-4 md:py-24">
+        <div className="mx-auto max-w-7xl md:origin-top md:scale-[1.1]">
           {/* Desktop/Tablet: 3 cards in a row */}
-          <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8 mt-[50px] w-full max-w-[964px] mx-auto items-stretch">
+          <div className="mx-auto mt-[50px] hidden w-full max-w-[964px] items-stretch sm:grid sm:grid-cols-3 sm:gap-8 lg:grid-cols-4 lg:gap-8">
             <Link href="/products" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
               <Image
                 src={novidadesImages[0].src}
