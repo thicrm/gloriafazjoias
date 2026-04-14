@@ -101,8 +101,8 @@ export default function Home() {
         <CadernoAnimation />
       </section>
 
-      {/* Novidades + encomendas row: scaled together on md+; equal top/bottom spacing in this section */}
-      <section className="w-full overflow-visible px-4 md:py-24">
+      {/* Novidades + encomendas row: scaled together on md+; pb-0 so gap below encomendas = mb only (matches mt above) */}
+      <section className="w-full overflow-visible px-4 md:pt-24 md:pb-0">
         <div className="mx-auto max-w-7xl md:origin-top md:scale-[1.1]">
           {/* Desktop/Tablet: 3 cards in a row */}
           <div className="mx-auto mt-[50px] hidden w-full max-w-[964px] items-stretch sm:grid sm:grid-cols-3 sm:gap-8 lg:grid-cols-4 lg:gap-8">
@@ -166,7 +166,7 @@ export default function Home() {
           </div>
 
           {/* Encomendas Button with Maçarico and Alicate Animations - always in a row, scaled to fit */}
-          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-[50px] sm:mt-[70px] md:mt-[85px] lg:mt-[100px] mb-[180px] overflow-visible w-full py-16 md:py-24 px-8 md:px-52">
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-8 sm:mt-10 md:mt-12 lg:mt-14 mb-8 sm:mb-10 md:mb-12 lg:mb-14 overflow-visible w-full px-8 md:px-52">
             {/* Maçarico Animation */}
             <MacaricoAnimation />
             
@@ -185,9 +185,9 @@ export default function Home() {
       </section>
 
       {/* Picture Slots Section (2) */}
-      <section className="w-full px-4 relative -mt-[120px]">
+      <section className="w-full px-4 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-[50px] w-full max-w-[964px] mx-auto">
+          <div className="mt-[20px] grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-[964px] mx-auto">
             <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
               <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
                 Picture Slot 1
