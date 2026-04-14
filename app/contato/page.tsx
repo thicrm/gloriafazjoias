@@ -6,8 +6,9 @@ import { useState } from 'react'
 const CARTA_IMAGE_URL =
   'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/pa%CC%81gina_contato.png'
 
-/** Zoom carta so the writable area lines up with the form (20% smaller than prior baseline to reduce edge clipping). */
-const CARTA_IMAGE_SCALE = 'scale-[1.48] sm:scale-[1.54] md:scale-[1.6]'
+/** Letter art zoom — desktop slightly lower so the bitmap matches the frame; mobile unchanged. */
+const CARTA_IMAGE_SCALE =
+  'scale-[1.48] sm:scale-[1.54] md:scale-[1.32] lg:scale-[1.28]'
 
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
@@ -69,7 +70,7 @@ export default function ContatoPage() {
           Letter frame: no overflow-y-auto (avoids inner scrollbar). overflow-hidden clips scaled image
           inside the box — does not extend under the fixed header (no negative insets).
         */}
-        <div className="relative w-full max-md:overflow-visible md:overflow-hidden max-md:max-h-none max-md:mb-0 md:mb-0 md:aspect-[4/5] md:max-h-[min(92vh,900px)]">
+        <div className="relative w-full max-md:overflow-visible md:overflow-hidden max-md:max-h-none max-md:mb-0 md:mb-0 md:aspect-[4/5] md:max-h-[min(88vh,820px)]">
           <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
             <Image
               src={CARTA_IMAGE_URL}
@@ -82,9 +83,9 @@ export default function ContatoPage() {
             />
           </div>
 
-          <div className="group relative z-10 overflow-x-hidden overflow-y-visible p-[8%] pb-[7%] pt-[12%] sm:p-[10%] sm:pb-[8%] sm:pt-[12%] md:absolute md:inset-0 md:p-[12%] md:pb-[9%] md:pt-[11%]">
-            <div className="mx-auto flex w-full max-w-lg origin-top flex-col max-md:gap-[434px] md:gap-0 max-md:scale-100 md:max-w-2xl md:scale-[0.8]">
-              <h1 className="font-title mb-0 shrink-0 max-md:hidden md:block text-center text-4xl font-bold text-black transition-all duration-300 max-sm:-translate-y-1 sm:-translate-y-[40px] md:mb-6 md:-translate-y-[48px] md:text-5xl">
+          <div className="group relative z-10 overflow-x-hidden overflow-y-visible p-[8%] pb-[7%] pt-[12%] sm:p-[10%] sm:pb-[8%] sm:pt-[12%] md:absolute md:inset-0 md:p-[11%] md:pb-[8%] md:pt-[10%] lg:p-[12%] lg:pb-[9%] lg:pt-[11%]">
+            <div className="mx-auto flex w-full max-w-lg origin-top flex-col max-md:gap-[434px] md:gap-0 max-md:scale-100 md:max-w-2xl md:scale-100">
+              <h1 className="font-title mb-0 shrink-0 max-md:hidden md:block text-center text-4xl font-bold text-black transition-all duration-300 max-sm:-translate-y-1 sm:-translate-y-[40px] md:mb-5 md:-translate-y-[36px] md:text-5xl lg:-translate-y-[32px]">
                 Contato
               </h1>
 

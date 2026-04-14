@@ -87,7 +87,7 @@ export default function Home() {
               Jóias que criam histórias.
             </h1>
             <Link
-              href="/products"
+              href="/colecoes/todas"
               className="inline-block mt-2 px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
             >
               conheça nossas coleções

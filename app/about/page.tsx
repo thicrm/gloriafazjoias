@@ -50,7 +50,10 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           <div className="space-y-12 md:space-y-16">
             <div>
-              <h1 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
+              <h1
+                className="font-title text-4xl md:text-5xl mb-8 text-refined-gold text-center font-bold"
+                style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}
+              >
                 Sobre
               </h1>
               <div className="space-y-8">
@@ -67,7 +70,10 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
+              <h2
+                className="font-title text-4xl md:text-5xl mb-8 text-refined-gold text-center font-bold"
+                style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}
+              >
                 O joalheiro como aventureiro
               </h2>
               <div className="space-y-8">
@@ -81,7 +87,10 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="font-title text-4xl md:text-5xl mb-8 text-refined-royal-blue text-center font-bold">
+              <h2
+                className="font-title text-4xl md:text-5xl mb-8 text-refined-gold text-center font-bold"
+                style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}
+              >
                 O joalheiro como jardineiro
               </h2>
               <div className="space-y-8">
@@ -100,7 +109,7 @@ export default function AboutPage() {
 
           <div className="text-center pt-16">
               <Link
-                href="/colecoes"
+                href="/colecoes/todas"
                 className="inline-block mt-4 px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body tracking-wide text-base md:text-lg"
               >
                 conheça nossas coleções
