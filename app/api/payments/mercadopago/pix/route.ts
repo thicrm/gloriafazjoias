@@ -1,41 +1,41 @@
 import { NextResponse } from 'next/server'
+import { MercadoPagoConfig, Payment } from 'mercadopago'
 import {
   trimCustomer,
   validateAndComputeOrderTotals,
   type CheckoutCustomer,
 } from '@/lib/checkout/order-totals'
-import { getStripe, isStripeConfigured } from '@/lib/stripe/server'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-type CreateIntentBody = {
+type Body = {
   items?: unknown
   shippingMethod?: string
   cepDestino?: string
   customer?: Partial<CheckoutCustomer>
-  /** Short summary for Stripe dashboard / description */
   productLabel?: string
 }
 
-function buildLabel(body: CreateIntentBody, lineCount: number): string {
+function buildLabel(body: Body, lineCount: number): string {
   if (typeof body.productLabel === 'string' && body.productLabel.trim()) {
     return body.productLabel.slice(0, 200).trim()
   }
-  return `Pedido Glória Faz Jóias (${lineCount} tipo(s) de peça)`
+  return `Pedido Glória Faz Jóias (${lineCount} tipo(s))`
 }
 
 export async function POST(request: Request) {
-  if (!isStripeConfigured()) {
+  const token = process.env.MERCADOPAGO_ACCESS_TOKEN?.trim()
+  if (!token) {
     return NextResponse.json(
-      { error: 'Stripe is not configured on the server (missing STRIPE_SECRET_KEY).' },
+      { error: 'Mercado Pago não configurado (MERCADOPAGO_ACCESS_TOKEN).' },
       { status: 503 }
     )
   }
 
-  let body: CreateIntentBody
+  let body: Body
   try {
-    body = (await request.json()) as CreateIntentBody
+    body = (await request.json()) as Body
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
@@ -46,7 +46,6 @@ export async function POST(request: Request) {
   }
 
   const shippingMethod = body.shippingMethod === 'correios' ? 'correios' : 'motoboy'
-
   const totals = await validateAndComputeOrderTotals({
     items: body.items,
     shippingMethod,
@@ -72,50 +71,52 @@ export async function POST(request: Request) {
   }
 
   const label = buildLabel(body, itemArr.length)
-  const metaCustomer = trimCustomer(customer)
-  const description = `Glória Faz Jóias — ${label}`.slice(0, 500)
+  const parts = customer.fullName.split(/\s+/).filter(Boolean)
+  const firstName = (parts[0] ?? 'Cliente').slice(0, 50)
+  const lastName = (parts.slice(1).join(' ') || firstName).slice(0, 50)
 
-  const idempotencyKey = request.headers.get('idempotency-key') ?? undefined
+  const meta = trimCustomer(customer)
+  const metadata: Record<string, string> = {
+    source: 'gloria-faz-joias',
+    order_type: 'cart',
+    shipping_method: shippingMethod,
+    products_cents: String(totals.productsCents),
+    shipping_cents: String(totals.shippingCents),
+    ...meta,
+  }
+
+  const client = new MercadoPagoConfig({ accessToken: token })
+  const paymentApi = new Payment(client)
 
   try {
-    const stripe = getStripe()
-    const paymentIntent = await stripe.paymentIntents.create(
-      {
-        amount: totals.amountBrlCents,
-        currency: totals.currency,
-        automatic_payment_methods: { enabled: true },
-        description,
-        metadata: {
-          source: 'gloria-faz-joias',
-          order_type: 'cart',
-          shipping_method: shippingMethod,
-          products_cents: String(totals.productsCents),
-          shipping_cents: String(totals.shippingCents),
-          ...metaCustomer,
-          ...(totals.storeSlugSample
-            ? { store_slug: totals.storeSlugSample.slice(0, 80) }
-            : {}),
-        },
-        receipt_email: customer.email,
-      },
-      idempotencyKey ? { idempotencyKey } : undefined
-    )
+    const amount = Math.round(totals.amountBrlCents) / 100
 
-    if (!paymentIntent.client_secret) {
-      return NextResponse.json(
-        { error: 'PaymentIntent did not return client_secret' },
-        { status: 500 }
-      )
-    }
+    const created = await paymentApi.create({
+      body: {
+        transaction_amount: amount,
+        description: label.slice(0, 255),
+        payment_method_id: 'pix',
+        payer: {
+          email: customer.email,
+          first_name: firstName,
+          last_name: lastName,
+        },
+        metadata,
+        external_reference: `gloria-${Date.now()}`,
+      },
+    })
+
+    const pix = created.point_of_interaction?.transaction_data
 
     return NextResponse.json({
-      clientSecret: paymentIntent.client_secret,
-      paymentIntentId: paymentIntent.id,
-      amountBrlCents: totals.amountBrlCents,
-      currency: totals.currency,
+      id: created.id,
+      status: created.status,
+      qr_code: pix?.qr_code ?? null,
+      qr_code_base64: pix?.qr_code_base64 ?? null,
+      ticket_url: pix?.ticket_url ?? null,
     })
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Stripe error'
+    const message = err instanceof Error ? err.message : 'Mercado Pago error'
     return NextResponse.json({ error: message }, { status: 400 })
   }
 }

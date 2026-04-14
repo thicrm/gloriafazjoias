@@ -1,5 +1,5 @@
 /**
- * Single source for store prices (BRL). Checkout is Stripe (see ProductStripeCheckout).
+ * Single source for store prices (BRL). Checkout: carrinho + /checkout (Stripe ou Pix).
  * Stripe centavos are derived in lib/stripe/catalog.ts.
  */
 

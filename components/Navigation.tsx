@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import CartNavLink from '@/components/CartNavLink'
 
 const navItems = [
   { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/menu_titulo_preto.png' },
@@ -106,6 +107,9 @@ export default function Navigation() {
               loading="eager"
             />
           </button>
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20">
+            <CartNavLink />
+          </div>
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="flex items-center justify-between h-20 relative">
 

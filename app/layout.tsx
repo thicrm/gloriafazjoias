@@ -4,6 +4,7 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import { Providers } from '@/app/providers'
 
 // Using Baskervville as a close alternative to Old Baskerville
 // For exact fonts, you'll need to load them via @font-face in CSS
@@ -42,10 +43,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${oldBaskerville.variable} ${amasisMT.variable}`}>
       <body className="font-body antialiased">
-        <Navigation />
-        <main className="min-h-0 md:min-h-screen pt-20 relative z-10">{children}</main>
-        <WhatsAppButton />
-        <Footer />
+        <Providers>
+          <Navigation />
+          <main className="min-h-0 md:min-h-screen pt-20 relative z-10">{children}</main>
+          <WhatsAppButton />
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

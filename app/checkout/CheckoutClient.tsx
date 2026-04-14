@@ -1,0 +1,563 @@
+'use client'
+
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import { useCart } from '@/contexts/CartContext'
+import {
+  cartProductsSubtotalCents,
+  cartHasInvalidPrices,
+  formatBrlFromCents,
+} from '@/lib/cart-pricing-client'
+import { MOTOBOY_SHIPPING_BRL_CENTS } from '@/lib/shipping/constants'
+import { getStripeBrowser } from '@/lib/stripe-browser'
+import StripePaymentModal from '@/components/checkout/StripePaymentModal'
+import { formatRingSizeLabel } from '@/lib/ring-sizes'
+
+type ShippingMethod = 'motoboy' | 'correios'
+
+export default function CheckoutClient() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const { items, hydrated, clearCart } = useCart()
+
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [address, setAddress] = useState('')
+  const [cep, setCep] = useState('')
+
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethod | null>(null)
+  const [correiosCents, setCorreiosCents] = useState<number | null>(null)
+  const [correiosPrazo, setCorreiosPrazo] = useState<string | null>(null)
+  const [correiosLoading, setCorreiosLoading] = useState(false)
+  const [correiosError, setCorreiosError] = useState<string | null>(null)
+
+  const [stripeOpen, setStripeOpen] = useState(false)
+  const [clientSecret, setClientSecret] = useState<string | null>(null)
+  const [payMsg, setPayMsg] = useState<string | null>(null)
+  const [payLoading, setPayLoading] = useState(false)
+
+  const [pixData, setPixData] = useState<{
+    id: string
+    qr_code_base64: string | null
+    qr_code: string | null
+  } | null>(null)
+
+  const [doneBanner, setDoneBanner] = useState(false)
+
+  const stripePromise = useMemo(() => getStripeBrowser(), [])
+
+  const normalizedCep = useMemo(() => cep.replace(/\D/g, '').slice(0, 8), [cep])
+
+  const productsCents = useMemo(() => cartProductsSubtotalCents(items), [items])
+  const invalid = useMemo(() => cartHasInvalidPrices(items), [items])
+
+  const shippingDisplayCents = useMemo(() => {
+    if (shippingMethod === 'motoboy') return MOTOBOY_SHIPPING_BRL_CENTS
+    if (shippingMethod === 'correios' && correiosCents != null) return correiosCents
+    return null
+  }, [shippingMethod, correiosCents])
+
+  const totalCents =
+    shippingDisplayCents != null ? productsCents + shippingDisplayCents : null
+
+  useEffect(() => {
+    if (!hydrated) return
+    if (items.length === 0) {
+      router.replace('/carrinho')
+    }
+  }, [hydrated, items.length, router])
+
+  useEffect(() => {
+    const status = searchParams.get('redirect_status')
+    if (status === 'succeeded') {
+      setDoneBanner(true)
+      clearCart()
+      router.replace('/checkout?ok=1', { scroll: false })
+    }
+  }, [searchParams, router, clearCart])
+
+  useEffect(() => {
+    if (searchParams.get('ok') === '1') {
+      setDoneBanner(true)
+    }
+  }, [searchParams])
+
+  const fetchCorreios = useCallback(async () => {
+    if (normalizedCep.length !== 8) {
+      setCorreiosError('Informe o CEP com 8 dígitos para calcular o frete dos Correios.')
+      setCorreiosCents(null)
+      return
+    }
+    setCorreiosLoading(true)
+    setCorreiosError(null)
+    try {
+      const res = await fetch('/api/shipping/correios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cepDestino: normalizedCep }),
+      })
+      const data = (await res.json()) as {
+        priceBrlCents?: number
+        prazoEntrega?: string
+        error?: string
+      }
+      if (!res.ok) {
+        setCorreiosCents(null)
+        setCorreiosError(data.error ?? 'Erro ao calcular frete.')
+        return
+      }
+      setCorreiosCents(data.priceBrlCents ?? null)
+      setCorreiosPrazo(data.prazoEntrega ?? null)
+    } catch {
+      setCorreiosError('Erro de rede ao consultar Correios.')
+      setCorreiosCents(null)
+    } finally {
+      setCorreiosLoading(false)
+    }
+  }, [normalizedCep])
+
+  useEffect(() => {
+    if (shippingMethod !== 'correios') {
+      setCorreiosCents(null)
+      setCorreiosPrazo(null)
+      setCorreiosError(null)
+      return
+    }
+    if (normalizedCep.length === 8) {
+      fetchCorreios()
+    } else {
+      setCorreiosCents(null)
+      setCorreiosPrazo(null)
+    }
+  }, [shippingMethod, normalizedCep, fetchCorreios])
+
+  const itemsPayload = useMemo(
+    () =>
+      items.map((l) => ({
+        sku: l.sku,
+        quantity: l.quantity,
+        ...(l.ringSizeBr ? { ringSize: l.ringSizeBr } : {}),
+      })),
+    [items]
+  )
+
+  const productLabel = useMemo(
+    () => items.map((l) => `${l.productName} ×${l.quantity}`).join(' · ').slice(0, 200),
+    [items]
+  )
+
+  const customerPayload = useMemo(
+    () => ({
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      address: address.trim(),
+      cep: normalizedCep || undefined,
+    }),
+    [fullName, email, phone, address, normalizedCep]
+  )
+
+  const phoneDigits = phone.replace(/\D/g, '').length
+
+  const canPay =
+    !invalid &&
+    items.length > 0 &&
+    fullName.trim().length >= 3 &&
+    email.includes('@') &&
+    phoneDigits >= 10 &&
+    address.trim().length >= 8 &&
+    normalizedCep.length === 8 &&
+    shippingMethod != null &&
+    totalCents != null &&
+    (shippingMethod === 'motoboy' || (shippingMethod === 'correios' && correiosCents != null))
+
+  const closeStripe = useCallback(() => {
+    setStripeOpen(false)
+    setClientSecret(null)
+  }, [])
+
+  const startCard = async () => {
+    if (!canPay || !shippingMethod) return
+    setPayMsg(null)
+    setPayLoading(true)
+    try {
+      const res = await fetch('/api/payments/create-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: itemsPayload,
+          shippingMethod,
+          cepDestino: shippingMethod === 'correios' ? normalizedCep : undefined,
+          customer: customerPayload,
+          productLabel,
+        }),
+      })
+      const data = (await res.json()) as { clientSecret?: string; error?: string }
+      if (!res.ok || !data.clientSecret) {
+        setPayMsg(data.error ?? 'Não foi possível iniciar o pagamento.')
+        setPayLoading(false)
+        return
+      }
+      setClientSecret(data.clientSecret)
+      setStripeOpen(true)
+    } catch {
+      setPayMsg('Erro de rede.')
+    }
+    setPayLoading(false)
+  }
+
+  const startPix = async () => {
+    if (!canPay || !shippingMethod) return
+    setPayMsg(null)
+    setPayLoading(true)
+    setPixData(null)
+    try {
+      const res = await fetch('/api/payments/mercadopago/pix', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: itemsPayload,
+          shippingMethod,
+          cepDestino: shippingMethod === 'correios' ? normalizedCep : undefined,
+          customer: customerPayload,
+          productLabel,
+        }),
+      })
+      const data = (await res.json()) as {
+        id?: string
+        qr_code_base64?: string | null
+        qr_code?: string | null
+        error?: string
+      }
+      if (!res.ok || data.id == null) {
+        setPayMsg(data.error ?? 'Não foi possível gerar o Pix.')
+        setPayLoading(false)
+        return
+      }
+      setPixData({
+        id: String(data.id),
+        qr_code_base64: data.qr_code_base64 ?? null,
+        qr_code: data.qr_code ?? null,
+      })
+    } catch {
+      setPayMsg('Erro de rede.')
+    }
+    setPayLoading(false)
+  }
+
+  useEffect(() => {
+    if (!pixData?.id) return
+    const id = pixData.id
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/payments/mercadopago/status?id=${encodeURIComponent(id)}`)
+        const d = (await res.json()) as { status?: string }
+        if (d.status === 'approved') {
+          clearInterval(timer)
+          setPixData(null)
+          clearCart()
+          setDoneBanner(true)
+        }
+        if (d.status === 'rejected' || d.status === 'cancelled') {
+          clearInterval(timer)
+          setPixData(null)
+          setPayMsg('Pagamento Pix não foi aprovado. Tente outro meio ou gere um novo Pix.')
+        }
+      } catch {
+        /* ignore transient errors */
+      }
+    }, 3500)
+    return () => clearInterval(timer)
+  }, [pixData, clearCart])
+
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const stripeReturnUrl = `${origin}/checkout`
+
+  if (!hydrated) {
+    return (
+      <div className="min-h-screen px-4 py-16 text-center font-body text-refined-charcoal">
+        Carregando…
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen px-4 py-12 md:py-16">
+      <div className="mx-auto max-w-2xl">
+        <header className="text-center">
+          <h1 className="font-title text-3xl text-refined-gold md:text-4xl drop-shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+            Finalizar compra
+          </h1>
+          <p className="mx-auto mt-3 max-w-xl font-body text-refined-charcoal/80">
+            Preencha seus dados, escolha o frete e o pagamento. Valores conferidos no servidor.
+          </p>
+        </header>
+
+        {doneBanner && (
+          <div
+            className="mt-8 rounded border border-refined-gold/60 bg-refined-gold/10 px-4 py-3 text-center font-body text-refined-charcoal"
+            role="status"
+          >
+            Pagamento recebido. Obrigada pela sua compra.
+          </div>
+        )}
+
+        {invalid && (
+          <div className="mt-6 border border-red-700/40 bg-red-50 px-4 py-3 font-body text-sm text-red-800">
+            Há itens inválidos no carrinho.{' '}
+            <Link href="/carrinho" className="underline">
+              Voltar ao carrinho
+            </Link>
+          </div>
+        )}
+
+        {/* Resumo */}
+        <section className="mt-10 border border-refined-gold/35 bg-refined-ivory/70 p-5">
+          <h2 className="font-title text-xl text-refined-charcoal">Resumo do pedido</h2>
+          <ul className="mt-4 space-y-2 font-body text-sm text-refined-charcoal/90">
+            {items.map((l) => (
+              <li key={l.id} className="flex justify-between gap-4">
+                <span className="min-w-0">
+                  {l.productName} × {l.quantity}
+                  {l.ringSizeBr
+                    ? ` · aro ${formatRingSizeLabel(parseFloat(l.ringSizeBr.replace(',', '.')))}`
+                    : ''}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 font-body text-refined-charcoal">
+            Subtotal: <strong>{formatBrlFromCents(productsCents)}</strong>
+          </p>
+        </section>
+
+        {/* Dados */}
+        <section className="mt-10 space-y-4">
+          <h2 className="font-title text-xl text-refined-charcoal">Seus dados</h2>
+          <div>
+            <label className="block font-body text-sm text-refined-charcoal" htmlFor="ck-name">
+              Nome completo
+            </label>
+            <input
+              id="ck-name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              autoComplete="name"
+              className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
+            />
+          </div>
+          <div>
+            <label className="block font-body text-sm text-refined-charcoal" htmlFor="ck-email">
+              E-mail
+            </label>
+            <input
+              id="ck-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
+            />
+          </div>
+          <div>
+            <label className="block font-body text-sm text-refined-charcoal" htmlFor="ck-phone">
+              Celular (com DDD)
+            </label>
+            <input
+              id="ck-phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              autoComplete="tel"
+              className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
+            />
+          </div>
+          <div>
+            <label className="block font-body text-sm text-refined-charcoal" htmlFor="ck-cep">
+              CEP (para entrega / Correios)
+            </label>
+            <input
+              id="ck-cep"
+              value={cep}
+              onChange={(e) => setCep(e.target.value)}
+              autoComplete="postal-code"
+              placeholder="00000-000"
+              className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
+            />
+          </div>
+          <div>
+            <label className="block font-body text-sm text-refined-charcoal" htmlFor="ck-addr">
+              Endereço completo de entrega
+            </label>
+            <textarea
+              id="ck-addr"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              rows={3}
+              autoComplete="street-address"
+              className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
+            />
+          </div>
+        </section>
+
+        {/* Frete */}
+        <section className="mt-10 space-y-4">
+          <h2 className="font-title text-xl text-refined-charcoal">Frete</h2>
+          <fieldset className="space-y-3 font-body text-refined-charcoal">
+            <label className="flex cursor-pointer gap-3 border border-refined-gold/25 bg-refined-ivory/50 p-4">
+              <input
+                type="radio"
+                name="frete"
+                checked={shippingMethod === 'motoboy'}
+                onChange={() => setShippingMethod('motoboy')}
+                className="mt-1"
+              />
+              <span>
+                <strong>Motoboy</strong> — entrega personalizada e privativa —{' '}
+                {formatBrlFromCents(MOTOBOY_SHIPPING_BRL_CENTS)}
+              </span>
+            </label>
+            <label className="flex cursor-pointer gap-3 border border-refined-gold/25 bg-refined-ivory/50 p-4">
+              <input
+                type="radio"
+                name="frete"
+                checked={shippingMethod === 'correios'}
+                onChange={() => setShippingMethod('correios')}
+                className="mt-1"
+              />
+              <span>
+                <strong>Correios (PAC)</strong> — cálculo automático pelo CEP acima (ferramenta
+                oficial dos Correios).
+              </span>
+            </label>
+          </fieldset>
+
+          {shippingMethod === 'correios' && (
+            <div className="font-body text-sm text-refined-charcoal/85">
+              {correiosLoading && <p>Calculando frete…</p>}
+              {correiosError && <p className="text-red-800">{correiosError}</p>}
+              {!correiosLoading && correiosCents != null && (
+                <p>
+                  Frete PAC: <strong>{formatBrlFromCents(correiosCents)}</strong>
+                  {correiosPrazo ? ` · prazo indicado: ${correiosPrazo} dia(s) úteis` : null}
+                </p>
+              )}
+              <button
+                type="button"
+                onClick={fetchCorreios}
+                disabled={correiosLoading || normalizedCep.length !== 8}
+                className="mt-2 border border-refined-charcoal/30 px-4 py-2 text-sm transition-colors hover:bg-refined-charcoal/5 disabled:opacity-50"
+              >
+                recalcular frete
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* Totais */}
+        <section className="mt-10 border border-refined-gold/40 bg-refined-ivory/90 p-6">
+          <p className="font-body text-refined-charcoal">
+            Frete:{' '}
+            <strong>
+              {shippingDisplayCents != null ? formatBrlFromCents(shippingDisplayCents) : '—'}
+            </strong>
+          </p>
+          <p className="mt-2 font-title text-2xl text-refined-charcoal">
+            Total:{' '}
+            <strong>{totalCents != null ? formatBrlFromCents(totalCents) : '—'}</strong>
+          </p>
+        </section>
+
+        {payMsg && (
+          <p className="mt-6 font-body text-sm text-red-800" role="alert">
+            {payMsg}
+          </p>
+        )}
+
+        {/* Pagamento */}
+        <section className="mt-10 space-y-4">
+          <h2 className="font-title text-xl text-refined-charcoal">Pagamento</h2>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <button
+              type="button"
+              disabled={!canPay || payLoading || !stripePromise || doneBanner}
+              onClick={startCard}
+              className="flex-1 border border-refined-gold bg-refined-gold px-6 py-4 font-body text-refined-ivory transition-all hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] disabled:opacity-50"
+            >
+              {payLoading ? 'aguarde…' : 'Cartão'}
+            </button>
+            <button
+              type="button"
+              disabled={!canPay || payLoading || doneBanner}
+              onClick={startPix}
+              className="flex-1 border border-refined-charcoal/40 bg-white px-6 py-4 font-body text-refined-charcoal transition-colors hover:bg-refined-charcoal/5 disabled:opacity-50"
+            >
+              {payLoading ? 'aguarde…' : 'Pix'}
+            </button>
+          </div>
+          <p className="font-body text-xs text-refined-charcoal/65">
+            O valor final cobrado é sempre recalculado no servidor (produtos + frete), igual ao
+            resumo acima.
+          </p>
+        </section>
+
+        <p className="mt-10 text-center">
+          <Link href="/carrinho" className="font-body text-sm text-refined-gold underline-offset-2 hover:underline">
+            voltar ao carrinho
+          </Link>
+        </p>
+      </div>
+
+      <StripePaymentModal
+        open={stripeOpen}
+        stripePromise={stripePromise}
+        clientSecret={clientSecret}
+        returnUrl={stripeReturnUrl}
+        title="Pagamento com cartão"
+        subtitle={`${productLabel.slice(0, 120)}${productLabel.length > 120 ? '…' : ''} — total ${totalCents != null ? formatBrlFromCents(totalCents) : ''}`}
+        onClose={closeStripe}
+        onPaid={() => {
+          closeStripe()
+          clearCart()
+          setDoneBanner(true)
+        }}
+      />
+
+      {pixData && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pix-title"
+        >
+          <div className="max-h-[90vh] w-full max-w-md overflow-y-auto border border-refined-gold/40 bg-refined-ivory p-6 shadow-2xl md:p-8">
+            <h2 id="pix-title" className="font-title text-2xl text-refined-charcoal">
+              Pix
+            </h2>
+            <p className="mt-2 font-body text-sm text-refined-charcoal/80">
+              Escaneie o QR Code no app do seu banco. Aguardando confirmação…
+            </p>
+            {pixData.qr_code_base64 ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`data:image/png;base64,${pixData.qr_code_base64}`}
+                alt="QR Code Pix"
+                className="mx-auto mt-6 max-w-[240px]"
+              />
+            ) : pixData.qr_code ? (
+              <p className="mt-4 break-all font-mono text-xs text-refined-charcoal">{pixData.qr_code}</p>
+            ) : null}
+            <button
+              type="button"
+              className="mt-8 w-full border border-refined-charcoal/30 py-3 font-body text-refined-charcoal"
+              onClick={() => setPixData(null)}
+            >
+              fechar
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

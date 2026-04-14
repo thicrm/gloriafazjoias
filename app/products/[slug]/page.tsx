@@ -2,35 +2,23 @@
 
 import { Suspense, useState, useEffect } from 'react'
 import ImageWithLoading from '@/components/ImageWithLoading'
-import ProductStripeCheckout from '@/components/ProductStripeCheckout'
-import { useRouter, useParams, useSearchParams } from 'next/navigation'
+import AddToCartButton from '@/components/AddToCartButton'
+import { useRouter, useParams } from 'next/navigation'
 import { getStoreProductBySlug } from '@/lib/products-data'
 import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 
 function ProductPageInner() {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const params = useParams()
   const slug = params?.slug as string
   const product = slug ? getStoreProductBySlug(slug) : undefined
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-  const [showPaidBanner, setShowPaidBanner] = useState(false)
 
   useEffect(() => {
     if (!product && slug) {
       router.push('/products')
     }
   }, [product, router, slug])
-
-  useEffect(() => {
-    if (!slug) return
-    const status = searchParams.get('redirect_status')
-    const paid = searchParams.get('paid')
-    if (status === 'succeeded' || paid === '1') {
-      setShowPaidBanner(true)
-      router.replace(`/products/${encodeURIComponent(slug)}`, { scroll: false })
-    }
-  }, [searchParams, router, slug])
 
   if (!product) {
     return null
@@ -51,14 +39,6 @@ function ProductPageInner() {
   return (
     <div className="min-h-screen py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        {showPaidBanner && (
-          <div
-            className="mb-8 rounded border border-refined-gold/60 bg-refined-gold/10 px-4 py-3 text-center font-body text-refined-charcoal"
-            role="status"
-          >
-            Pagamento recebido. Obrigada pela sua compra.
-          </div>
-        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-16 min-w-0">
           <div className="min-w-0">
             <div className="relative w-full mb-8">
@@ -107,11 +87,10 @@ function ProductPageInner() {
             )}
 
             {pricing?.canPayOnline && (
-              <ProductStripeCheckout
+              <AddToCartButton
                 productSlug={product.slug}
                 productName={product.name}
                 requiresRingSize={product.category === 'Anéis'}
-                onSuccess={() => setShowPaidBanner(true)}
               />
             )}
           </div>
