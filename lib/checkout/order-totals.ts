@@ -3,7 +3,8 @@ import 'server-only'
 import { getStoreProductBySlug } from '@/lib/products-data'
 import { isValidRingSizeString } from '@/lib/ring-sizes'
 import { MOTOBOY_SHIPPING_BRL_CENTS, type ShippingMethodId } from '@/lib/shipping/constants'
-import { normalizeCep, quoteCorreiosPac } from '@/lib/correios-freight'
+import { normalizeCep } from '@/lib/correios-freight'
+import { quoteMelhorEnvio } from '@/lib/melhorenvio-freight'
 import { calculateTotalBrlCents } from '@/lib/stripe/pricing'
 
 export type CheckoutCustomer = {
@@ -76,17 +77,17 @@ export async function validateAndComputeOrderTotals(params: {
     if (!cep) {
       return { ok: false, error: 'Informe um CEP válido para envio pelos Correios.', status: 400 }
     }
-    const orig = process.env.CORREIOS_ORIGIN_CEP?.trim() ?? ''
+    const orig = process.env.MELHOR_ENVIO_ORIGIN_CEP?.trim() ?? ''
     const origNorm = normalizeCep(orig)
     if (!origNorm) {
       return {
         ok: false,
-        error: 'Frete pelos Correios não está configurado. Use motoboy ou contate a loja.',
+        error: 'Frete não está configurado. Use motoboy ou contate a loja.',
         status: 503,
       }
     }
     const peso = parseFloat(process.env.CORREIOS_PACKAGE_WEIGHT_KG || '0.3') || 0.3
-    const quote = await quoteCorreiosPac({
+    const quote = await quoteMelhorEnvio({
       cepOrigem: origNorm,
       cepDestino: cep,
       pesoKg: peso,
