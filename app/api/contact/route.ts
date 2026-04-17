@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY?.trim()
-  if (!apiKey) {
+  if (!apiKey || apiKey === 're_...') {
     console.error('[contact] RESEND_API_KEY não configurado')
     return NextResponse.json(
       { error: 'Serviço de e-mail não configurado. Tente pelo WhatsApp.' },
@@ -42,22 +42,22 @@ export async function POST(request: Request) {
 
   const resend = new Resend(apiKey)
 
-  try {
-    await resend.emails.send({
-      from: 'Glória Faz Jóias <onboarding@resend.dev>',
-      to: STORE_EMAIL,
-      replyTo: email,
-      subject: `Mensagem de ${name} — Glória Faz Jóias`,
-      text: `Nome: ${name}\nE-mail: ${email}\n\n${message}`,
-      html: `
-        <p><strong>Nome:</strong> ${name}</p>
-        <p><strong>E-mail:</strong> <a href="mailto:${email}">${email}</a></p>
-        <hr/>
-        <p style="white-space:pre-wrap">${message.replace(/</g, '&lt;')}</p>
-      `.trim(),
-    })
-  } catch (err) {
-    console.error('[contact] Resend error:', err)
+  const { error: sendError } = await resend.emails.send({
+    from: 'Glória Faz Jóias <contato@gloriafazjoias.com>',
+    to: STORE_EMAIL,
+    replyTo: email,
+    subject: `Mensagem de ${name} — Glória Faz Jóias`,
+    text: `Nome: ${name}\nE-mail: ${email}\n\n${message}`,
+    html: `
+      <p><strong>Nome:</strong> ${name}</p>
+      <p><strong>E-mail:</strong> <a href="mailto:${email}">${email}</a></p>
+      <hr/>
+      <p style="white-space:pre-wrap">${message.replace(/</g, '&lt;')}</p>
+    `.trim(),
+  })
+
+  if (sendError) {
+    console.error('[contact] Resend error:', sendError)
     return NextResponse.json(
       { error: 'Não foi possível enviar. Tente novamente.' },
       { status: 500 }
