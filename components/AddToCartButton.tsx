@@ -3,20 +3,26 @@
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import RingSizePickerModal from '@/components/RingSizePickerModal'
+import AcabamentoPickerModal from '@/components/AcabamentoPickerModal'
 import { useCart } from '@/contexts/CartContext'
+import type { Acabamento } from '@/lib/cart-types'
 
 type AddToCartButtonProps = {
   productSlug: string
   productName: string
   requiresRingSize?: boolean
+  requiresAcabamento?: boolean
 }
 
 export default function AddToCartButton({
   productSlug,
   productName,
   requiresRingSize = false,
+  requiresAcabamento = false,
 }: AddToCartButtonProps) {
   const { addItem } = useCart()
+  const [acabamentoModalOpen, setAcabamentoModalOpen] = useState(false)
+  const [selectedAcabamento, setSelectedAcabamento] = useState<Acabamento>('fosco')
   const [ringModalOpen, setRingModalOpen] = useState(false)
   const [selectedRingSize, setSelectedRingSize] = useState('18')
   const [addedPulse, setAddedPulse] = useState(false)
@@ -27,12 +33,13 @@ export default function AddToCartButton({
   }, [])
 
   const pushLine = useCallback(
-    (ringSizeBr: string | null) => {
+    (ringSizeBr: string | null, acabamento: Acabamento | null) => {
       addItem({
         sku: productSlug,
         productName,
         quantity: 1,
         ringSizeBr,
+        acabamento,
       })
       pulse()
     },
@@ -40,18 +47,31 @@ export default function AddToCartButton({
   )
 
   const handleClick = () => {
+    if (requiresAcabamento) {
+      setAcabamentoModalOpen(true)
+      return
+    }
     if (requiresRingSize) {
       setRingModalOpen(true)
       return
     }
-    pushLine(null)
+    pushLine(null, null)
+  }
+
+  const handleAcabamentoConfirm = () => {
+    setAcabamentoModalOpen(false)
+    if (requiresRingSize) {
+      setRingModalOpen(true)
+      return
+    }
+    pushLine(null, selectedAcabamento)
   }
 
   const handleRingConfirm = () => {
     const v = selectedRingSize.trim()
     if (!v) return
     setRingModalOpen(false)
-    pushLine(v)
+    pushLine(v, requiresAcabamento ? selectedAcabamento : null)
   }
 
   return (
@@ -73,6 +93,14 @@ export default function AddToCartButton({
           ver carrinho
         </Link>
       </div>
+
+      <AcabamentoPickerModal
+        open={acabamentoModalOpen}
+        selected={selectedAcabamento}
+        onSelectChange={setSelectedAcabamento}
+        onClose={() => setAcabamentoModalOpen(false)}
+        onConfirm={handleAcabamentoConfirm}
+      />
 
       <RingSizePickerModal
         open={ringModalOpen}

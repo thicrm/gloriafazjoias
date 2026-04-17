@@ -1,6 +1,6 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import { allProducts } from '@/lib/products-data'
-import { colecoes } from '@/lib/colecoes-data'
+import { visibleColecoes } from '@/lib/colecoes-data'
 import Link from 'next/link'
 
 export default function TodasColecoesPage() {
@@ -16,7 +16,7 @@ export default function TodasColecoesPage() {
                 '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)',
             }}
           >
-            Coleções
+            coleções
           </h1>
           <p className="font-body text-sm md:text-base text-black">
             Explore universos de joias agrupadas por narrativa, matéria e imaginação.
@@ -25,7 +25,7 @@ export default function TodasColecoesPage() {
 
         {/* All collections stacked */}
         <div className="space-y-20">
-          {colecoes.map((colecao) => {
+          {visibleColecoes.map((colecao) => {
             const productsForCollection = allProducts.filter((product) => {
               const name = product.name.toLowerCase()
               return colecao.productNameFilters.some((fragment) =>
@@ -56,10 +56,11 @@ export default function TodasColecoesPage() {
                   </p>
                 </div>
 
-                {/* Images below text - or placeholder if none */}
+                {/* Images below text */}
+                {/* Desktop: 3-col grid | Mobile: horizontal snap carousel */}
                 <div className="w-full">
                   {hasImages ? (
-                    <div className="grid grid-cols-3 gap-4 md:gap-6 w-full">
+                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 md:pb-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-x-visible w-full">
                       {productsForCollection.map((product) => {
                         const firstImage = product.images?.[0]
                         if (!firstImage) return null
@@ -68,7 +69,7 @@ export default function TodasColecoesPage() {
                           <Link
                             key={product.slug}
                             href={`/products/${product.slug}`}
-                            className="relative w-full min-w-0 overflow-hidden group cursor-pointer aspect-[3/4] block"
+                            className="snap-center flex-shrink-0 w-[72vw] md:w-full md:min-w-0 relative overflow-hidden group cursor-pointer aspect-[3/4] block"
                           >
                             <ImageWithLoading
                               src={firstImage}
@@ -76,7 +77,7 @@ export default function TodasColecoesPage() {
                               fill
                               aspectRatio="3/4"
                               className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-                              sizes="(max-width: 768px) 50vw, 33vw"
+                              sizes="(max-width: 768px) 72vw, 33vw"
                             />
                           </Link>
                         )

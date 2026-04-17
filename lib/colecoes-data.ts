@@ -20,6 +20,8 @@ export type CollectionSection = {
   subtitulo?: string
   descricao: string
   productNameFilters: string[]
+  /** When true the collection is hidden from the UI but kept in the data. */
+  hidden?: true
 }
 
 export const colecoes: CollectionSection[] = [
@@ -36,6 +38,7 @@ export const colecoes: CollectionSection[] = [
     titulo: 'Na Água',
     subtitulo: 'Vidro Romano',
     productNameFilters: ['vidro romano'],
+    hidden: true,
     descricao:
       'Nos fundos de uma loja de antiguidade em Bangkok, se escondia um tesouro: centenas de contas de vidro, incrustadas de nácar e corais, guardadas em uma caixa frágil de madeira. Esses vidros, marcados por séculos transitando no fundo do mar Mediterrâneo, ainda trazem vivas as cores de quando foram originalmente produzidos na costa do que era o Império Romano. Os designs da coleção Vidro Romano trazem um sopro de vida nova a esses tesouros esquecidos, restaurando sua glória com um olhar contemporâneo e arrojado. Única e irreplicável: cada conta carrega em sua superfície sua própria jornada através dos mares do tempo.',
   },
@@ -83,6 +86,7 @@ export const colecoes: CollectionSection[] = [
     titulo: 'Na Terra',
     subtitulo: 'Jardins',
     productNameFilters: ['concha'],
+    hidden: true,
     descricao:
       'Jardins são universos em miniatura: cada flor, folha e textura encontra seu lugar em composições pensadas. Nesta coleção, as joias evocam o gesto paciente de cultivar um jardim, onde o tempo e o cuidado revelam lentamente a sua beleza.',
   },
@@ -118,3 +122,6 @@ export const colecoes: CollectionSection[] = [
       'Celebre sua união com símbolos eternos de devoção. Através do amor — “Assim é que se chega aos astros.” Sic itur ad astra. (Virgílio, Eneida IX 641)',
   },
 ]
+
+/** Collections visible in the UI — hidden ones stay in the data for product filtering. */
+export const visibleColecoes = colecoes.filter((c) => !c.hidden)

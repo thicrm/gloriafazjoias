@@ -28,6 +28,14 @@ function ProductPageInner() {
   const selectedImage = product.images[selectedImageIndex] || product.images[0]
   const pricing = getProductPricing(product.slug)
 
+  const ACABAMENTO_SLUGS = new Set([
+    'anel-ondas-prata',
+    'anel-ondas-ouro',
+    'anel-onsen-prata',
+    'anel-onsen-ouro',
+  ])
+  const requiresAcabamento = ACABAMENTO_SLUGS.has(product.slug)
+
   const getGridCols = (count: number) => {
     if (count <= 2) return 'grid-cols-2'
     if (count <= 3) return 'grid-cols-3'
@@ -91,6 +99,7 @@ function ProductPageInner() {
                 productSlug={product.slug}
                 productName={product.name}
                 requiresRingSize={product.category === 'Anéis'}
+                requiresAcabamento={requiresAcabamento}
               />
             )}
           </div>

@@ -274,15 +274,6 @@ export default function Navigation() {
                     </li>
                     <li>
                       <Link
-                        href="/colecoes?colecao=vidro-romano"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
-                        onClick={closeSidebar}
-                      >
-                        Vidro Romano
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
                         href="/colecoes?colecao=mae"
                         className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
                         onClick={closeSidebar}
@@ -335,15 +326,6 @@ export default function Navigation() {
                     Na terra
                   </span>
                   <ul className="mt-2 ml-4 space-y-1">
-                    <li>
-                      <Link
-                        href="/colecoes?colecao=jardins"
-                        className="font-body text-sm italic text-refined-charcoal/80 hover:text-refined-gold hover:[text-shadow:0_0_12px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out"
-                        onClick={closeSidebar}
-                      >
-                        Jardins
-                      </Link>
-                    </li>
                     <li>
                       <Link
                         href="/colecoes?colecao=amitis"

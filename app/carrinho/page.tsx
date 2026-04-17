@@ -69,6 +69,11 @@ export default function CarrinhoPage() {
                   >
                     <div className="min-w-0 flex-1">
                       <p className="font-title text-lg text-refined-charcoal">{line.productName}</p>
+                      {line.acabamento ? (
+                        <p className="mt-1 font-body text-sm text-refined-charcoal/75">
+                          acabamento {line.acabamento}
+                        </p>
+                      ) : null}
                       {line.ringSizeBr ? (
                         <p className="mt-1 font-body text-sm text-refined-charcoal/75">
                           Aro {formatRingSizeLabel(parseFloat(line.ringSizeBr.replace(',', '.')))}{' '}

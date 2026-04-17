@@ -1,6 +1,6 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import { allProducts } from '@/lib/products-data'
-import { colecoes, type CollectionKey } from '@/lib/colecoes-data'
+import { visibleColecoes, type CollectionKey } from '@/lib/colecoes-data'
 import Link from 'next/link'
 
 export default async function ColecoesPage({
@@ -13,7 +13,7 @@ export default async function ColecoesPage({
   const key = Array.isArray(rawKey) ? rawKey[0] : rawKey
 
   const active =
-    colecoes.find((c) => c.key === (key as CollectionKey)) ?? colecoes[0]
+    visibleColecoes.find((c) => c.key === (key as CollectionKey)) ?? visibleColecoes[0]
 
   const productsForCollection = allProducts.filter((product) => {
     const name = product.name.toLowerCase()
@@ -61,8 +61,9 @@ export default async function ColecoesPage({
         </section>
 
         {/* Grid de imagens da coleção - no final */}
+        {/* Desktop: 3-col grid | Mobile: stacked single column */}
         <section className="w-full mb-10">
-          <div className="grid grid-cols-3 gap-4 md:gap-6 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 w-full">
             {productsForCollection.map((product) => {
               const firstImage = product.images[0]
               if (!firstImage) return null
@@ -79,7 +80,7 @@ export default async function ColecoesPage({
                     fill
                     aspectRatio="3/4"
                     className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-                    sizes="(max-width: 768px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </Link>
               )
