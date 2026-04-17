@@ -29,7 +29,7 @@ export default function CarrinhoPage() {
       <div className="mx-auto max-w-3xl">
         <header className="text-center">
           <h1 className="font-title text-3xl text-refined-gold md:text-4xl drop-shadow-[0_0_20px_rgba(212,175,55,0.25)]">
-            Carrinho
+            carrinho
           </h1>
           <p className="mx-auto mt-3 max-w-xl font-body text-refined-charcoal/80">
             Revise os itens antes de finalizar. O frete e o pagamento são escolhidos na próxima etapa.

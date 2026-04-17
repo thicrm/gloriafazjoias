@@ -81,7 +81,7 @@ export default function ContatoPage() {
           <div className="absolute inset-0 z-10 flex flex-col origin-top scale-[0.68] p-[8%] pt-[10%] pb-[6%] sm:scale-[0.72] sm:p-[10%] sm:pt-[12%] sm:pb-[7%] md:scale-[0.78] md:p-[9%] md:pt-[9%] md:pb-[6%] lg:scale-[0.8] lg:p-[10%] lg:pt-[10%]">
 
             <h1 className="font-title shrink-0 text-center text-2xl font-bold text-black mb-2 sm:text-4xl sm:mb-3 md:text-5xl md:mb-4">
-              Contato
+              contato
             </h1>
 
             <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 gap-[3%] sm:gap-[3.5%] md:gap-[3%]">

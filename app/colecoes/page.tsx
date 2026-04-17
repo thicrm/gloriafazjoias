@@ -34,7 +34,7 @@ export default async function ColecoesPage({
                 '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)',
             }}
           >
-            Coleções
+            coleções
           </h1>
           <p className="font-body text-sm md:text-base text-refined-royal-blue">
             Explore universos de joias agrupadas por narrativa, matéria e imaginação.

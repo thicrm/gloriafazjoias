@@ -54,7 +54,7 @@ export default function AboutPage() {
                 className="font-title text-4xl md:text-5xl mb-8 text-refined-gold text-center font-bold"
                 style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}
               >
-                Sobre
+                sobre
               </h1>
               <div className="space-y-8">
                 <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
@@ -74,7 +74,7 @@ export default function AboutPage() {
                 className="font-title text-4xl md:text-5xl mb-8 text-refined-gold text-center font-bold"
                 style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}
               >
-                O joalheiro como aventureiro
+                o joalheiro como aventureiro
               </h2>
               <div className="space-y-8">
                 <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">
@@ -91,7 +91,7 @@ export default function AboutPage() {
                 className="font-title text-4xl md:text-5xl mb-8 text-refined-gold text-center font-bold"
                 style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}
               >
-                O joalheiro como jardineiro
+                o joalheiro como jardineiro
               </h2>
               <div className="space-y-8">
                 <p className="font-body text-lg md:text-xl text-refined-charcoal/80 leading-relaxed text-justify">

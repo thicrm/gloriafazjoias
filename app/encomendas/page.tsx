@@ -219,10 +219,10 @@ ${formData.mensagem}
             </div>
             <div className="flex flex-col items-center text-center flex-shrink-0 w-[220px] sm:w-auto">
               <h1 className="font-title text-4xl md:text-5xl text-black font-bold group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.9)] transition-all duration-300">
-                Encomendas
+                encomendas
               </h1>
               <h2 className="font-title text-xl md:text-2xl text-refined-gold mt-2 md:whitespace-nowrap" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
-                Jóias que criam histórias
+                jóias que criam histórias
               </h2>
             </div>
             <div className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[240px] md:h-[240px] lg:w-[300px] lg:h-[300px] flex items-center justify-center flex-shrink-0">
@@ -233,32 +233,32 @@ ${formData.mensagem}
 
         {/* Como funciona? */}
         <section className="mb-6 md:mb-10">
-          <h3 className="font-title text-2xl md:text-3xl text-black mb-8 font-bold">Como funciona?</h3>
+          <h3 className="font-title text-2xl md:text-3xl text-black mb-8 font-bold">como funciona?</h3>
 
           <div className="space-y-12 md:space-y-16">
             <div>
-              <h4 className="font-title text-xl text-black mb-3 font-bold">1. Co-criação</h4>
+              <h4 className="font-title text-xl text-black mb-3 font-bold">1. co-criação</h4>
               <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 Preencha o formulário abaixo. Em alguns dias, você será convidado para um encontro com a designer, onde vocês discutirão mais profundamente sobre suas ideias e sentimentos sobre o que a peça vai representar, sendo eles dos mais definidos aos mais abstratos. Falaremos sobre o que mais combina com seu estilo (ou de quem você vai presentear), do que faz seus olhos brilharem, inspirações e desejos — afinal, com a encomenda personalizada queremos criar a expressão certa para você.
               </p>
             </div>
 
             <div>
-              <h4 className="font-title text-xl text-black mb-3 font-bold">2. Desenhando um mapa</h4>
+              <h4 className="font-title text-xl text-black mb-3 font-bold">2. desenhando um mapa</h4>
               <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 Depois de definir o design, o orçamento será discutido. Consideram-se os materiais, horas de trabalho, complexidade do design, e suas expectativas para chegar em um número que represente o valor da sua visão. Uma entrada de 30% é requerida para passarmos para a próxima etapa.
               </p>
             </div>
 
             <div>
-              <h4 className="font-title text-xl text-black mb-3 font-bold">3. Mãos na massa</h4>
+              <h4 className="font-title text-xl text-black mb-3 font-bold">3. mãos na massa</h4>
               <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 O prazo de produção é acordado, dependendo da complexidade da peça e da agenda de produção. Cada etapa do nascimento da sua jóia será documentada e compartilhada com você, para que possa experienciar de perto a tradução da sua intenção no metal. A produção vai à todo vapor nesta fase mais intensa de derreter metais, cravar pedras, polir e dar toques finais. Para melhor adequar a peça aos seus desejos, possíveis revisões que surgirem no processo de criação serão atendidas, estando sujeitas a alterações de prazo e valor. Afinal, a encomenda personalizada é um processo colaborativo entre você e a Glória.
               </p>
             </div>
 
             <div>
-              <h4 className="font-title text-xl text-black mb-3 font-bold">4. Da bancada, ao presente</h4>
+              <h4 className="font-title text-xl text-black mb-3 font-bold">4. da bancada, ao presente</h4>
               <p className="font-body text-lg md:text-xl text-black leading-relaxed text-justify">
                 Com a sua joia finalizada, o restante do pagamento será feito e a entrega combinada. Sua visão é imortalizada em uma joia que se entrelaça na sua história. Será uma honra te acompanhar neste marco tão significativo.
               </p>
@@ -271,7 +271,7 @@ ${formData.mensagem}
           <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 py-4 sm:py-6 md:py-8 overflow-hidden">
             <PincaAnimation />
             <h2 className="font-title text-base sm:text-lg md:text-2xl lg:text-3xl text-refined-gold text-center flex-shrink min-w-0" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.4)' }}>
-              Comece sua encomenda aqui
+              comece sua encomenda aqui
             </h2>
             <MacaricoAnimation />
           </div>

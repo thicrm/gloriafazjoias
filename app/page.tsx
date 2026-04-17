@@ -84,7 +84,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-[12px] sm:mb-[56px] md:mb-[72px] scale-[0.7] sm:scale-[0.75] md:scale-[0.8]">
             <h1 className="font-title text-xl sm:text-2xl md:text-3xl lg:text-4xl text-refined-charcoal mb-4">
-              Jóias que criam histórias.
+              jóias que criam histórias.
             </h1>
             <Link
               href="/colecoes/todas"
@@ -208,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* Envelope Animation - Centered */}
-      <section className="w-full flex justify-center mt-[50px] mb-4 px-4 overflow-visible py-8">
+      <section className="w-full flex justify-center mt-[50px] mb-4 px-4 overflow-visible py-8 max-sm:overflow-x-clip max-sm:px-0 max-sm:py-16">
         <EnvelopeAnimation />
       </section>
 
@@ -373,7 +373,7 @@ function EnvelopeAnimation() {
   return (
     <Link 
       href="/contato"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block max-sm:scale-[1.5] max-sm:origin-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

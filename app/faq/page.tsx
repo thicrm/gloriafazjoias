@@ -15,7 +15,7 @@ export default function FaqPage() {
       <div className="mx-auto max-w-2xl">
         <header className="mb-10 text-center md:mb-14">
           <h1 className="font-title text-3xl font-bold text-refined-charcoal md:text-4xl">
-            Perguntas frequentes
+            perguntas frequentes
           </h1>
           <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-refined-charcoal/90 md:text-lg">
             Aqui reunimos as respostas de dúvidas comuns em relação às nossas peças, serviços e
