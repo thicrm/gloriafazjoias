@@ -1,6 +1,6 @@
 import 'server-only'
 
-const MELHOR_ENVIO_API = 'https://api.melhorenvio.com.br/api/v2/me/shipment/calculate'
+const MELHOR_ENVIO_API = 'https://melhorenvio.com.br/api/v2/me/shipment/calculate'
 
 /** Default package dimensions in cm — same box used for Correios quotes. */
 const PACKAGE = { width: 13, height: 8, length: 18 }
