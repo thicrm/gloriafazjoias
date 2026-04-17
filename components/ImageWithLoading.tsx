@@ -72,6 +72,7 @@ export default function ImageWithLoading({
         className={`${className} ${isLoading ? 'opacity-0' : ''} will-change-transform`}
         priority={priority}
         loading={priority ? undefined : 'lazy'}
+        unoptimized
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setIsLoading(false)
