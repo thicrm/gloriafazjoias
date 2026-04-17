@@ -3,7 +3,7 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState, useRef } from 'react'
+import { useState } from 'react'
 
 export default function Home() {
   const novidadesImages = [
@@ -20,31 +20,6 @@ export default function Home() {
       alt: 'brinco andorinhas',
     },
   ]
-  const [novidadesIndex, setNovidadesIndex] = useState(0)
-  const touchStartX = useRef<number | null>(null)
-
-  const handleCarouselTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
-  }
-
-  const handleCarouselTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return
-    const delta = e.changedTouches[0].clientX - touchStartX.current
-    touchStartX.current = null
-    if (Math.abs(delta) < 50) return
-    setNovidadesIndex((prev) =>
-      delta < 0
-        ? (prev + 1) % novidadesImages.length
-        : (prev - 1 + novidadesImages.length) % novidadesImages.length
-    )
-  }
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setNovidadesIndex((prev) => (prev + 1) % novidadesImages.length)
-    }, 5000)
-    return () => window.clearInterval(intervalId)
-  }, [novidadesImages.length])
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
@@ -155,35 +130,24 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Phone: auto carousel */}
-          <div
-            className="sm:hidden w-full max-w-[964px] mx-auto mt-[50px]"
-            onTouchStart={handleCarouselTouchStart}
-            onTouchEnd={handleCarouselTouchEnd}
-          >
-            <Link href="/products" className="relative block w-full h-[320px] overflow-hidden">
-              <Image
-                src={novidadesImages[novidadesIndex].src}
-                alt={novidadesImages[novidadesIndex].alt}
-                fill
-                className="object-cover transition-opacity duration-500 ease-in-out"
-                sizes="100vw"
-                unoptimized
-              />
-            </Link>
-            <div className="flex justify-center gap-2 mt-4">
-              {novidadesImages.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  aria-label={`Ir para slide ${idx + 1}`}
-                  onClick={() => setNovidadesIndex(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    novidadesIndex === idx ? 'w-6 bg-refined-gold' : 'w-2 bg-refined-charcoal/40'
-                  }`}
+          {/* Phone: snap carousel — same pattern as all-collections page */}
+          <div className="sm:hidden w-full overflow-x-auto snap-x snap-mandatory flex gap-3 pb-4 mt-[50px]">
+            {novidadesImages.map((img, idx) => (
+              <Link
+                key={idx}
+                href="/products"
+                className="snap-center flex-shrink-0 w-[72vw] relative overflow-hidden group cursor-pointer aspect-[3/4] block"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                  sizes="72vw"
+                  unoptimized
                 />
-              ))}
-            </div>
+              </Link>
+            ))}
           </div>
 
           {/* Encomendas Button with Maçarico and Alicate Animations - always in a row, scaled to fit */}
