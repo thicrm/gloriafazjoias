@@ -1,6 +1,7 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import { allProducts } from '@/lib/products-data'
 import { visibleColecoes } from '@/lib/colecoes-data'
+import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 import Link from 'next/link'
 
 export default function TodasColecoesPage() {
@@ -64,21 +65,34 @@ export default function TodasColecoesPage() {
                       {productsForCollection.map((product) => {
                         const firstImage = product.images?.[0]
                         if (!firstImage) return null
+                        const pricing = getProductPricing(product.slug)
 
                         return (
                           <Link
                             key={product.slug}
                             href={`/products/${product.slug}`}
-                            className="snap-center flex-shrink-0 w-[72vw] md:w-full md:min-w-0 relative overflow-hidden group cursor-pointer aspect-[3/4] block"
+                            className="snap-center flex-shrink-0 w-[72vw] md:w-full md:min-w-0 block group cursor-pointer"
                           >
-                            <ImageWithLoading
-                              src={firstImage}
-                              alt={product.name}
-                              fill
-                              aspectRatio="3/4"
-                              className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-                              sizes="(max-width: 768px) 72vw, 33vw"
-                            />
+                            <div className="relative w-full aspect-[3/4] overflow-hidden mb-3">
+                              <ImageWithLoading
+                                src={firstImage}
+                                alt={product.name}
+                                fill
+                                aspectRatio="3/4"
+                                className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                                sizes="(max-width: 768px) 72vw, 33vw"
+                              />
+                            </div>
+                            <div className="text-center">
+                              <h3 className="font-title text-lg text-refined-charcoal group-hover:text-refined-charcoal/80 transition-colors duration-500 ease-in-out">
+                                {product.name}
+                              </h3>
+                              {pricing && (
+                                <p className="font-body text-sm text-refined-charcoal/70 mt-1">
+                                  {formatPrice(pricing.price)}
+                                </p>
+                              )}
+                            </div>
                           </Link>
                         )
                       })}

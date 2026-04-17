@@ -3,7 +3,7 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 export default function Home() {
   const novidadesImages = [
@@ -21,6 +21,23 @@ export default function Home() {
     },
   ]
   const [novidadesIndex, setNovidadesIndex] = useState(0)
+  const touchStartX = useRef<number | null>(null)
+
+  const handleCarouselTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleCarouselTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const delta = e.changedTouches[0].clientX - touchStartX.current
+    touchStartX.current = null
+    if (Math.abs(delta) < 50) return
+    setNovidadesIndex((prev) =>
+      delta < 0
+        ? (prev + 1) % novidadesImages.length
+        : (prev - 1 + novidadesImages.length) % novidadesImages.length
+    )
+  }
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -139,7 +156,11 @@ export default function Home() {
           </div>
 
           {/* Phone: auto carousel */}
-          <div className="sm:hidden w-full max-w-[964px] mx-auto mt-[50px]">
+          <div
+            className="sm:hidden w-full max-w-[964px] mx-auto mt-[50px]"
+            onTouchStart={handleCarouselTouchStart}
+            onTouchEnd={handleCarouselTouchEnd}
+          >
             <Link href="/products" className="relative block w-full h-[320px] overflow-hidden">
               <Image
                 src={novidadesImages[novidadesIndex].src}
