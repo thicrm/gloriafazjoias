@@ -70,9 +70,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, hydrated])
 
   const addItem = useCallback((line: Omit<CartLine, 'id'>) => {
-    const key = cartLineKey(line.sku, line.ringSizeBr, line.acabamento)
+    const key = cartLineKey(line.sku, line.ringSizeBr, line.acabamento, line.formato)
     setItems((prev) => {
-      const idx = prev.findIndex((p) => cartLineKey(p.sku, p.ringSizeBr, p.acabamento) === key)
+      const idx = prev.findIndex((p) => cartLineKey(p.sku, p.ringSizeBr, p.acabamento, p.formato) === key)
       if (idx >= 0) {
         const next = [...prev]
         next[idx] = { ...next[idx], quantity: next[idx].quantity + line.quantity }

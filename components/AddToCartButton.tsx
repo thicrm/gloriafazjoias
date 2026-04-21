@@ -4,14 +4,16 @@ import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import RingSizePickerModal from '@/components/RingSizePickerModal'
 import AcabamentoPickerModal from '@/components/AcabamentoPickerModal'
+import FormatoPickerModal from '@/components/FormatoPickerModal'
 import { useCart } from '@/contexts/CartContext'
-import type { Acabamento } from '@/lib/cart-types'
+import type { Acabamento, Formato } from '@/lib/cart-types'
 
 type AddToCartButtonProps = {
   productSlug: string
   productName: string
   requiresRingSize?: boolean
   requiresAcabamento?: boolean
+  requiresFormato?: boolean
 }
 
 export default function AddToCartButton({
@@ -19,10 +21,13 @@ export default function AddToCartButton({
   productName,
   requiresRingSize = false,
   requiresAcabamento = false,
+  requiresFormato = false,
 }: AddToCartButtonProps) {
   const { addItem } = useCart()
   const [acabamentoModalOpen, setAcabamentoModalOpen] = useState(false)
   const [selectedAcabamento, setSelectedAcabamento] = useState<Acabamento>('fosco')
+  const [formatoModalOpen, setFormatoModalOpen] = useState(false)
+  const [selectedFormato, setSelectedFormato] = useState<Formato>('redondo')
   const [ringModalOpen, setRingModalOpen] = useState(false)
   const [selectedRingSize, setSelectedRingSize] = useState('18')
   const [addedPulse, setAddedPulse] = useState(false)
@@ -33,13 +38,14 @@ export default function AddToCartButton({
   }, [])
 
   const pushLine = useCallback(
-    (ringSizeBr: string | null, acabamento: Acabamento | null) => {
+    (ringSizeBr: string | null, acabamento: Acabamento | null, formato: Formato | null) => {
       addItem({
         sku: productSlug,
         productName,
         quantity: 1,
         ringSizeBr,
         acabamento,
+        formato,
       })
       pulse()
     },
@@ -47,6 +53,10 @@ export default function AddToCartButton({
   )
 
   const handleClick = () => {
+    if (requiresFormato) {
+      setFormatoModalOpen(true)
+      return
+    }
     if (requiresAcabamento) {
       setAcabamentoModalOpen(true)
       return
@@ -55,7 +65,12 @@ export default function AddToCartButton({
       setRingModalOpen(true)
       return
     }
-    pushLine(null, null)
+    pushLine(null, null, null)
+  }
+
+  const handleFormatoConfirm = () => {
+    setFormatoModalOpen(false)
+    pushLine(null, null, selectedFormato)
   }
 
   const handleAcabamentoConfirm = () => {
@@ -64,14 +79,14 @@ export default function AddToCartButton({
       setRingModalOpen(true)
       return
     }
-    pushLine(null, selectedAcabamento)
+    pushLine(null, selectedAcabamento, null)
   }
 
   const handleRingConfirm = () => {
     const v = selectedRingSize.trim()
     if (!v) return
     setRingModalOpen(false)
-    pushLine(v, requiresAcabamento ? selectedAcabamento : null)
+    pushLine(v, requiresAcabamento ? selectedAcabamento : null, null)
   }
 
   return (
@@ -93,6 +108,14 @@ export default function AddToCartButton({
           ver carrinho
         </Link>
       </div>
+
+      <FormatoPickerModal
+        open={formatoModalOpen}
+        selected={selectedFormato}
+        onSelectChange={setSelectedFormato}
+        onClose={() => setFormatoModalOpen(false)}
+        onConfirm={handleFormatoConfirm}
+      />
 
       <AcabamentoPickerModal
         open={acabamentoModalOpen}

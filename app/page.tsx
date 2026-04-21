@@ -8,16 +8,16 @@ import { useState } from 'react'
 export default function Home() {
   const novidadesImages = [
     {
-      src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20caminhos/DSC00293.jpg',
-      alt: 'anel caminhos',
+      src: 'https://pub-f43e187975d24eb89983c20ee1013ffa.r2.dev/_MG_5386.jpg',
+      alt: 'jóias gloria faz joias',
     },
     {
       src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00400.jpg',
       alt: 'colar concha',
     },
     {
-      src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20andorinhas/DSC00058.jpg',
-      alt: 'brinco andorinhas',
+      src: 'https://pub-f43e187975d24eb89983c20ee1013ffa.r2.dev/_MG_5209.jpg',
+      alt: 'jóias gloria faz joias',
     },
   ]
 
@@ -40,8 +40,8 @@ export default function Home() {
           </div>
           <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00359.jpg"
-              alt="brinco mãe"
+              src="https://pub-82a04559941243a3b2242339c224a2f8.r2.dev/mp%20pirarucu%20azul.jpg"
+              alt="marca-página pirarucu"
               fill
               aspectRatio="1/0.91"
               className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
@@ -50,8 +50,8 @@ export default function Home() {
           </Link>
           <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00357.jpg"
-              alt="colar mãe prata"
+              src="https://pub-82a04559941243a3b2242339c224a2f8.r2.dev/_MG_5123-Editar.jpg"
+              alt="jóias gloria faz joias"
               fill
               aspectRatio="1/0.91"
               className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
@@ -60,8 +60,8 @@ export default function Home() {
           </Link>
           <Link href="/products" className="relative w-full min-w-0 overflow-hidden group cursor-pointer">
             <ImageWithLoading
-              src="https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00381.jpg"
-              alt="colar mãe ouro"
+              src="https://pub-82a04559941243a3b2242339c224a2f8.r2.dev/colar%20explosao%202.jpg"
+              alt="colar explosão"
               fill
               aspectRatio="1/0.91"
               className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
@@ -151,7 +151,7 @@ export default function Home() {
           </div>
 
           {/* Encomendas Button with Maçarico and Alicate Animations - always in a row, scaled to fit */}
-          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-8 sm:mt-10 md:mt-12 lg:mt-14 mb-8 sm:mb-10 md:mb-12 lg:mb-14 overflow-visible w-full px-8 md:px-52">
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-8 sm:mt-10 md:mt-12 lg:mt-14 mb-[42px] sm:mb-10 md:mb-12 lg:mb-14 overflow-visible w-full px-8 md:px-52">
             {/* Maçarico Animation */}
             <MacaricoAnimation />
             
@@ -172,7 +172,7 @@ export default function Home() {
       {/* Picture Slots Section (2) */}
       <section className="w-full px-4 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="mt-[20px] grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-[964px] mx-auto">
+          <div className="mt-[30px] grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-[964px] mx-auto">
             <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
               <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
                 Picture Slot 1

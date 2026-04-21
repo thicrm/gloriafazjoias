@@ -17,18 +17,24 @@ https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20caminhos/DSC00293.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20caminhos/DSC00302.jpg
 
 anel céu estrelado
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00506.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00507.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00516.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20c%C3%A9u%20estrelado/DSC00521.jpg
+https://pub-edc365ea9b5049ae8a0ecf80dea677bb.r2.dev/anel%20ceu%20estrelado.jpg
+
+anel domo do céu I
+https://pub-d5ecc79cb81a4dbba75b8d644b7f4d2d.r2.dev/anel%20domo%20do%20ceu%20I%201.jpg
+https://pub-d5ecc79cb81a4dbba75b8d644b7f4d2d.r2.dev/anel%20domo%20do%20ceu%20I%202.jpg
+https://pub-d5ecc79cb81a4dbba75b8d644b7f4d2d.r2.dev/conjunto%20ceu.jpg
+https://pub-d5ecc79cb81a4dbba75b8d644b7f4d2d.r2.dev/colecao%20ceu%201.jpg
 
 anel domo do céu II
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00481.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00489.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00491.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00493.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00500.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20do%20c%C3%A9u%20II/DSC00502.jpg
+https://pub-b58ceffff1a142a79577a358b37c1426.r2.dev/anel%20domo%20do%20ceu%20II%201.jpg
+https://pub-b58ceffff1a142a79577a358b37c1426.r2.dev/anel%20domo%20do%20ceu%20II%202.jpg
+https://pub-b58ceffff1a142a79577a358b37c1426.r2.dev/anel%20domo%20do%20ceu%20II%203.jpg
+https://pub-b58ceffff1a142a79577a358b37c1426.r2.dev/anel%20domo%20do%20ceu%20II%204.jpg
+https://pub-b58ceffff1a142a79577a358b37c1426.r2.dev/colecao%20ceu%201.jpg
+
+anel domo do céu crescente
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/C%C3%B3pia%20de%20DSC00552.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/C%C3%B3pia%20de%20DSC00099.jpg
 
 anel domo fechado
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20fechado/DSC00099.jpg
@@ -40,43 +46,63 @@ https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20fechado/DSC001
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20domo%20fechado/DSC00552.jpg
 
 anel ofurô
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ofur%C3%B4/DSC00283.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ofur%C3%B4/DSC00285.jpg
+https://pub-dedcc52373af43d09c506c27d05b3a8f.r2.dev/anel%20ofuro.jpg
+https://pub-dedcc52373af43d09c506c27d05b3a8f.r2.dev/3%20aneis%20piscina.jpg
+
+anel ondas cru
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2387.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2386.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2385.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2384.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2390.JPG
 
 anel ondas prata
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00306.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00193.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00195.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00198.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00199.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00240.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2392.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2393.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2394.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2396.jpg
 
 anel ondas ouro
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00280.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00284.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00304.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20ondas/DSC00305.jpg
+https://pub-d72a30a164d34ab7b7b3bc41a8903f8f.r2.dev/anel%20ondas%20ouro%201.jpg
+https://pub-d72a30a164d34ab7b7b3bc41a8903f8f.r2.dev/anel%20ondas%20ouro%202.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2397.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2398.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2399.JPG
+
+anel onsen cru
+https://pub-4b0824b8d92a43e8bda0f12eb49c359c.r2.dev/anel%20onsen%20cru.jpg
+https://pub-4b0824b8d92a43e8bda0f12eb49c359c.r2.dev/3%20aneis%20piscina.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2326.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2327.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2328.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2390.JPG
 
 anel onsen prata
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00215.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00214.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00210.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00220.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00223.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2329.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2330.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2331.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2332.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2333.JPG
 
 anel onsen ouro
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00277.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00268.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00266.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00271.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/anel%20onsen/DSC00275.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2335.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2338.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2339.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2340.JPG
+
+anel vão
+https://pub-e2f28a6b48444c87b10a65e1df0c340c.r2.dev/anel%20vao%20domin%C3%B3%201.jpg
+https://pub-e2f28a6b48444c87b10a65e1df0c340c.r2.dev/anel%20vao%20domin%C3%B3%202.jpg
+https://pub-e2f28a6b48444c87b10a65e1df0c340c.r2.dev/anel%20vao%20domin%C3%B3%203.jpg
+
+aliança estrela
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00139.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00148.jpg
 
 bracelete oco
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20oco/DSC00170.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20oco/DSC00173.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20oco/DSC00176.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20oco/DSC00177.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20oco/DSC00179.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20oco/DSC00184.jpg
+https://pub-ab4d4e74a4f84b70873e794e356e235e.r2.dev/bracelete1.jpg
+https://pub-ab4d4e74a4f84b70873e794e356e235e.r2.dev/bracelete2.jpg
 
 bracelete organico
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20organico/DSC00086.jpg
@@ -84,26 +110,29 @@ https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20organico/DSC0009
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/bracelete%20organico/DSC00093.jpg
 
 brinco andorinhas
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20andorinhas/DSC00054.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20andorinhas/DSC00058.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20andorinhas/DSC00060.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20andorinhas/DSC00545.jpg
+https://pub-c2bdedaa3f554b5f9b5ab83116411f61.r2.dev/brinco%20andorinhas%201.jpg
+https://pub-c2bdedaa3f554b5f9b5ab83116411f61.r2.dev/brinco%20andorinhas%202.jpg
+https://pub-c2bdedaa3f554b5f9b5ab83116411f61.r2.dev/conjunto%20ceu.jpg
+https://pub-c2bdedaa3f554b5f9b5ab83116411f61.r2.dev/colecao%20ceu%201.jpg
 
 brinco estrelas
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20estrelas/DSC00021%20-%20Copy.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20estrelas/DSC00025%20-%20Copy.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20estrelas/DSC00051.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20estrelas/DSC00536.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20estrelas/DSC00542.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2413.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2414.JPG
 
 brinco mãe
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00359.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00362.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20m%C3%A3e/DSC00364.jpg
+https://pub-94bcb2830a5d4ebfa1434095a12056c0.r2.dev/brinco%20mae%201.jpg
+https://pub-94bcb2830a5d4ebfa1434095a12056c0.r2.dev/brinco%20mae%202.jpg
+https://pub-94bcb2830a5d4ebfa1434095a12056c0.r2.dev/conjunto%20mae.jpg
 
 brinco sobreposição II
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20sobreposi%C3%A7%C3%A3o%20II/DSC00163.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/brinco%20sobreposi%C3%A7%C3%A3o%20II/DSC00169.jpg
+https://pub-3354cf49be514a26aa10993b78b41ba2.r2.dev/brinco%20sobreposicao%20II.jpg
+
+broche estrela
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00147.jpg
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00148.jpg
+
+colar amitis
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_7648.HEIC
 
 colar concha
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00389.jpg
@@ -113,15 +142,28 @@ https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00400.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00402.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00403.jpg
 
+colar explosão
+https://pub-dfe23d8c7ee645c1bb7c945ab9a84805.r2.dev/colar%20explosao%201.jpg
+https://pub-dfe23d8c7ee645c1bb7c945ab9a84805.r2.dev/colar%20explosao%202.jpg
+
 colar mãe prata
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00357.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00356.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00358.jpg
+https://pub-8646f2f25aff4c539924f97bd0e4cb62.r2.dev/colar%20mae.jpg
+https://pub-8646f2f25aff4c539924f97bd0e4cb62.r2.dev/colares%20mae.jpg
 
 colar mãe ouro
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00381.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00378.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20m%C3%A3e/DSC00373.jpg
+
+colar mãe maior
+https://pub-044df4e4180549b094336b2b2a546d2a.r2.dev/colar%20mae%20maior%201.jpg
+https://pub-044df4e4180549b094336b2b2a546d2a.r2.dev/colar%20mae%20maior%202.jpg
+https://pub-044df4e4180549b094336b2b2a546d2a.r2.dev/colar%20mae%20maior%203.jpg
+https://pub-044df4e4180549b094336b2b2a546d2a.r2.dev/conjunto%20mae.jpg
+
+colar mãe duplo
+https://pub-a9921c4bce914d048563770aa7e9585c.r2.dev/colar%20mae%20duplo.jpg
+https://pub-a9921c4bce914d048563770aa7e9585c.r2.dev/colares%20mae.jpg
 
 conjunto martelado estrela
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/conjunto%20martelado%20estrela/DSC00139.jpg
@@ -129,12 +171,16 @@ https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/conjunto%20martelado%20estre
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/conjunto%20martelado%20estrela/DSC00148.jpg
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/conjunto%20martelado%20estrela/DSC00149.jpg
 
-marca páginas
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/marca%20p%C3%A1ginas/DSC00462.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/marca%20p%C3%A1ginas/DSC00455.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/marca%20p%C3%A1ginas/DSC00438.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/marca%20p%C3%A1ginas/DSC00439.jpg
-https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/marca%20p%C3%A1ginas/DSC00441.jpg
+marca páginas peixinho
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2436.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2440.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2441.JPG
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_2442.JPG
+
+marca páginas pirarucu
+https://pub-b610227a2c38470b90012882b9c8e119.r2.dev/mp%20pirarucu%201.jpg
+https://pub-b610227a2c38470b90012882b9c8e119.r2.dev/mp%20pirarucu%202.jpg
+https://pub-b610227a2c38470b90012882b9c8e119.r2.dev/mp%20pirarucu%203.jpg
 
 pingente estrela
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/pingente%20estrela/DSC00525.jpg

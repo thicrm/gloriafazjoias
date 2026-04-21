@@ -1,0 +1,33 @@
+---
+description: Desktop fullscreen is the design baseline; responsive changes must not alter desktop layout
+globs: **/*.tsx,**/*.css,**/tailwind.config*
+alwaysApply: true
+---
+
+# Responsive Design Baseline
+
+## Design Preset
+
+**Desktop fullscreen (large viewport) is the canonical design.** The current desktop layout and styling are the source of truth.
+
+## Constraint
+
+When adding or adjusting responsive behavior:
+
+- **Desktop design stays unchanged** — Do not modify styles that affect the desktop fullscreen view
+- **Add breakpoints only for smaller viewports** — Use `md:`, `sm:`, `max-md:`, etc. to adapt for tablet and mobile
+- **Mobile-first overrides only** — New responsive rules should apply at smaller breakpoints; desktop inherits the existing (unmodified) styles
+
+## Breakpoint Strategy
+
+- Default / base styles = desktop fullscreen (preserve as-is)
+- `md:` and below = tablet
+- `sm:` and below = mobile
+
+Do not add `lg:` or `xl:` overrides that change the current desktop appearance.
+
+## Layout Preservation
+
+- **Never stack elements that are side-by-side on desktop.** Use proportional scaling instead.
+- Keep the same grid columns (e.g. grid-cols-6, grid-cols-3) at all viewport sizes.
+- Scale element sizes (width, padding, font) responsively so the layout fits; do not change to flex-col or reduce grid-cols on smaller screens.

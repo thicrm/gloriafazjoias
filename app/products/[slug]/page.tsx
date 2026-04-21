@@ -36,6 +36,11 @@ function ProductPageInner() {
   ])
   const requiresAcabamento = ACABAMENTO_SLUGS.has(product.slug)
 
+  const FORMATO_SLUGS = new Set([
+    'marca-pagina-peixinho',
+  ])
+  const requiresFormato = FORMATO_SLUGS.has(product.slug)
+
   const getGridCols = (count: number) => {
     if (count <= 2) return 'grid-cols-2'
     if (count <= 3) return 'grid-cols-3'
@@ -100,6 +105,7 @@ function ProductPageInner() {
                 productName={product.name}
                 requiresRingSize={product.category === 'Anéis'}
                 requiresAcabamento={requiresAcabamento}
+                requiresFormato={requiresFormato}
               />
             )}
           </div>

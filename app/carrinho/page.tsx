@@ -74,6 +74,11 @@ export default function CarrinhoPage() {
                           acabamento {line.acabamento}
                         </p>
                       ) : null}
+                      {line.formato ? (
+                        <p className="mt-1 font-body text-sm text-refined-charcoal/75">
+                          formato {line.formato}
+                        </p>
+                      ) : null}
                       {line.ringSizeBr ? (
                         <p className="mt-1 font-body text-sm text-refined-charcoal/75">
                           Aro {formatRingSizeLabel(parseFloat(line.ringSizeBr.replace(',', '.')))}{' '}
