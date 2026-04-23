@@ -132,7 +132,6 @@ https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00147.jpg
 https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00148.jpg
 
 colar amitis
-https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/IMG_7648.HEIC
 
 colar concha
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00389.jpg
@@ -221,7 +220,7 @@ function slugFromDisplayName(name: string): string {
 
 /** Build store products list: DB products + placeholders (precisa de correlação de imagens) */
 export function getStoreProducts(): Product[] {
-  return STORE_PRODUCTS.map((entry) => {
+  return STORE_PRODUCTS.filter((entry) => !entry.hidden).map((entry) => {
     if (entry.dbSlug) {
       const dbProduct = allProducts.find((p) => p.slug === entry.dbSlug)
       if (dbProduct) {

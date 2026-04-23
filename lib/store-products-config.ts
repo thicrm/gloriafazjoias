@@ -20,12 +20,14 @@ export interface StoreProductEntry {
   /** When set, used as URL slug instead of dbSlug (unique checkout + pricing key). */
   slugOverride?: string
   category: StoreCategory
+  /** When true, product is not shown in the store (omisso). */
+  hidden?: boolean
 }
 
 /** Order follows produtos site NOVO.md */
 export const STORE_PRODUCTS: StoreProductEntry[] = [
   // ── Céu Estrelado ────────────────────────────────────────────────────────
-  { displayName: 'Anel Reservatório', dbSlug: null, category: 'Anéis' },
+  { displayName: 'Anel Reservatório', dbSlug: null, category: 'Anéis', hidden: true },
   { displayName: 'Colar Explosão', dbSlug: 'colar-explosao', category: 'Colares' },
   { displayName: 'Aliança Estrela', dbSlug: 'alianca-estrela', category: 'Anéis' },
   { displayName: 'Broche Estrela', dbSlug: 'broche-estrela', category: 'Broches' },
@@ -46,7 +48,7 @@ export const STORE_PRODUCTS: StoreProductEntry[] = [
   { displayName: 'Anel Onsen (cru)', dbSlug: 'anel-onsen-cru', category: 'Anéis' },
   { displayName: 'Anel Onsen (prata)', dbSlug: 'anel-onsen-prata', category: 'Anéis' },
   { displayName: 'Anel Onsen (dourado)', dbSlug: 'anel-onsen-ouro', category: 'Anéis' },
-  { displayName: 'Anel Onsen Paraíba', dbSlug: null, category: 'Anéis' },
+  { displayName: 'Anel Onsen Paraíba', dbSlug: null, category: 'Anéis', hidden: true },
   { displayName: 'Anel Ondas (prata)', dbSlug: 'anel-ondas-prata', category: 'Anéis' },
   { displayName: 'Anel Ondas (dourado)', dbSlug: 'anel-ondas-ouro', category: 'Anéis' },
   { displayName: 'Anel Ondas (cru)', dbSlug: 'anel-ondas-cru', category: 'Anéis' },
@@ -62,10 +64,10 @@ export const STORE_PRODUCTS: StoreProductEntry[] = [
 
   // ── Mãe ──────────────────────────────────────────────────────────────────
   { displayName: 'Brinco Mãe', dbSlug: 'brinco-mae', category: 'Brincos' },
-  { displayName: 'Brinco Mãe Duplo', dbSlug: null, category: 'Brincos' },
+  { displayName: 'Brinco Mãe Duplo', dbSlug: null, category: 'Brincos', hidden: true },
   { displayName: 'Colar Mãe', dbSlug: 'colar-mae-prata', category: 'Colares' },
   { displayName: 'Colar Mãe Maior', dbSlug: 'colar-mae-maior', category: 'Colares' },
-  { displayName: 'Colar Mãe Dourada', dbSlug: 'colar-mae-ouro', category: 'Colares' },
+  { displayName: 'Colar Mãe Dourada', dbSlug: 'colar-mae-ouro', category: 'Colares', hidden: true },
   { displayName: 'Colar Mãe Duplo', dbSlug: 'colar-mae-duplo', category: 'Colares' },
 
   // ── Peixinhos ────────────────────────────────────────────────────────────
@@ -84,5 +86,5 @@ export const STORE_PRODUCTS: StoreProductEntry[] = [
 
   // ── Amitis ───────────────────────────────────────────────────────────────
   { displayName: 'Colar Amitis', dbSlug: 'colar-amitis', category: 'Colares' },
-  { displayName: 'Brinco Amitis', dbSlug: null, category: 'Brincos' },
+  { displayName: 'Brinco Amitis', dbSlug: null, category: 'Brincos', hidden: true },
 ]

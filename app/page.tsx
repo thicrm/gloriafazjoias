@@ -12,8 +12,8 @@ export default function Home() {
       alt: 'jóias gloria faz joias',
     },
     {
-      src: 'https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00400.jpg',
-      alt: 'colar concha',
+      src: 'https://pub-f43e187975d24eb89983c20ee1013ffa.r2.dev/dia%20das%20maes%20site.png',
+      alt: 'dia das mães gloria faz joias',
     },
     {
       src: 'https://pub-f43e187975d24eb89983c20ee1013ffa.r2.dev/_MG_5209.jpg',
@@ -170,24 +170,39 @@ export default function Home() {
       </section>
 
       {/* Picture Slots Section (2) */}
-      <section className="w-full px-4 relative">
+      <section className="w-full px-4 relative mt-[20px]">
         <div className="max-w-7xl mx-auto">
           <div className="mt-[30px] grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-[964px] mx-auto">
-            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot 1
-              </div>
-            </div>
-            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot 2
-              </div>
-            </div>
-            <div className="w-full min-w-0 aspect-[3/4] border-2 border-dashed border-refined-gold/50">
-              <div className="w-full h-full flex items-center justify-center text-refined-charcoal/30 font-body italic">
-                Picture Slot 3
-              </div>
-            </div>
+            <Link href="/products" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
+              <Image
+                src="https://pub-ca5e41281f40490bae03182e5cb87c45.r2.dev/brinco%20mae%201.jpg"
+                alt="brinco mãe"
+                fill
+                className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                sizes="(max-width: 768px) 33vw, 320px"
+                unoptimized
+              />
+            </Link>
+            <Link href="/products" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
+              <Image
+                src="https://pub-ca5e41281f40490bae03182e5cb87c45.r2.dev/colar%20mae%20maior%202.jpg"
+                alt="colar mãe maior"
+                fill
+                className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                sizes="(max-width: 768px) 33vw, 320px"
+                unoptimized
+              />
+            </Link>
+            <Link href="/products" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
+              <Image
+                src="https://pub-ca5e41281f40490bae03182e5cb87c45.r2.dev/colar%20mae%20maior%203.jpg"
+                alt="colar mãe maior"
+                fill
+                className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                sizes="(max-width: 768px) 33vw, 320px"
+                unoptimized
+              />
+            </Link>
           </div>
         </div>
       </section>

@@ -57,11 +57,10 @@ export default function TodasColecoesPage() {
                   </p>
                 </div>
 
-                {/* Images below text */}
-                {/* Desktop: 3-col grid | Mobile: horizontal snap carousel */}
+                {/* Carousel — snap scroll on all screen sizes */}
                 <div className="w-full">
                   {hasImages ? (
-                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 md:pb-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-x-visible w-full">
+                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 md:gap-6 pb-4 w-full no-scrollbar">
                       {productsForCollection.map((product) => {
                         const firstImage = product.images?.[0]
                         if (!firstImage) return null
@@ -71,7 +70,7 @@ export default function TodasColecoesPage() {
                           <Link
                             key={product.slug}
                             href={`/products/${product.slug}`}
-                            className="snap-center flex-shrink-0 w-[72vw] md:w-full md:min-w-0 block group cursor-pointer"
+                            className="snap-center flex-shrink-0 w-[72vw] md:w-[260px] block group cursor-pointer"
                           >
                             <div className="relative w-full aspect-[3/4] overflow-hidden mb-3">
                               <ImageWithLoading
@@ -80,7 +79,7 @@ export default function TodasColecoesPage() {
                                 fill
                                 aspectRatio="3/4"
                                 className="object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
-                                sizes="(max-width: 768px) 72vw, 33vw"
+                                sizes="(max-width: 768px) 72vw, 260px"
                               />
                             </div>
                             <div className="text-center">
@@ -104,6 +103,16 @@ export default function TodasColecoesPage() {
                       </p>
                     </div>
                   )}
+                </div>
+
+                {/* Explorar button */}
+                <div className="flex justify-center mt-8">
+                  <Link
+                    href={`/colecoes?colecao=${colecao.key}`}
+                    className="inline-block px-10 py-3 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] transition-all duration-500 ease-in-out font-body text-sm md:text-base tracking-wide"
+                  >
+                    explorar esta coleção
+                  </Link>
                 </div>
               </section>
             )
