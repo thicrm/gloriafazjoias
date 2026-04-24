@@ -98,7 +98,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl md:origin-top md:scale-[1.1]">
           {/* Desktop/Tablet: 3 cards in a row */}
           <div className="mx-auto mt-[50px] hidden w-full max-w-[964px] items-stretch sm:grid sm:grid-cols-3 sm:gap-8 lg:grid-cols-4 lg:gap-8">
-            <Link href="/products" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
+            <Link href="/colecoes?colecao=mae" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
               <Image
                 src={novidadesImages[0].src}
                 alt={novidadesImages[0].alt}
@@ -108,7 +108,7 @@ export default function Home() {
                 unoptimized
               />
             </Link>
-            <Link href="/products" className="relative lg:col-span-2 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
+            <Link href="/colecoes?colecao=mae" className="relative lg:col-span-2 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
               <Image
                 src={novidadesImages[1].src}
                 alt={novidadesImages[1].alt}
@@ -118,7 +118,7 @@ export default function Home() {
                 unoptimized
               />
             </Link>
-            <Link href="/products" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
+            <Link href="/colecoes?colecao=mae" className="relative lg:col-span-1 w-full min-w-0 h-[260px] md:h-[320px] overflow-hidden group cursor-pointer">
               <Image
                 src={novidadesImages[2].src}
                 alt={novidadesImages[2].alt}
@@ -135,7 +135,7 @@ export default function Home() {
             {novidadesImages.map((img, idx) => (
               <Link
                 key={idx}
-                href="/products"
+                href="/colecoes?colecao=mae"
                 className="snap-center flex-shrink-0 w-[72vw] relative overflow-hidden group cursor-pointer aspect-[3/4] block"
               >
                 <Image
@@ -173,7 +173,7 @@ export default function Home() {
       <section className="w-full px-4 relative mt-[20px]">
         <div className="max-w-7xl mx-auto">
           <div className="mt-[30px] grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-[964px] mx-auto">
-            <Link href="/products" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
+            <Link href="/colecoes?colecao=mae" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
               <Image
                 src="https://pub-ca5e41281f40490bae03182e5cb87c45.r2.dev/brinco%20mae%201.jpg"
                 alt="brinco mãe"
@@ -193,7 +193,7 @@ export default function Home() {
                 unoptimized
               />
             </Link>
-            <Link href="/products" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
+            <Link href="/colecoes?colecao=mae" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
               <Image
                 src="https://pub-ca5e41281f40490bae03182e5cb87c45.r2.dev/colar%20mae%20maior%203.jpg"
                 alt="colar mãe maior"

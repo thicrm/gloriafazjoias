@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   title: 'Gloria Faz Joias',
   description: 'Refined jewelry inspired by literature and fine arts',
   icons: {
-    icon: '/images/simbolos-carimbo.png',
+    icon: '/images/adesivo01.png',
   },
 }
 
