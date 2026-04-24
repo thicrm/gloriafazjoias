@@ -1,5 +1,5 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
-import { allProducts } from '@/lib/products-data'
+import { storeProducts } from '@/lib/products-data'
 import { visibleColecoes } from '@/lib/colecoes-data'
 import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 import Link from 'next/link'
@@ -27,12 +27,12 @@ export default function TodasColecoesPage() {
         {/* All collections stacked */}
         <div className="space-y-20">
           {visibleColecoes.map((colecao) => {
-            const productsForCollection = allProducts.filter((product) => {
-              const name = product.name.toLowerCase()
-              return colecao.productNameFilters.some((fragment) =>
-                name.includes(fragment.toLowerCase()),
-              )
-            })
+            const slugSet = new Set(colecao.storeProductSlugs ?? [])
+            const productsForCollection = colecao.storeProductSlugs
+              ? (colecao.storeProductSlugs
+                  .map((slug) => storeProducts.find((p) => p.slug === slug))
+                  .filter(Boolean) as typeof storeProducts)
+              : storeProducts.filter((p) => slugSet.has(p.slug))
 
             const hasImages = productsForCollection.some((p) => p.images?.length > 0)
 

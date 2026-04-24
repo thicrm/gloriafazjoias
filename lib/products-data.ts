@@ -132,6 +132,7 @@ https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00147.jpg
 https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/DSC00148.jpg
 
 colar amitis
+https://pub-bb7a957296ca4e0384dbbfed348330d9.r2.dev/colar%20amitis.jpg
 
 colar concha
 https://pub-5d1481d6cba449089a45cbcb47b01ed9.r2.dev/colar%20concha/DSC00389.jpg
@@ -232,6 +233,7 @@ export function getStoreProducts(): Product[] {
           name: entry.displayName,
           category: entry.category,
           slug,
+          ...(entry.material ? { material: entry.material } : {}),
           description: fromSite ?? dbProduct.description,
         }
       }
@@ -243,7 +245,7 @@ export function getStoreProducts(): Product[] {
       slug,
       images: [],
       category: entry.category,
-      material: 'Não especificado',
+      material: entry.material ?? 'Não especificado',
       description: STORE_PAGE_COPY[slug],
     }
   })

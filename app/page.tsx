@@ -183,7 +183,7 @@ export default function Home() {
                 unoptimized
               />
             </Link>
-            <Link href="/products" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
+            <Link href="/colecoes?colecao=mae" className="relative w-full min-w-0 aspect-[3/4] overflow-hidden group cursor-pointer">
               <Image
                 src="https://pub-ca5e41281f40490bae03182e5cb87c45.r2.dev/colar%20mae%20maior%202.jpg"
                 alt="colar mãe maior"

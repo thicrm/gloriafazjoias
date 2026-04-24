@@ -1,5 +1,5 @@
 import ImageWithLoading from '@/components/ImageWithLoading'
-import { allProducts } from '@/lib/products-data'
+import { storeProducts } from '@/lib/products-data'
 import { visibleColecoes, type CollectionKey } from '@/lib/colecoes-data'
 import { getProductPricing, formatPrice } from '@/lib/product-pricing'
 import Link from 'next/link'
@@ -16,12 +16,11 @@ export default async function ColecoesPage({
   const active =
     visibleColecoes.find((c) => c.key === (key as CollectionKey)) ?? visibleColecoes[0]
 
-  const productsForCollection = allProducts.filter((product) => {
-    const name = product.name.toLowerCase()
-    return active.productNameFilters.some((fragment) =>
-      name.includes(fragment.toLowerCase()),
-    )
-  })
+  const productsForCollection = active.storeProductSlugs
+    ? (active.storeProductSlugs
+        .map((slug) => storeProducts.find((p) => p.slug === slug))
+        .filter(Boolean) as typeof storeProducts)
+    : []
 
   return (
     <div className="min-h-screen px-4 pb-24">

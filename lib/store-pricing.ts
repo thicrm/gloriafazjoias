@@ -16,6 +16,7 @@ export const STORE_PRICING: Record<string, StorePriceEntry> = {
   'anel-ceu-estrelado': { priceBrl: 494 },
   'anel-domo-crescente': { priceBrl: 467 },
   'anel-domo-do-ceu-ii': { priceBrl: 1115 },
+  'anel-ofuro': { priceBrl: 980 },
   'anel-onsen-cru': { priceBrl: 827 },
   'anel-onsen-prata': { priceBrl: 881 },
   'anel-onsen-ouro': { priceBrl: 305 },

@@ -57,6 +57,14 @@ Carregue o céu estrelado em suas mãos. O anel Domo do Céu II é uma homenagem
 
 Anel com aro ajustável. Feito em prata 925 e latão com acabamentos polido e oxidado.`,
 
+  'anel-ofuro': `*Coleção Piscina*
+
+Uma gota central refletida no côncavo espelhado cria curiosidade nos olhos de quem vê o anel Ofurô. Deixe-se mergulhar dentro desta obra de arte vestível, confeccionada sob medida.
+
+Feito em prata 950.
+
+Produto sob encomenda. Ao comprar esta peça, ela será confeccionada especialmente para você. Saiba mais sobre este processo na página FAQs.`,
+
   'anel-onsen-cru': `*Coleção Piscina*
 
 O anel Onsen veio com a proposta de refletir e conter os olhares que caem nele. Esta versão especial é uma celebração do material que pausa para questionar: a prata deve, sempre, ser transformada em espelho? Ou pode, por si mesma, refletir sua natureza própria?

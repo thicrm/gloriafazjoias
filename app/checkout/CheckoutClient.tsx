@@ -525,39 +525,86 @@ export default function CheckoutClient() {
       />
 
       {pixData && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="pix-title"
-        >
-          <div className="max-h-[90vh] w-full max-w-md overflow-y-auto border border-refined-gold/40 bg-refined-ivory p-6 shadow-2xl md:p-8">
-            <h2 id="pix-title" className="font-title text-2xl text-refined-charcoal">
-              Pix
-            </h2>
-            <p className="mt-2 font-body text-sm text-refined-charcoal/80">
-              Escaneie o QR Code no app do seu banco. Aguardando confirmação…
-            </p>
-            {pixData.qr_code_base64 ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={`data:image/png;base64,${pixData.qr_code_base64}`}
-                alt="QR Code Pix"
-                className="mx-auto mt-6 max-w-[240px]"
-              />
-            ) : pixData.qr_code ? (
-              <p className="mt-4 break-all font-mono text-xs text-refined-charcoal">{pixData.qr_code}</p>
-            ) : null}
-            <button
-              type="button"
-              className="mt-8 w-full border border-refined-charcoal/30 py-3 font-body text-refined-charcoal"
-              onClick={() => setPixData(null)}
-            >
-              fechar
-            </button>
-          </div>
-        </div>
+        <PixModal
+          pixData={pixData}
+          onClose={() => setPixData(null)}
+        />
       )}
+    </div>
+  )
+}
+
+function PixModal({
+  pixData,
+  onClose,
+}: {
+  pixData: { qr_code_base64: string | null; qr_code: string | null }
+  onClose: () => void
+}) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    if (!pixData.qr_code) return
+    navigator.clipboard.writeText(pixData.qr_code).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    })
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pix-title"
+    >
+      <div className="max-h-[90vh] w-full max-w-md overflow-y-auto border border-refined-gold/40 bg-refined-ivory p-6 shadow-2xl md:p-8">
+        <h2 id="pix-title" className="font-title text-2xl text-refined-charcoal">
+          Pix
+        </h2>
+        <p className="mt-2 font-body text-sm text-refined-charcoal/80">
+          Escaneie o QR Code ou copie o código no app do seu banco. Aguardando confirmação…
+        </p>
+
+        {/* QR Code */}
+        {pixData.qr_code_base64 && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`data:image/png;base64,${pixData.qr_code_base64}`}
+            alt="QR Code Pix"
+            className="mx-auto mt-6 max-w-[220px]"
+          />
+        )}
+
+        {/* Copia e Cola */}
+        {pixData.qr_code && (
+          <div className="mt-6">
+            <p className="font-body text-xs uppercase tracking-widest text-refined-charcoal/50 mb-2">
+              Pix copia e cola
+            </p>
+            <div className="flex items-stretch gap-2">
+              <p className="flex-1 break-all rounded border border-refined-charcoal/20 bg-white px-3 py-2 font-mono text-xs text-refined-charcoal leading-relaxed select-all">
+                {pixData.qr_code}
+              </p>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="flex-shrink-0 border border-refined-gold px-4 font-body text-sm text-refined-gold hover:bg-refined-gold hover:text-refined-ivory transition-colors duration-300"
+              >
+                {copied ? 'copiado ✓' : 'copiar'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="mt-8 w-full border border-refined-charcoal/30 py-3 font-body text-refined-charcoal hover:bg-refined-charcoal/5 transition-colors duration-300"
+          onClick={onClose}
+        >
+          fechar
+        </button>
+      </div>
     </div>
   )
 }
