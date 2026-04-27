@@ -3,9 +3,11 @@
 import { Suspense, useState, useEffect } from 'react'
 import ImageWithLoading from '@/components/ImageWithLoading'
 import AddToCartButton from '@/components/AddToCartButton'
+import EncomendaModal from '@/components/EncomendaModal'
 import { useRouter, useParams } from 'next/navigation'
 import { getStoreProductBySlug } from '@/lib/products-data'
 import { getProductPricing, formatPrice } from '@/lib/product-pricing'
+import { isEncomendaSlug } from '@/lib/store-products-config'
 
 function ProductPageInner() {
   const router = useRouter()
@@ -13,6 +15,7 @@ function ProductPageInner() {
   const slug = params?.slug as string
   const product = slug ? getStoreProductBySlug(slug) : undefined
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [encomendaOpen, setEncomendaOpen] = useState(false)
 
   useEffect(() => {
     if (!product && slug) {
@@ -27,6 +30,7 @@ function ProductPageInner() {
   const hasImages = product.images && product.images.length > 0
   const selectedImage = product.images[selectedImageIndex] || product.images[0]
   const pricing = getProductPricing(product.slug)
+  const isEncomenda = isEncomendaSlug(product.slug) || !pricing?.canPayOnline
 
   const ACABAMENTO_SLUGS = new Set([
     'anel-ondas-prata',
@@ -99,14 +103,36 @@ function ProductPageInner() {
               </div>
             )}
 
-            {pricing?.canPayOnline && (
-              <AddToCartButton
-                productSlug={product.slug}
-                productName={product.name}
-                requiresRingSize={product.category === 'Anéis'}
-                requiresAcabamento={requiresAcabamento}
-                requiresFormato={requiresFormato}
-              />
+            {isEncomenda ? (
+              <>
+                <div className="pt-4 w-full">
+                  <button
+                    type="button"
+                    onClick={() => setEncomendaOpen(true)}
+                    className="block w-full text-center px-12 py-4 border border-refined-gold text-refined-gold hover:bg-refined-gold hover:text-refined-ivory hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all duration-500 ease-in-out font-body text-base md:text-lg"
+                  >
+                    encomendar
+                  </button>
+                </div>
+                <EncomendaModal
+                  open={encomendaOpen}
+                  productName={product.name}
+                  productSlug={product.slug}
+                  isRing={product.category === 'Anéis'}
+                  canPayOnline={!!(pricing?.canPayOnline)}
+                  onClose={() => setEncomendaOpen(false)}
+                />
+              </>
+            ) : (
+              pricing?.canPayOnline && (
+                <AddToCartButton
+                  productSlug={product.slug}
+                  productName={product.name}
+                  requiresRingSize={product.category === 'Anéis'}
+                  requiresAcabamento={requiresAcabamento}
+                  requiresFormato={requiresFormato}
+                />
+              )
             )}
           </div>
 

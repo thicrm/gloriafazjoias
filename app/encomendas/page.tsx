@@ -155,12 +155,13 @@ ${formData.mensagem}
 `.trim()
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/encomenda', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          type: 'personalizada',
           name: formData.name,
           email: formData.email,
           message,
