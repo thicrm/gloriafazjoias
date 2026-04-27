@@ -5,6 +5,7 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 const STORE_EMAIL = 'contato@gloriafazjoias.com'
+const STORE_EMAIL_GMAIL = 'gloriafazjoias@gmail.com'
 const STORE_NAME = 'Glória Faz Jóias'
 
 type OrderItem = {
@@ -313,7 +314,7 @@ export async function POST(request: Request) {
     }),
     resend.emails.send({
       from: `${STORE_NAME} <${STORE_EMAIL}>`,
-      to: STORE_EMAIL,
+      to: [STORE_EMAIL, STORE_EMAIL_GMAIL],
       replyTo: body.email,
       subject: `Novo pedido de ${body.fullName} — ${formatBrl(body.totalCents)}`,
       html: buildStoreHtml(body),
