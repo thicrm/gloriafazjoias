@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
@@ -15,6 +15,22 @@ import StripePaymentModal from '@/components/checkout/StripePaymentModal'
 import { formatRingSizeLabel } from '@/lib/ring-sizes'
 
 type ShippingMethod = 'motoboy' | 'correios'
+
+type ConfirmedOrder = {
+  fullName: string
+  email: string
+  phone: string
+  address: string
+  cep: string
+  shippingMethod: ShippingMethod
+  shippingCents: number
+  productsCents: number
+  totalCents: number
+  items: Array<{ productName: string; quantity: number; ringSizeBr?: string }>
+  paymentMethod: 'card' | 'pix'
+}
+
+const SESSION_KEY = 'gfj_pending_order'
 
 export default function CheckoutClient() {
   const router = useRouter()
@@ -45,6 +61,8 @@ export default function CheckoutClient() {
   } | null>(null)
 
   const [doneBanner, setDoneBanner] = useState(false)
+  const [confirmedOrder, setConfirmedOrder] = useState<ConfirmedOrder | null>(null)
+  const emailSentRef = useRef(false)
 
   const stripePromise = useMemo(() => getStripeBrowser(), [])
 
@@ -64,16 +82,26 @@ export default function CheckoutClient() {
 
   useEffect(() => {
     if (!hydrated) return
-    if (items.length === 0) {
+    if (items.length === 0 && !doneBanner) {
       router.replace('/carrinho')
     }
-  }, [hydrated, items.length, router])
+  }, [hydrated, items.length, router, doneBanner])
 
   useEffect(() => {
     const status = searchParams.get('redirect_status')
     if (status === 'succeeded') {
-      setDoneBanner(true)
       clearCart()
+      try {
+        const saved = sessionStorage.getItem(SESSION_KEY)
+        if (saved) {
+          const order = JSON.parse(saved) as ConfirmedOrder
+          setConfirmedOrder(order)
+          sessionStorage.removeItem(SESSION_KEY)
+        }
+      } catch {
+        /* ignore */
+      }
+      setDoneBanner(true)
       router.replace('/checkout?ok=1', { scroll: false })
     }
   }, [searchParams, router, clearCart])
@@ -81,8 +109,68 @@ export default function CheckoutClient() {
   useEffect(() => {
     if (searchParams.get('ok') === '1') {
       setDoneBanner(true)
+      try {
+        const saved = sessionStorage.getItem(SESSION_KEY)
+        if (saved) {
+          const order = JSON.parse(saved) as ConfirmedOrder
+          setConfirmedOrder(order)
+          sessionStorage.removeItem(SESSION_KEY)
+          sendConfirmationEmail(order)
+        }
+      } catch {
+        /* ignore */
+      }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
+
+  const buildOrderSnapshot = useCallback(
+    (paymentMethod: 'card' | 'pix'): ConfirmedOrder | null => {
+      if (shippingDisplayCents == null || totalCents == null) return null
+      return {
+        fullName: fullName.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        address: address.trim(),
+        cep: normalizedCep,
+        shippingMethod: shippingMethod!,
+        shippingCents: shippingDisplayCents,
+        productsCents,
+        totalCents,
+        items: items.map((l) => ({
+          productName: l.productName,
+          quantity: l.quantity,
+          ringSizeBr: l.ringSizeBr ?? undefined,
+        })),
+        paymentMethod,
+      }
+    },
+    [fullName, email, phone, address, normalizedCep, shippingMethod, shippingDisplayCents, productsCents, totalCents, items]
+  )
+
+  const sendConfirmationEmail = useCallback(async (order: ConfirmedOrder) => {
+    if (emailSentRef.current) return
+    emailSentRef.current = true
+    try {
+      await fetch('/api/order-confirmation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order),
+      })
+    } catch {
+      /* non-critical — don't surface to user */
+    }
+  }, [])
+
+  const completeOrder = useCallback(
+    (order: ConfirmedOrder) => {
+      clearCart()
+      setConfirmedOrder(order)
+      setDoneBanner(true)
+      sendConfirmationEmail(order)
+    },
+    [clearCart, sendConfirmationEmail]
+  )
 
   const fetchCorreios = useCallback(async () => {
     if (normalizedCep.length !== 8) {
@@ -200,6 +288,11 @@ export default function CheckoutClient() {
         setPayLoading(false)
         return
       }
+      // Save order snapshot so we can restore it after a possible Stripe redirect
+      const snapshot = buildOrderSnapshot('card')
+      if (snapshot) {
+        try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(snapshot)) } catch { /* ignore */ }
+      }
       setClientSecret(data.clientSecret)
       setStripeOpen(true)
     } catch {
@@ -257,8 +350,13 @@ export default function CheckoutClient() {
         if (d.status === 'approved') {
           clearInterval(timer)
           setPixData(null)
-          clearCart()
-          setDoneBanner(true)
+          const snapshot = buildOrderSnapshot('pix')
+          if (snapshot) {
+            completeOrder(snapshot)
+          } else {
+            clearCart()
+            setDoneBanner(true)
+          }
         }
         if (d.status === 'rejected' || d.status === 'cancelled') {
           clearInterval(timer)
@@ -270,7 +368,7 @@ export default function CheckoutClient() {
       }
     }, 3500)
     return () => clearInterval(timer)
-  }, [pixData, clearCart])
+  }, [pixData, clearCart, buildOrderSnapshot, completeOrder])
 
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const stripeReturnUrl = `${origin}/checkout`
@@ -281,6 +379,10 @@ export default function CheckoutClient() {
         Carregando…
       </div>
     )
+  }
+
+  if (confirmedOrder) {
+    return <OrderConfirmation order={confirmedOrder} />
   }
 
   return (
@@ -295,7 +397,7 @@ export default function CheckoutClient() {
           </p>
         </header>
 
-        {doneBanner && (
+        {doneBanner && !confirmedOrder && (
           <div
             className="mt-8 rounded border border-refined-gold/60 bg-refined-gold/10 px-4 py-3 text-center font-body text-refined-charcoal"
             role="status"
@@ -519,8 +621,13 @@ export default function CheckoutClient() {
         onClose={closeStripe}
         onPaid={() => {
           closeStripe()
-          clearCart()
-          setDoneBanner(true)
+          const snapshot = buildOrderSnapshot('card')
+          if (snapshot) {
+            completeOrder(snapshot)
+          } else {
+            clearCart()
+            setDoneBanner(true)
+          }
         }}
       />
 
@@ -530,6 +637,110 @@ export default function CheckoutClient() {
           onClose={() => setPixData(null)}
         />
       )}
+    </div>
+  )
+}
+
+function OrderConfirmation({ order }: { order: ConfirmedOrder }) {
+  const shippingLabel = order.shippingMethod === 'motoboy'
+    ? 'Motoboy (entrega privativa)'
+    : 'Correios (PAC)'
+
+  const paymentLabel = order.paymentMethod === 'card'
+    ? 'Cartão de crédito/débito'
+    : 'Pix'
+
+  return (
+    <div className="min-h-screen px-4 py-12 md:py-16">
+      <div className="mx-auto max-w-2xl">
+
+        {/* Success header */}
+        <div className="text-center">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-refined-gold bg-refined-gold/10">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-10 w-10 text-refined-gold"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <h1 className="font-title text-3xl text-refined-gold md:text-4xl drop-shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+            Pedido confirmado!
+          </h1>
+          <p className="mx-auto mt-3 max-w-md font-body text-refined-charcoal/80">
+            Seu pagamento foi recebido. Um e-mail de confirmação foi enviado para{' '}
+            <strong>{order.email}</strong>.
+          </p>
+        </div>
+
+        {/* Order summary */}
+        <section className="mt-10 border border-refined-gold/35 bg-refined-ivory/70 p-6">
+          <h2 className="font-title text-xl text-refined-charcoal">Resumo do pedido</h2>
+          <ul className="mt-4 space-y-2 font-body text-sm text-refined-charcoal/90">
+            {order.items.map((item, idx) => (
+              <li key={idx} className="flex justify-between gap-4 border-b border-refined-gold/15 pb-2 last:border-0 last:pb-0">
+                <span>
+                  {item.productName}
+                  {item.ringSizeBr ? ` — aro ${item.ringSizeBr}` : ''}
+                </span>
+                <span className="shrink-0 text-refined-charcoal/60">×{item.quantity}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 space-y-1 border-t border-refined-gold/25 pt-4 font-body text-sm text-refined-charcoal/80">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>{formatBrlFromCents(order.productsCents)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Frete ({shippingLabel})</span>
+              <span>{formatBrlFromCents(order.shippingCents)}</span>
+            </div>
+            <div className="flex justify-between border-t border-refined-gold/25 pt-2 font-title text-lg text-refined-charcoal">
+              <span>Total</span>
+              <strong className="text-refined-gold">{formatBrlFromCents(order.totalCents)}</strong>
+            </div>
+          </div>
+        </section>
+
+        {/* Delivery details */}
+        <section className="mt-6 border border-refined-gold/25 bg-refined-ivory/50 p-6">
+          <h2 className="font-title text-xl text-refined-charcoal">Dados de entrega</h2>
+          <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 font-body text-sm">
+            <dt className="text-refined-charcoal/55">Nome</dt>
+            <dd className="text-refined-charcoal">{order.fullName}</dd>
+            <dt className="text-refined-charcoal/55">E-mail</dt>
+            <dd className="text-refined-charcoal">{order.email}</dd>
+            <dt className="text-refined-charcoal/55">Telefone</dt>
+            <dd className="text-refined-charcoal">{order.phone}</dd>
+            <dt className="text-refined-charcoal/55">Endereço</dt>
+            <dd className="text-refined-charcoal">{order.address}</dd>
+            <dt className="text-refined-charcoal/55">CEP</dt>
+            <dd className="text-refined-charcoal">{order.cep}</dd>
+            <dt className="text-refined-charcoal/55">Pagamento</dt>
+            <dd className="text-refined-charcoal">{paymentLabel}</dd>
+          </dl>
+        </section>
+
+        <p className="mt-4 font-body text-sm text-refined-charcoal/60 text-center">
+          Em breve entraremos em contato para combinar os próximos passos. Obrigada! 💛
+        </p>
+
+        <div className="mt-8 text-center">
+          <Link
+            href="/"
+            className="inline-block border border-refined-gold bg-refined-gold px-8 py-4 font-body text-refined-ivory transition-all hover:shadow-[0_0_25px_rgba(212,175,55,0.5)]"
+          >
+            Voltar à loja
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
