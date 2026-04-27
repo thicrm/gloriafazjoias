@@ -337,11 +337,26 @@ export async function POST(request: Request) {
     }),
   ])
 
-  if (clientResult.status === 'rejected') {
-    console.error('[order-confirmation] Erro ao enviar e-mail para cliente:', clientResult.reason)
+  if (clientResult.status === 'fulfilled') {
+    const r = clientResult.value
+    if (r.error) {
+      console.error('[order-confirmation] Resend recusou e-mail para cliente:', JSON.stringify(r.error))
+    } else {
+      console.log('[order-confirmation] E-mail para cliente enviado. id:', r.data?.id)
+    }
+  } else {
+    console.error('[order-confirmation] Falha ao enviar e-mail para cliente:', clientResult.reason)
   }
-  if (storeResult.status === 'rejected') {
-    console.error('[order-confirmation] Erro ao enviar e-mail para loja:', storeResult.reason)
+
+  if (storeResult.status === 'fulfilled') {
+    const r = storeResult.value
+    if (r.error) {
+      console.error('[order-confirmation] Resend recusou e-mail para loja:', JSON.stringify(r.error))
+    } else {
+      console.log('[order-confirmation] E-mail para loja enviado. id:', r.data?.id)
+    }
+  } else {
+    console.error('[order-confirmation] Falha ao enviar e-mail para loja:', storeResult.reason)
   }
 
   return NextResponse.json({ ok: true })

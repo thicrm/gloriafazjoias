@@ -95,33 +95,26 @@ export default function CheckoutClient() {
         const saved = sessionStorage.getItem(SESSION_KEY)
         if (saved) {
           const order = JSON.parse(saved) as ConfirmedOrder
-          setConfirmedOrder(order)
           sessionStorage.removeItem(SESSION_KEY)
+          setConfirmedOrder(order)
+          setDoneBanner(true)
+          sendConfirmationEmail(order)
+        } else {
+          setDoneBanner(true)
         }
       } catch {
-        /* ignore */
+        setDoneBanner(true)
       }
-      setDoneBanner(true)
       router.replace('/checkout?ok=1', { scroll: false })
     }
+  // sendConfirmationEmail is stable (useCallback with [] deps)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, router, clearCart])
 
   useEffect(() => {
     if (searchParams.get('ok') === '1') {
       setDoneBanner(true)
-      try {
-        const saved = sessionStorage.getItem(SESSION_KEY)
-        if (saved) {
-          const order = JSON.parse(saved) as ConfirmedOrder
-          setConfirmedOrder(order)
-          sessionStorage.removeItem(SESSION_KEY)
-          sendConfirmationEmail(order)
-        }
-      } catch {
-        /* ignore */
-      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const buildOrderSnapshot = useCallback(

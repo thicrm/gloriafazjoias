@@ -43,7 +43,7 @@ export const STORE_PRODUCTS: StoreProductEntry[] = [
   { displayName: 'Anel Céu Estrelado', dbSlug: 'anel-ceu-estrelado', category: 'Anéis', material: 'Prata 925 e Latão' },
 
   // ── Domo do Céu ──────────────────────────────────────────────────────────
-  { displayName: 'Anel Domo Crescente', dbSlug: 'anel-domo-do-ceu-crescente', category: 'Anéis', material: 'Prata 925 e Latão' },
+  { displayName: 'Anel Domo Crescente', dbSlug: 'anel-domo-crescente', category: 'Anéis', material: 'Prata 925 e Latão' },
   { displayName: 'Anel Domo do Céu I', dbSlug: 'anel-domo-do-ceu-i', category: 'Anéis', material: 'Prata 925 e Latão' },
   { displayName: 'Anel Domo do Céu II', dbSlug: 'anel-domo-do-ceu-ii', category: 'Anéis', material: 'Prata 925 e Latão' },
 
