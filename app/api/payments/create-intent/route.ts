@@ -4,6 +4,10 @@ import {
   validateAndComputeOrderTotals,
   type CheckoutCustomer,
 } from '@/lib/checkout/order-totals'
+import {
+  buildEmailLinesFromItems,
+  encodeSnapshotToMetadata,
+} from '@/lib/orders/payment-order-snapshot'
 import { getStripe, isStripeConfigured } from '@/lib/stripe/server'
 
 export const runtime = 'nodejs'
@@ -75,6 +79,22 @@ export async function POST(request: Request) {
   const metaCustomer = trimCustomer(customer)
   const description = `Glória Faz Jóias — ${label}`.slice(0, 500)
 
+  const emailLines = buildEmailLinesFromItems(itemArr)
+  if (!emailLines) {
+    return NextResponse.json(
+      { error: 'Itens do carrinho inválidos para confirmação por e-mail.' },
+      { status: 400 }
+    )
+  }
+  const snapshot = { v: 1 as const, lines: emailLines }
+  const encodedSnap = encodeSnapshotToMetadata(snapshot)
+  if (!encodedSnap) {
+    return NextResponse.json(
+      { error: 'Pedido excede o limite de metadados. Reduza itens ou contate a loja.' },
+      { status: 400 }
+    )
+  }
+
   const idempotencyKey = request.headers.get('idempotency-key') ?? undefined
 
   try {
@@ -95,6 +115,7 @@ export async function POST(request: Request) {
           ...(totals.storeSlugSample
             ? { store_slug: totals.storeSlugSample.slice(0, 80) }
             : {}),
+          ...encodedSnap,
         },
         receipt_email: customer.email,
       },

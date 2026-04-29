@@ -29,6 +29,7 @@ export default function EncomendaModal({
   const [ringSize, setRingSize] = useState('18')
   const [submitting, setSubmitting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [successMode, setSuccessMode] = useState<'email' | 'cart'>('email')
 
   if (!open) return null
 
@@ -56,6 +57,7 @@ export default function EncomendaModal({
     setSubmitting(true)
     try {
       await sendEmail(false)
+      setSuccessMode('email')
       setStatus('success')
     } catch {
       setStatus('error')
@@ -69,6 +71,7 @@ export default function EncomendaModal({
     setSubmitting(true)
     try {
       await sendEmail(true)
+      setSuccessMode('cart')
       addItem({
         sku: productSlug,
         productName,
@@ -127,10 +130,17 @@ export default function EncomendaModal({
         {status === 'success' ? (
           <div className="py-6 text-center space-y-4">
             <p className="font-title text-xl text-refined-gold">Encomenda enviada! ✓</p>
-            <p className="font-body text-sm text-refined-charcoal/80">
-              Você receberá um e-mail de confirmação em <strong>{email}</strong>.
-              Entraremos em contato em breve.
-            </p>
+            {successMode === 'email' ? (
+              <p className="font-body text-sm text-refined-charcoal/80">
+                Você receberá um e-mail de confirmação em <strong>{email}</strong>.
+                Entraremos em contato em breve.
+              </p>
+            ) : (
+              <p className="font-body text-sm text-refined-charcoal/80">
+                O produto foi adicionado ao carrinho. Ao finalizar a compra e após o{' '}
+                <strong>pagamento aprovado</strong>, você receberá a confirmação por e-mail.
+              </p>
+            )}
             <button
               type="button"
               onClick={onClose}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
@@ -62,7 +62,6 @@ export default function CheckoutClient() {
 
   const [doneBanner, setDoneBanner] = useState(false)
   const [confirmedOrder, setConfirmedOrder] = useState<ConfirmedOrder | null>(null)
-  const emailSentRef = useRef(false)
 
   const stripePromise = useMemo(() => getStripeBrowser(), [])
 
@@ -98,7 +97,6 @@ export default function CheckoutClient() {
           sessionStorage.removeItem(SESSION_KEY)
           setConfirmedOrder(order)
           setDoneBanner(true)
-          sendConfirmationEmail(order)
         } else {
           setDoneBanner(true)
         }
@@ -107,7 +105,6 @@ export default function CheckoutClient() {
       }
       router.replace('/checkout?ok=1', { scroll: false })
     }
-  // sendConfirmationEmail is stable (useCallback with [] deps)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, router, clearCart])
 
@@ -141,28 +138,13 @@ export default function CheckoutClient() {
     [fullName, email, phone, address, normalizedCep, shippingMethod, shippingDisplayCents, productsCents, totalCents, items]
   )
 
-  const sendConfirmationEmail = useCallback(async (order: ConfirmedOrder) => {
-    if (emailSentRef.current) return
-    emailSentRef.current = true
-    try {
-      await fetch('/api/order-confirmation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(order),
-      })
-    } catch {
-      /* non-critical — don't surface to user */
-    }
-  }, [])
-
   const completeOrder = useCallback(
     (order: ConfirmedOrder) => {
       clearCart()
       setConfirmedOrder(order)
       setDoneBanner(true)
-      sendConfirmationEmail(order)
     },
-    [clearCart, sendConfirmationEmail]
+    [clearCart]
   )
 
   const fetchCorreios = useCallback(async () => {
@@ -219,6 +201,7 @@ export default function CheckoutClient() {
       items.map((l) => ({
         sku: l.sku,
         quantity: l.quantity,
+        productName: l.productName,
         ...(l.ringSizeBr ? { ringSize: l.ringSizeBr } : {}),
       })),
     [items]

@@ -176,6 +176,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Nome e e-mail são obrigatórios.' }, { status: 400 })
   }
 
+  /** Product-page flow: "add to cart & pay later" — e-mail only after checkout payment (webhook). */
+  if (body.type === 'produto' && body.wantsToPay === true) {
+    return NextResponse.json({ ok: true, emailDeferredUntilPayment: true })
+  }
+
   const apiKey = process.env.RESEND_API_KEY?.trim()
   if (!apiKey || apiKey === 're_...') {
     console.warn('[encomenda] RESEND_API_KEY não configurado')

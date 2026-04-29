@@ -5,6 +5,10 @@ import {
   validateAndComputeOrderTotals,
   type CheckoutCustomer,
 } from '@/lib/checkout/order-totals'
+import {
+  buildEmailLinesFromItems,
+  encodeSnapshotToMetadata,
+} from '@/lib/orders/payment-order-snapshot'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -75,6 +79,22 @@ export async function POST(request: Request) {
   const firstName = (parts[0] ?? 'Cliente').slice(0, 50)
   const lastName = (parts.slice(1).join(' ') || firstName).slice(0, 50)
 
+  const emailLines = buildEmailLinesFromItems(itemArr)
+  if (!emailLines) {
+    return NextResponse.json(
+      { error: 'Itens do carrinho inválidos para confirmação por e-mail.' },
+      { status: 400 }
+    )
+  }
+  const snapshot = { v: 1 as const, lines: emailLines }
+  const encodedSnap = encodeSnapshotToMetadata(snapshot)
+  if (!encodedSnap) {
+    return NextResponse.json(
+      { error: 'Pedido excede o limite de metadados. Reduza itens ou contate a loja.' },
+      { status: 400 }
+    )
+  }
+
   const meta = trimCustomer(customer)
   const metadata: Record<string, string> = {
     source: 'gloria-faz-joias',
@@ -83,6 +103,7 @@ export async function POST(request: Request) {
     products_cents: String(totals.productsCents),
     shipping_cents: String(totals.shippingCents),
     ...meta,
+    ...encodedSnap,
   }
 
   const client = new MercadoPagoConfig({ accessToken: token })
@@ -114,6 +135,9 @@ export async function POST(request: Request) {
       qr_code: pix?.qr_code ?? null,
       qr_code_base64: pix?.qr_code_base64 ?? null,
       ticket_url: pix?.ticket_url ?? null,
+      amountBrlCents: totals.amountBrlCents,
+      productsCents: totals.productsCents,
+      shippingCents: totals.shippingCents,
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Mercado Pago error'

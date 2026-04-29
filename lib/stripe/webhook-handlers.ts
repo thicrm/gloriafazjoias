@@ -1,18 +1,17 @@
 import type Stripe from 'stripe'
 
+import { notifyCartPaidFromStripePaymentIntent } from '@/lib/payments/cart-paid-notify'
+
 /**
  * Called after signature verification for payment_intent.succeeded.
- * Extend this to update orders, send email, adjust stock, etc.
  */
 export async function handlePaymentIntentSucceeded(
   paymentIntent: Stripe.PaymentIntent
 ): Promise<void> {
-  const metaKeys = paymentIntent.metadata ? Object.keys(paymentIntent.metadata) : []
-  console.info('[stripe webhook] payment_intent.succeeded', {
+  await notifyCartPaidFromStripePaymentIntent(paymentIntent)
+  console.info('[stripe webhook] payment_intent.succeeded processed', {
     id: paymentIntent.id,
     amount: paymentIntent.amount,
-    currency: paymentIntent.currency,
-    metadataKeys: metaKeys,
   })
 }
 
