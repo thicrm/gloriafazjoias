@@ -7,11 +7,12 @@ import type Stripe from 'stripe'
 export async function handlePaymentIntentSucceeded(
   paymentIntent: Stripe.PaymentIntent
 ): Promise<void> {
+  const metaKeys = paymentIntent.metadata ? Object.keys(paymentIntent.metadata) : []
   console.info('[stripe webhook] payment_intent.succeeded', {
     id: paymentIntent.id,
     amount: paymentIntent.amount,
     currency: paymentIntent.currency,
-    metadata: paymentIntent.metadata,
+    metadataKeys: metaKeys,
   })
 }
 
