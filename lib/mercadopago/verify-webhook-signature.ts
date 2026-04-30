@@ -42,7 +42,7 @@ function tsToMs(ts: string): number {
  */
 export function verifyMercadoPagoWebhookSignature(input: MercadoPagoWebhookVerifyInput): boolean {
   const parsed = input.xSignature ? parseXSignature(input.xSignature) : null
-  if (!parsed || !input.xRequestId?.trim()) return false
+  if (!parsed) return false
 
   const tsMs = tsToMs(parsed.ts)
   if (!Number.isFinite(tsMs)) return false
@@ -61,16 +61,30 @@ export function verifyMercadoPagoWebhookSignature(input: MercadoPagoWebhookVerif
   }
   if (!dataId) return false
 
-  const manifest = `id:${dataId.toLowerCase()};request-id:${input.xRequestId.trim()};ts:${parsed.ts};`
-  const expectedHex = crypto.createHmac('sha256', input.webhookSecret).update(manifest).digest('hex')
+  /**
+   * MP docs: if a template value is not present in the notification, omit that segment from the manifest.
+   * When `x-request-id` is present we try that manifest first, then without `request-id` (some proxies alter headers).
+   * @see https://www.mercadopago.com.br/developers/en/docs/your-integrations/notifications/webhooks
+   */
+  const reqId = input.xRequestId?.trim() ?? ''
+  const idPart = `id:${dataId.toLowerCase()};`
+  const tsPart = `ts:${parsed.ts};`
+  const manifests = reqId
+    ? [`${idPart}request-id:${reqId};${tsPart}`, `${idPart}${tsPart}`]
+    : [`${idPart}${tsPart}`]
+
   const received = parsed.v1.trim().toLowerCase()
 
-  try {
-    const a = Buffer.from(expectedHex, 'hex')
-    const b = Buffer.from(received, 'hex')
-    if (a.length !== b.length || a.length === 0) return false
-    return crypto.timingSafeEqual(a, b)
-  } catch {
-    return false
+  for (const manifest of manifests) {
+    const expectedHex = crypto.createHmac('sha256', input.webhookSecret).update(manifest).digest('hex')
+    try {
+      const a = Buffer.from(expectedHex, 'hex')
+      const b = Buffer.from(received, 'hex')
+      if (a.length !== b.length || a.length === 0) continue
+      if (crypto.timingSafeEqual(a, b)) return true
+    } catch {
+      /* try next */
+    }
   }
+  return false
 }

@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     switch (event.type) {
       case 'payment_intent.succeeded': {
         const pi = event.data.object
-        await handlePaymentIntentSucceeded(pi)
+        await handlePaymentIntentSucceeded(stripe, pi)
         break
       }
       case 'payment_intent.payment_failed': {

@@ -4,14 +4,26 @@ import { notifyCartPaidFromStripePaymentIntent } from '@/lib/payments/cart-paid-
 
 /**
  * Called after signature verification for payment_intent.succeeded.
+ * Re-fetch the PaymentIntent so metadata (gfj_ord chunks, cart fields) matches the API object.
  */
 export async function handlePaymentIntentSucceeded(
+  stripe: Stripe,
   paymentIntent: Stripe.PaymentIntent
 ): Promise<void> {
-  await notifyCartPaidFromStripePaymentIntent(paymentIntent)
+  let pi = paymentIntent
+  try {
+    pi = await stripe.paymentIntents.retrieve(paymentIntent.id)
+  } catch (e) {
+    console.error('[stripe webhook] paymentIntents.retrieve failed, using event payload', {
+      id: paymentIntent.id,
+      err: e,
+    })
+  }
+
+  await notifyCartPaidFromStripePaymentIntent(pi)
   console.info('[stripe webhook] payment_intent.succeeded processed', {
-    id: paymentIntent.id,
-    amount: paymentIntent.amount,
+    id: pi.id,
+    amount: pi.amount,
   })
 }
 

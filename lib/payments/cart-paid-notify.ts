@@ -17,11 +17,23 @@ function payloadFromMetadataRecord(
   paymentMethod: 'card' | 'pix',
   orderId: string
 ): OrderConfirmationPayload | null {
-  if (meta.order_type !== 'cart' || meta.source !== 'gloria-faz-joias') return null
+  if (meta.order_type !== 'cart' || meta.source !== 'gloria-faz-joias') {
+    console.warn('[cart-paid-email] skip: order_type/source mismatch', {
+      order_type: meta.order_type,
+      source: meta.source,
+    })
+    return null
+  }
 
   const productsCents = parseInt(meta.products_cents ?? '', 10)
   const shippingCents = parseInt(meta.shipping_cents ?? '', 10)
-  if (!Number.isFinite(productsCents) || !Number.isFinite(shippingCents)) return null
+  if (!Number.isFinite(productsCents) || !Number.isFinite(shippingCents)) {
+    console.warn('[cart-paid-email] skip: invalid products_cents/shipping_cents', {
+      products_cents: meta.products_cents,
+      shipping_cents: meta.shipping_cents,
+    })
+    return null
+  }
 
   const shippingMethod = meta.shipping_method === 'correios' ? 'correios' : 'motoboy'
   const fullName = (meta.customer_name ?? '').trim()
@@ -30,7 +42,14 @@ function payloadFromMetadataRecord(
   const address = (meta.customer_address ?? '').trim()
   const cep = (meta.customer_cep ?? '').replace(/\D/g, '').slice(0, 8)
 
-  if (!fullName || !email.includes('@') || !snap.lines.length) return null
+  if (!fullName || !email.includes('@') || !snap.lines.length) {
+    console.warn('[cart-paid-email] skip: customer or empty lines', {
+      hasName: Boolean(fullName),
+      hasEmail: email.includes('@'),
+      lineCount: snap.lines.length,
+    })
+    return null
+  }
 
   const totalCents = productsCents + shippingCents
 
@@ -66,7 +85,10 @@ export async function notifyCartPaidFromStripePaymentIntent(
 
   const productsCents = parseInt(meta.products_cents ?? '', 10)
   const shippingCents = parseInt(meta.shipping_cents ?? '', 10)
-  if (!Number.isFinite(productsCents) || !Number.isFinite(shippingCents)) return
+  if (!Number.isFinite(productsCents) || !Number.isFinite(shippingCents)) {
+    console.warn('[cart-paid-email] Stripe: invalid cents metadata', { productsCents, shippingCents })
+    return
+  }
   if (pi.amount !== productsCents + shippingCents) {
     console.error('[cart-paid-email] Stripe: amount mismatch, skip e-mail', {
       id: pi.id,
@@ -99,11 +121,18 @@ export async function notifyCartPaidFromMercadoPagoPayment(payment: {
 
   const productsCents = parseInt(meta.products_cents ?? '', 10)
   const shippingCents = parseInt(meta.shipping_cents ?? '', 10)
-  if (!Number.isFinite(productsCents) || !Number.isFinite(shippingCents)) return
+  if (!Number.isFinite(productsCents) || !Number.isFinite(shippingCents)) {
+    console.warn('[cart-paid-email] MP: invalid cents metadata', { productsCents, shippingCents })
+    return
+  }
 
   const expectedTotal = productsCents + shippingCents
-  const tx = payment.transaction_amount
-  if (typeof tx !== 'number' || !Number.isFinite(tx)) return
+  const txRaw = payment.transaction_amount
+  const tx = typeof txRaw === 'number' && Number.isFinite(txRaw) ? txRaw : Number(txRaw)
+  if (!Number.isFinite(tx)) {
+    console.warn('[cart-paid-email] MP: invalid transaction_amount', { transaction_amount: txRaw })
+    return
+  }
   const paidCents = Math.round(tx * 100)
   if (paidCents !== expectedTotal) {
     console.error('[cart-paid-email] MP: amount mismatch, skip e-mail', {
