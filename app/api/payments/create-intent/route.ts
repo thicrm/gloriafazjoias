@@ -8,7 +8,11 @@ import {
   buildEmailLinesFromItems,
   encodeSnapshotToMetadata,
 } from '@/lib/orders/payment-order-snapshot'
-import { getStripe, isStripeConfigured } from '@/lib/stripe/server'
+import {
+  getStripe,
+  isStripeAuthenticationFailure,
+  isStripeConfigured,
+} from '@/lib/stripe/server'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -136,6 +140,18 @@ export async function POST(request: Request) {
       currency: totals.currency,
     })
   } catch (err) {
+    if (isStripeAuthenticationFailure(err)) {
+      console.error(
+        '[create-intent] Stripe rejected the secret key — check Vercel STRIPE_SECRET_KEY (sk_/rk_, test vs live, no quotes, redeploy after changing env).'
+      )
+      return NextResponse.json(
+        {
+          error:
+            'Pagamento indisponível no momento. Se você é o administrador, verifique a chave Stripe no painel de hospedagem.',
+        },
+        { status: 503 }
+      )
+    }
     const message = err instanceof Error ? err.message : 'Stripe error'
     return NextResponse.json({ error: message }, { status: 400 })
   }
