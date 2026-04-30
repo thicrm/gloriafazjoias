@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 function SerraAnimation() {
   const [isHovered, setIsHovered] = useState(false)
@@ -482,9 +483,27 @@ ${formData.mensagem}
             </button>
 
             {submitStatus === 'success' && (
-              <p className="font-body text-base md:text-lg text-green-600 text-center">
-                Mensagem enviada com sucesso!
-              </p>
+              <div className="rounded border border-refined-gold/40 bg-refined-ivory/90 px-4 py-5 space-y-4 text-center">
+                <p className="font-body text-base md:text-lg text-green-700">Mensagem enviada com sucesso!</p>
+                <p className="font-body text-sm md:text-base text-black/80">
+                  Para comprar peças à pronta entrega ou por encomenda na loja, adicione ao carrinho e{' '}
+                  <strong>conclua o pagamento</strong> no checkout.
+                </p>
+                <div className="flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-3">
+                  <Link
+                    href="/checkout"
+                    className="inline-flex justify-center border border-refined-gold bg-refined-gold px-6 py-3 font-body text-refined-ivory transition-all hover:shadow-[0_0_25px_rgba(212,175,55,0.5)]"
+                  >
+                    concluir pagamento
+                  </Link>
+                  <Link
+                    href="/products"
+                    className="inline-flex justify-center border border-black/25 px-6 py-3 font-body text-black hover:bg-black/5 transition-colors"
+                  >
+                    ver joias
+                  </Link>
+                </div>
+              </div>
             )}
 
             {submitStatus === 'error' && (

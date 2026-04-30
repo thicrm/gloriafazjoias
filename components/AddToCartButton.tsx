@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import RingSizePickerModal from '@/components/RingSizePickerModal'
 import AcabamentoPickerModal from '@/components/AcabamentoPickerModal'
@@ -31,11 +31,18 @@ export default function AddToCartButton({
   const [ringModalOpen, setRingModalOpen] = useState(false)
   const [selectedRingSize, setSelectedRingSize] = useState('18')
   const [addedPulse, setAddedPulse] = useState(false)
+  const [showPayCta, setShowPayCta] = useState(false)
 
   const pulse = useCallback(() => {
     setAddedPulse(true)
     window.setTimeout(() => setAddedPulse(false), 1200)
   }, [])
+
+  useEffect(() => {
+    if (!showPayCta) return
+    const t = window.setTimeout(() => setShowPayCta(false), 25_000)
+    return () => window.clearTimeout(t)
+  }, [showPayCta])
 
   const pushLine = useCallback(
     (ringSizeBr: string | null, acabamento: Acabamento | null, formato: Formato | null) => {
@@ -48,6 +55,7 @@ export default function AddToCartButton({
         formato,
       })
       pulse()
+      setShowPayCta(true)
     },
     [addItem, productSlug, productName, pulse]
   )
@@ -107,6 +115,28 @@ export default function AddToCartButton({
         >
           ver carrinho
         </Link>
+
+        {showPayCta ? (
+          <div className="rounded border border-refined-gold/45 bg-refined-gold/10 px-4 py-4 text-center space-y-3">
+            <p className="font-body text-sm text-refined-charcoal leading-relaxed">
+              Item adicionado. Para pagar com cartão ou Pix, conclua o pagamento no checkout.
+            </p>
+            <div className="flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-3">
+              <Link
+                href="/checkout"
+                className="inline-flex justify-center border border-refined-gold bg-refined-gold px-6 py-3 font-body text-sm text-refined-ivory transition-all hover:shadow-[0_0_20px_rgba(212,175,55,0.45)]"
+              >
+                concluir pagamento
+              </Link>
+              <Link
+                href="/carrinho"
+                className="inline-flex justify-center border border-refined-charcoal/35 px-6 py-3 font-body text-sm text-refined-charcoal hover:bg-refined-charcoal/5 transition-colors"
+              >
+                revisar carrinho
+              </Link>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <FormatoPickerModal

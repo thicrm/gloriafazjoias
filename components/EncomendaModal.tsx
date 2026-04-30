@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
 import { getRingSizeOptions, formatRingSizeLabel } from '@/lib/ring-sizes'
 
@@ -131,20 +132,55 @@ export default function EncomendaModal({
           <div className="py-6 text-center space-y-4">
             <p className="font-title text-xl text-refined-gold">Encomenda enviada! ✓</p>
             {successMode === 'email' ? (
-              <p className="font-body text-sm text-refined-charcoal/80">
-                Você receberá um e-mail de confirmação em <strong>{email}</strong>.
-                Entraremos em contato em breve.
-              </p>
+              <>
+                <p className="font-body text-sm text-refined-charcoal/80">
+                  Você receberá um e-mail de confirmação em <strong>{email}</strong>.
+                  Entraremos em contato em breve.
+                </p>
+                <p className="font-body text-sm text-refined-charcoal/75">
+                  Para compras na loja online, conclua o pagamento no checkout (cartão ou Pix).
+                </p>
+                <div className="flex flex-col gap-2 pt-2">
+                  <Link
+                    href="/checkout"
+                    className="w-full border border-refined-gold bg-refined-gold px-6 py-3 font-body text-refined-ivory transition-all hover:shadow-[0_0_25px_rgba(212,175,55,0.5)]"
+                  >
+                    concluir pagamento
+                  </Link>
+                  <Link
+                    href="/products"
+                    className="w-full border border-refined-charcoal/35 py-3 font-body text-refined-charcoal hover:bg-refined-charcoal/5 transition-colors"
+                  >
+                    ver joias
+                  </Link>
+                </div>
+              </>
             ) : (
-              <p className="font-body text-sm text-refined-charcoal/80">
-                O produto foi adicionado ao carrinho. Ao finalizar a compra e após o{' '}
-                <strong>pagamento aprovado</strong>, você receberá a confirmação por e-mail.
-              </p>
+              <>
+                <p className="font-body text-sm text-refined-charcoal/80">
+                  O produto foi adicionado ao carrinho. Após o <strong>pagamento aprovado</strong>, você
+                  receberá a confirmação por e-mail.
+                </p>
+                <div className="flex flex-col gap-2 pt-2">
+                  <Link
+                    href="/checkout"
+                    className="w-full border border-refined-gold bg-refined-gold px-6 py-3 font-body text-refined-ivory transition-all hover:shadow-[0_0_25px_rgba(212,175,55,0.5)]"
+                  >
+                    concluir pagamento
+                  </Link>
+                  <Link
+                    href="/carrinho"
+                    className="w-full border border-refined-charcoal/35 py-3 font-body text-refined-charcoal hover:bg-refined-charcoal/5 transition-colors"
+                  >
+                    ver carrinho
+                  </Link>
+                </div>
+              </>
             )}
             <button
               type="button"
               onClick={onClose}
-              className="mt-4 w-full border border-refined-charcoal/30 py-3 font-body text-refined-charcoal hover:bg-refined-charcoal/5 transition-colors"
+              className="mt-2 w-full border border-refined-charcoal/30 py-3 font-body text-refined-charcoal hover:bg-refined-charcoal/5 transition-colors"
             >
               fechar
             </button>
