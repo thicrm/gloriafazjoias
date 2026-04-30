@@ -30,6 +30,15 @@ export type OrderConfirmationPayload = {
   items: OrderConfirmationItem[]
   paymentMethod: 'card' | 'pix'
   orderId?: string
+  /**
+   * Omitido ou `succeeded` = pagamento aprovado.
+   * `failed` = tentativa finalizada sem aprovação (cartão recusado, Pix recusado/cancelado).
+   */
+  paymentOutcome?: 'succeeded' | 'failed'
+}
+
+function paymentSucceeded(order: OrderConfirmationPayload): boolean {
+  return order.paymentOutcome !== 'failed'
 }
 
 function formatBrl(cents: number) {
@@ -61,6 +70,24 @@ function itemsHtml(items: OrderConfirmationItem[]) {
 }
 
 function buildClientHtml(order: OrderConfirmationPayload) {
+  const ok = paymentSucceeded(order)
+  const lead = ok
+    ? `<h2 style="margin:0 0 8px;font-family:Georgia,serif;font-size:20px;color:#1a1a1a;">
+              Pedido confirmado ✓
+            </h2>
+            <p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:14px;color:#555;">
+              Olá, <strong>${order.fullName}</strong>! Recebemos seu pedido com sucesso.
+              Em breve entraremos em contato para combinar os próximos passos.
+            </p>`
+    : `<h2 style="margin:0 0 8px;font-family:Georgia,serif;font-size:20px;color:#1a1a1a;">
+              Pagamento não aprovado
+            </h2>
+            <p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:14px;color:#555;">
+              Olá, <strong>${order.fullName}</strong>. O pagamento deste pedido <strong>não foi concluído</strong>
+              (${paymentLabel(order.paymentMethod)}). Os detalhes do carrinho seguem abaixo para referência.
+              Se quiser tentar de novo, volte ao checkout.
+            </p>`
+
   return `
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -80,13 +107,7 @@ function buildClientHtml(order: OrderConfirmationPayload) {
 
         <tr>
           <td style="padding:36px 32px;">
-            <h2 style="margin:0 0 8px;font-family:Georgia,serif;font-size:20px;color:#1a1a1a;">
-              Pedido confirmado ✓
-            </h2>
-            <p style="margin:0 0 24px;font-family:Arial,sans-serif;font-size:14px;color:#555;">
-              Olá, <strong>${order.fullName}</strong>! Recebemos seu pedido com sucesso.
-              Em breve entraremos em contato para combinar os próximos passos.
-            </p>
+            ${lead}
 
             <h3 style="margin:0 0 12px;font-family:Georgia,serif;font-size:15px;color:#1a1a1a;border-bottom:2px solid #d4af37;padding-bottom:6px;">
               Itens do pedido
@@ -163,6 +184,19 @@ function buildClientHtml(order: OrderConfirmationPayload) {
 }
 
 function buildStoreHtml(order: OrderConfirmationPayload) {
+  const ok = paymentSucceeded(order)
+  const title = ok ? 'Novo pedido recebido 🛍️' : 'Pagamento não concluído ⚠️'
+  const intro = ok
+    ? `<p style="margin:0 0 20px;font-family:Arial,sans-serif;font-size:14px;color:#3a3a3a;">
+              Um novo pedido foi pago com <strong>${paymentLabel(order.paymentMethod)}</strong>.
+              ${order.orderId ? `<br/><span style="color:#888;font-size:12px;">Ref: ${order.orderId}</span>` : ''}
+            </p>`
+    : `<p style="margin:0 0 20px;font-family:Arial,sans-serif;font-size:14px;color:#3a3a3a;">
+              O cliente finalizou o fluxo de pagamento, mas o valor <strong>não foi aprovado</strong>
+              (${paymentLabel(order.paymentMethod)}).
+              ${order.orderId ? `<br/><span style="color:#888;font-size:12px;">Ref: ${order.orderId}</span>` : ''}
+            </p>`
+
   return `
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -175,17 +209,14 @@ function buildStoreHtml(order: OrderConfirmationPayload) {
         <tr>
           <td style="background:#1a1a1a;padding:28px 32px;">
             <h1 style="margin:0;font-family:Georgia,serif;font-size:18px;color:#d4af37;letter-spacing:1px;">
-              Novo pedido recebido 🛍️
+              ${title}
             </h1>
           </td>
         </tr>
 
         <tr>
           <td style="padding:32px;">
-            <p style="margin:0 0 20px;font-family:Arial,sans-serif;font-size:14px;color:#3a3a3a;">
-              Um novo pedido foi pago com <strong>${paymentLabel(order.paymentMethod)}</strong>.
-              ${order.orderId ? `<br/><span style="color:#888;font-size:12px;">Ref: ${order.orderId}</span>` : ''}
-            </p>
+            ${intro}
 
             <h3 style="margin:0 0 10px;font-family:Georgia,serif;font-size:15px;color:#1a1a1a;border-bottom:2px solid #d4af37;padding-bottom:6px;">
               Cliente
@@ -268,16 +299,29 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
 
   const resend = new Resend(apiKey)
   const from = getResendFromAddress()
+  const ok = paymentSucceeded(body)
+
+  const clientSubject = ok
+    ? `Pedido confirmado — ${STORE_NAME}`
+    : `Atualização do pagamento — ${STORE_NAME}`
+  const storeSubject = ok
+    ? `Novo pedido de ${body.fullName} — ${formatBrl(body.totalCents)}`
+    : `Pagamento não concluído — ${body.fullName} — ${formatBrl(body.totalCents)}`
+
+  const clientTextIntro = ok
+    ? `Olá ${body.fullName}, seu pedido foi confirmado!`
+    : `Olá ${body.fullName}, o pagamento não foi aprovado. Detalhes do pedido (referência):`
+  const storeTextIntro = ok ? `Novo pedido recebido!` : `Pagamento não concluído — cliente finalizou o fluxo.`
 
   const [clientResult, storeResult] = await Promise.allSettled([
     resend.emails.send({
       from,
       to: body.email,
       replyTo: STORE_EMAIL,
-      subject: `Pedido confirmado — ${STORE_NAME}`,
+      subject: clientSubject,
       html: buildClientHtml(body),
       text: [
-        `Olá ${body.fullName}, seu pedido foi confirmado!`,
+        clientTextIntro,
         '',
         'Itens:',
         ...body.items.map(
@@ -291,19 +335,22 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
         '',
         `Endereço: ${body.address} — CEP ${body.cep}`,
         `Pagamento: ${paymentLabel(body.paymentMethod)}`,
+        ok ? '' : 'Status: não aprovado',
         '',
-        'Em breve entraremos em contato. Obrigada!',
+        ok ? 'Em breve entraremos em contato. Obrigada!' : 'O cliente pode tentar novamente no checkout.',
         STORE_NAME,
-      ].join('\n'),
+      ]
+        .filter((line) => line !== '')
+        .join('\n'),
     }),
     resend.emails.send({
       from,
       to: [STORE_EMAIL, STORE_EMAIL_GMAIL],
       replyTo: body.email,
-      subject: `Novo pedido de ${body.fullName} — ${formatBrl(body.totalCents)}`,
+      subject: storeSubject,
       html: buildStoreHtml(body),
       text: [
-        `Novo pedido recebido!`,
+        storeTextIntro,
         '',
         `Cliente: ${body.fullName}`,
         `E-mail: ${body.email}`,
@@ -311,6 +358,7 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
         `Endereço: ${body.address} — CEP ${body.cep}`,
         `Frete: ${shippingLabel(body.shippingMethod)}`,
         `Pagamento: ${paymentLabel(body.paymentMethod)}`,
+        ok ? '' : 'Status do pagamento: não aprovado',
         '',
         'Itens:',
         ...body.items.map(
@@ -321,7 +369,9 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
         `Subtotal: ${formatBrl(body.productsCents)}`,
         `Frete: ${formatBrl(body.shippingCents)}`,
         `Total: ${formatBrl(body.totalCents)}`,
-      ].join('\n'),
+      ]
+        .filter((line) => line !== '')
+        .join('\n'),
     }),
   ])
 

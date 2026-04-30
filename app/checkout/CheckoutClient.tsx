@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
@@ -63,6 +63,28 @@ export default function CheckoutClient() {
   const [doneBanner, setDoneBanner] = useState(false)
   const [confirmedOrder, setConfirmedOrder] = useState<ConfirmedOrder | null>(null)
 
+  /** Último PaymentIntent do fluxo cartão (para e-mail após o cliente terminar). */
+  const [stripePiId, setStripePiId] = useState<string | null>(null)
+  const checkoutEmailSent = useRef<Set<string>>(new Set())
+
+  const queueCheckoutEmail = useCallback(
+    (opts: { paymentIntentId?: string; mercadoPagoPaymentId?: string }) => {
+      const key =
+        opts.paymentIntentId ??
+        (opts.mercadoPagoPaymentId != null ? `mp:${opts.mercadoPagoPaymentId}` : '')
+      if (!key || checkoutEmailSent.current.has(key)) return
+      checkoutEmailSent.current.add(key)
+      void fetch('/api/payments/checkout-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(opts),
+      }).catch(() => {
+        /* evita duplicar se o usuário tentar de novo */
+      })
+    },
+    []
+  )
+
   const stripePromise = useMemo(() => getStripeBrowser(), [])
 
   const normalizedCep = useMemo(() => cep.replace(/\D/g, '').slice(0, 8), [cep])
@@ -87,6 +109,12 @@ export default function CheckoutClient() {
   }, [hydrated, items.length, router, doneBanner])
 
   useEffect(() => {
+    const pi = searchParams.get('payment_intent')
+    const redirectStatus = searchParams.get('redirect_status')
+    if (pi?.startsWith('pi_') && redirectStatus) {
+      queueCheckoutEmail({ paymentIntentId: pi })
+    }
+
     const status = searchParams.get('redirect_status')
     if (status === 'succeeded') {
       clearCart()
@@ -106,7 +134,7 @@ export default function CheckoutClient() {
       router.replace('/checkout?ok=1', { scroll: false })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, router, clearCart])
+  }, [searchParams, router, clearCart, queueCheckoutEmail])
 
   useEffect(() => {
     if (searchParams.get('ok') === '1') {
@@ -258,11 +286,18 @@ export default function CheckoutClient() {
           productLabel,
         }),
       })
-      const data = (await res.json()) as { clientSecret?: string; error?: string }
+      const data = (await res.json()) as {
+        clientSecret?: string
+        paymentIntentId?: string
+        error?: string
+      }
       if (!res.ok || !data.clientSecret) {
         setPayMsg(data.error ?? 'Não foi possível iniciar o pagamento.')
         setPayLoading(false)
         return
+      }
+      if (data.paymentIntentId) {
+        setStripePiId(data.paymentIntentId)
       }
       // Save order snapshot so we can restore it after a possible Stripe redirect
       const snapshot = buildOrderSnapshot('card')
@@ -325,6 +360,7 @@ export default function CheckoutClient() {
         const d = (await res.json()) as { status?: string }
         if (d.status === 'approved') {
           clearInterval(timer)
+          queueCheckoutEmail({ mercadoPagoPaymentId: id })
           setPixData(null)
           const snapshot = buildOrderSnapshot('pix')
           if (snapshot) {
@@ -336,6 +372,7 @@ export default function CheckoutClient() {
         }
         if (d.status === 'rejected' || d.status === 'cancelled') {
           clearInterval(timer)
+          queueCheckoutEmail({ mercadoPagoPaymentId: id })
           setPixData(null)
           setPayMsg('Pagamento Pix não foi aprovado. Tente outro meio ou gere um novo Pix.')
         }
@@ -344,7 +381,7 @@ export default function CheckoutClient() {
       }
     }, 3500)
     return () => clearInterval(timer)
-  }, [pixData, clearCart, buildOrderSnapshot, completeOrder])
+  }, [pixData, clearCart, buildOrderSnapshot, completeOrder, queueCheckoutEmail])
 
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const stripeReturnUrl = `${origin}/checkout`
@@ -595,14 +632,19 @@ export default function CheckoutClient() {
         title="Pagamento com cartão"
         subtitle={`${productLabel.slice(0, 120)}${productLabel.length > 120 ? '…' : ''} — total ${totalCents != null ? formatBrlFromCents(totalCents) : ''}`}
         onClose={closeStripe}
-        onPaid={() => {
+        onTerminal={(outcome) => {
           closeStripe()
-          const snapshot = buildOrderSnapshot('card')
-          if (snapshot) {
-            completeOrder(snapshot)
-          } else {
-            clearCart()
-            setDoneBanner(true)
+          if (stripePiId) {
+            queueCheckoutEmail({ paymentIntentId: stripePiId })
+          }
+          if (outcome === 'succeeded') {
+            const snapshot = buildOrderSnapshot('card')
+            if (snapshot) {
+              completeOrder(snapshot)
+            } else {
+              clearCart()
+              setDoneBanner(true)
+            }
           }
         }}
       />

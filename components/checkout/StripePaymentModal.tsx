@@ -7,10 +7,11 @@ import type { Stripe } from '@stripe/stripe-js'
 type CheckoutFormProps = {
   returnUrl: string
   onClose: () => void
-  onPaid: () => void
+  /** Chamado quando o fluxo do cartão termina (aprovado no modal, ou recusado/erro). */
+  onTerminal: (outcome: 'succeeded' | 'failed') => void
 }
 
-function CheckoutForm({ returnUrl, onClose, onPaid }: CheckoutFormProps) {
+function CheckoutForm({ returnUrl, onClose, onTerminal }: CheckoutFormProps) {
   const stripe = useStripe()
   const elements = useElements()
   const [message, setMessage] = useState<string | null>(null)
@@ -36,9 +37,11 @@ function CheckoutForm({ returnUrl, onClose, onPaid }: CheckoutFormProps) {
         setMessage('Ocorreu um erro inesperado. Tente novamente.')
       }
       setSubmitting(false)
+      onTerminal('failed')
       return
     }
-    onPaid()
+    setSubmitting(false)
+    onTerminal('succeeded')
   }
 
   return (
@@ -77,7 +80,7 @@ export type StripePaymentModalProps = {
   title: string
   subtitle: string
   onClose: () => void
-  onPaid: () => void
+  onTerminal: (outcome: 'succeeded' | 'failed') => void
 }
 
 export default function StripePaymentModal({
@@ -88,7 +91,7 @@ export default function StripePaymentModal({
   title,
   subtitle,
   onClose,
-  onPaid,
+  onTerminal,
 }: StripePaymentModalProps) {
   if (!open || !stripePromise || !clientSecret) return null
 
@@ -131,7 +134,7 @@ export default function StripePaymentModal({
             },
           }}
         >
-          <CheckoutForm returnUrl={returnUrl} onClose={onClose} onPaid={onPaid} />
+          <CheckoutForm returnUrl={returnUrl} onClose={onClose} onTerminal={onTerminal} />
         </Elements>
       </div>
     </div>
