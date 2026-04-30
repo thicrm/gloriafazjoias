@@ -1,12 +1,17 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
+import {
+  getResendApiKeyOrNull,
+  getResendFromAddress,
+  logResendRejection,
+  STORE_EMAIL,
+  STORE_EMAIL_GMAIL,
+  STORE_NAME,
+} from '@/lib/emails/resend-config'
+
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
-
-const STORE_EMAIL = 'contato@gloriafazjoias.com'
-const STORE_EMAIL_GMAIL = 'gloriafazjoias@gmail.com'
-const STORE_NAME = 'Glória Faz Jóias'
 
 type EncomendaBody = {
   name: string
@@ -302,13 +307,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, emailDeferredUntilPayment: true })
   }
 
-  const apiKey = process.env.RESEND_API_KEY?.trim()
-  if (!apiKey || apiKey === 're_...') {
-    console.warn('[encomenda] RESEND_API_KEY não configurado')
-    return NextResponse.json({ ok: true, emailSkipped: true })
+  const apiKey = getResendApiKeyOrNull()
+  if (!apiKey) {
+    console.warn(
+      '[encomenda] RESEND_API_KEY ausente — e-mails não enviados. Defina em Vercel (Production) ou .env.local.'
+    )
+    return NextResponse.json({ ok: true, emailsSent: false, reason: 'resend_not_configured' })
   }
 
   const resend = new Resend(apiKey)
+  const from = getResendFromAddress()
 
   const subjectStore = body.type === 'produto'
     ? `Nova encomenda: ${body.productName ?? 'produto'} — ${name}`
@@ -316,7 +324,7 @@ export async function POST(request: Request) {
 
   const [storeResult, clientResult] = await Promise.allSettled([
     resend.emails.send({
-      from: `${STORE_NAME} <${STORE_EMAIL}>`,
+      from,
       to: [STORE_EMAIL, STORE_EMAIL_GMAIL],
       replyTo: email,
       subject: subjectStore,
@@ -343,7 +351,7 @@ export async function POST(request: Request) {
       ].join('\n'),
     }),
     resend.emails.send({
-      from: `${STORE_NAME} <${STORE_EMAIL}>`,
+      from,
       to: email,
       replyTo: STORE_EMAIL,
       subject: `Encomenda recebida — ${STORE_NAME}`,
@@ -362,7 +370,7 @@ export async function POST(request: Request) {
   if (storeResult.status === 'rejected') {
     console.error('[encomenda] Erro ao enviar e-mail para loja:', storeResult.reason)
   } else if (storeResult.value.error) {
-    console.error('[encomenda] Resend recusou e-mail para loja:', JSON.stringify(storeResult.value.error))
+    logResendRejection('encomenda-loja', storeResult.value.error)
   } else {
     console.log('[encomenda] E-mail para loja enviado. id:', storeResult.value.data?.id)
   }
@@ -370,10 +378,20 @@ export async function POST(request: Request) {
   if (clientResult.status === 'rejected') {
     console.error('[encomenda] Erro ao enviar e-mail para cliente:', clientResult.reason)
   } else if (clientResult.value.error) {
-    console.error('[encomenda] Resend recusou e-mail para cliente:', JSON.stringify(clientResult.value.error))
+    logResendRejection('encomenda-cliente', clientResult.value.error)
   } else {
     console.log('[encomenda] E-mail para cliente enviado. id:', clientResult.value.data?.id)
   }
 
-  return NextResponse.json({ ok: true })
+  const storeOk =
+    storeResult.status === 'fulfilled' && !storeResult.value.error
+  const clientOk =
+    clientResult.status === 'fulfilled' && !clientResult.value.error
+
+  return NextResponse.json({
+    ok: true,
+    emailsSent: storeOk && clientOk,
+    storeEmailSent: storeOk,
+    clientEmailSent: clientOk,
+  })
 }

@@ -1,10 +1,15 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
+import {
+  getResendApiKeyOrNull,
+  getResendFromAddress,
+  logResendRejection,
+  STORE_EMAIL,
+} from '@/lib/emails/resend-config'
+
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
-
-const STORE_EMAIL = 'contato@gloriafazjoias.com'
 
 type Body = {
   name?: string
@@ -31,8 +36,8 @@ export async function POST(request: Request) {
     )
   }
 
-  const apiKey = process.env.RESEND_API_KEY?.trim()
-  if (!apiKey || apiKey === 're_...') {
+  const apiKey = getResendApiKeyOrNull()
+  if (!apiKey) {
     console.error('[contact] RESEND_API_KEY não configurado')
     return NextResponse.json(
       { error: 'Serviço de e-mail não configurado. Tente pelo WhatsApp.' },
@@ -41,9 +46,10 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(apiKey)
+  const from = getResendFromAddress()
 
   const { error: sendError } = await resend.emails.send({
-    from: 'Glória Faz Jóias <contato@gloriafazjoias.com>',
+    from,
     to: STORE_EMAIL,
     replyTo: email,
     subject: `Mensagem de ${name} — Glória Faz Jóias`,
@@ -57,7 +63,7 @@ export async function POST(request: Request) {
   })
 
   if (sendError) {
-    console.error('[contact] Resend error:', sendError)
+    logResendRejection('contact', sendError)
     return NextResponse.json(
       { error: 'Não foi possível enviar. Tente novamente.' },
       { status: 500 }

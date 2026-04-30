@@ -2,9 +2,14 @@ import 'server-only'
 
 import { Resend } from 'resend'
 
-const STORE_EMAIL = 'contato@gloriafazjoias.com'
-const STORE_EMAIL_GMAIL = 'gloriafazjoias@gmail.com'
-const STORE_NAME = 'Glória Faz Jóias'
+import {
+  getResendApiKeyOrNull,
+  getResendFromAddress,
+  logResendRejection,
+  STORE_EMAIL,
+  STORE_EMAIL_GMAIL,
+  STORE_NAME,
+} from '@/lib/emails/resend-config'
 
 export type OrderConfirmationItem = {
   productName: string
@@ -253,17 +258,20 @@ function buildStoreHtml(order: OrderConfirmationPayload) {
 
 /** Sends client + store order confirmation e-mails (Resend). */
 export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY?.trim()
-  if (!apiKey || apiKey === 're_...') {
-    console.warn('[order-confirmation] RESEND_API_KEY não configurado — e-mails não enviados')
+  const apiKey = getResendApiKeyOrNull()
+  if (!apiKey) {
+    console.warn(
+      '[order-confirmation] RESEND_API_KEY ausente ou inválido — e-mails não enviados. Defina em Vercel → Settings → Environment Variables (Production).'
+    )
     return
   }
 
   const resend = new Resend(apiKey)
+  const from = getResendFromAddress()
 
   const [clientResult, storeResult] = await Promise.allSettled([
     resend.emails.send({
-      from: `${STORE_NAME} <${STORE_EMAIL}>`,
+      from,
       to: body.email,
       replyTo: STORE_EMAIL,
       subject: `Pedido confirmado — ${STORE_NAME}`,
@@ -289,7 +297,7 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
       ].join('\n'),
     }),
     resend.emails.send({
-      from: `${STORE_NAME} <${STORE_EMAIL}>`,
+      from,
       to: [STORE_EMAIL, STORE_EMAIL_GMAIL],
       replyTo: body.email,
       subject: `Novo pedido de ${body.fullName} — ${formatBrl(body.totalCents)}`,
@@ -320,7 +328,7 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
   if (clientResult.status === 'fulfilled') {
     const r = clientResult.value
     if (r.error) {
-      console.error('[order-confirmation] Resend recusou e-mail para cliente:', JSON.stringify(r.error))
+      logResendRejection('order-confirmation-cliente', r.error)
     } else {
       console.log('[order-confirmation] E-mail para cliente enviado. id:', r.data?.id)
     }
@@ -331,7 +339,7 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
   if (storeResult.status === 'fulfilled') {
     const r = storeResult.value
     if (r.error) {
-      console.error('[order-confirmation] Resend recusou e-mail para loja:', JSON.stringify(r.error))
+      logResendRejection('order-confirmation-loja', r.error)
     } else {
       console.log('[order-confirmation] E-mail para loja enviado. id:', r.data?.id)
     }
