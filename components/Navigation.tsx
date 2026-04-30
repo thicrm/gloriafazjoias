@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import CartNavLink from '@/components/CartNavLink'
+import { HEADER_GOLD_BOX_SHADOW } from '@/lib/ui/header-gold-glow'
 
 const navItems = [
   { href: '/', numeral: 'I', label: 'Inicio', image: '/images/titulos_menu/menu_titulo_preto.png' },
@@ -77,7 +78,7 @@ export default function Navigation() {
             backgroundSize: '30%',
             backgroundPosition: 'center',
             backgroundRepeat: 'repeat',
-            boxShadow: '0 1px 10px rgba(212, 175, 55, 0.5), 0 1px 20px rgba(212, 175, 55, 0.3)'
+            boxShadow: HEADER_GOLD_BOX_SHADOW
           }}
         >
           {/* Stars overlay - above texture, below content */}
