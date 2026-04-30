@@ -25,25 +25,13 @@ export default function PixPromoStrip() {
     >
       <div
         role="region"
-        aria-label="Promo Dia das Mães: desconto no Pix"
+        aria-label="Promo Dia das Mães no Pix"
         className="relative isolate flex items-center justify-center border-0 bg-red-900 px-4 py-3 pr-11 text-center outline-none ring-0 sm:pr-14"
       >
         <p
-          className="font-title mx-auto max-w-[min(100%,40rem)] text-[11px] leading-relaxed text-refined-gold sm:text-xs md:max-w-[46rem] md:text-sm [text-shadow:0_0_10px_rgba(212,175,55,0.95),0_0_22px_rgba(212,175,55,0.55),0_0_36px_rgba(212,175,55,0.25)]"
+          className="font-title mx-auto max-w-[min(100%,40rem)] text-[11px] font-normal leading-relaxed tracking-[0.02em] text-refined-gold/95 sm:text-xs md:max-w-[46rem] md:text-sm [text-shadow:0_0_10px_rgba(212,175,55,0.95),0_0_22px_rgba(212,175,55,0.55),0_0_36px_rgba(212,175,55,0.25)]"
         >
-          <span className="block font-semibold tracking-wide sm:inline">
-            5% off no Pix
-          </span>
-          <span
-            className="mx-auto my-2.5 block h-px w-12 bg-refined-gold/40 sm:hidden"
-            aria-hidden
-          />
-          <span className="mx-2 hidden text-refined-gold/45 sm:inline" aria-hidden>
-            ·
-          </span>
-          <span className="mt-0 block font-normal tracking-[0.02em] text-refined-gold/95 sm:mt-0 sm:inline">
-            Garanta seu presente para o Dia das Mães: 5% de desconto em todas as compras no Pix!
-          </span>
+          Garanta seu presente para o Dia das Mães: 5% de desconto em todas as compras no Pix!
         </p>
         <button
           type="button"
