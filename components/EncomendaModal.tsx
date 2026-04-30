@@ -49,6 +49,7 @@ export default function EncomendaModal({
         productSlug,
         message: message.trim() || undefined,
         wantsToPay,
+        ...(isRing ? { ringSizeBr: ringSize.trim() } : {}),
       }),
     })
   }

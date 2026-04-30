@@ -166,6 +166,14 @@ ${formData.mensagem}
           name: formData.name,
           email: formData.email,
           message,
+          afirmacao: formData.afirmacao,
+          tipoPeca: formData.tipoPeça,
+          tipoPecaOutro: formData.tipoPeçaOutro || undefined,
+          ocasiao: formData.ocasiao,
+          ocasiaoOutro: formData.ocasiaoOutro || undefined,
+          materiais: formData.materiais,
+          materiaisOutro: formData.materiaisOutro || undefined,
+          mensagemLivre: formData.mensagem.trim() || undefined,
         }),
       })
 
