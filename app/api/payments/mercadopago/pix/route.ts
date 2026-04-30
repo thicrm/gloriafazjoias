@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { MercadoPagoConfig, Payment } from 'mercadopago'
 import {
+  productsCentsAfterPixDiscount,
+  pixDiscountFromProductsCents,
+} from '@/lib/checkout/pix-discount'
+import {
   trimCustomer,
   validateAndComputeOrderTotals,
   type CheckoutCustomer,
@@ -95,13 +99,19 @@ export async function POST(request: Request) {
     )
   }
 
+  // Desconto só sobre produtos; frete somado sem desconto.
+  const productsAfterPix = productsCentsAfterPixDiscount(totals.productsCents)
+  const pixDiscountCents = pixDiscountFromProductsCents(totals.productsCents)
+  const amountBrlCentsWithPix = productsAfterPix + totals.shippingCents
+
   const meta = trimCustomer(customer)
   const metadata: Record<string, string> = {
     source: 'gloria-faz-joias',
     order_type: 'cart',
     shipping_method: shippingMethod,
-    products_cents: String(totals.productsCents),
+    products_cents: String(productsAfterPix),
     shipping_cents: String(totals.shippingCents),
+    pix_discount_cents: String(pixDiscountCents),
     ...meta,
     ...encodedSnap,
   }
@@ -110,7 +120,7 @@ export async function POST(request: Request) {
   const paymentApi = new Payment(client)
 
   try {
-    const amount = Math.round(totals.amountBrlCents) / 100
+    const amount = Math.round(amountBrlCentsWithPix) / 100
 
     const created = await paymentApi.create({
       body: {
@@ -135,8 +145,10 @@ export async function POST(request: Request) {
       qr_code: pix?.qr_code ?? null,
       qr_code_base64: pix?.qr_code_base64 ?? null,
       ticket_url: pix?.ticket_url ?? null,
-      amountBrlCents: totals.amountBrlCents,
-      productsCents: totals.productsCents,
+      amountBrlCents: amountBrlCentsWithPix,
+      productsCents: productsAfterPix,
+      productsCentsBeforePixDiscount: totals.productsCents,
+      pixDiscountCents,
       shippingCents: totals.shippingCents,
     })
   } catch (err) {

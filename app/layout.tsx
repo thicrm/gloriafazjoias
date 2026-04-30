@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Baskervville } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
+import PixPromoStrip from '@/components/PixPromoStrip'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { Providers } from '@/app/providers'
@@ -45,7 +46,8 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <Providers>
           <Navigation />
-          <main className="min-h-0 md:min-h-screen pt-20 relative z-10">{children}</main>
+          <PixPromoStrip />
+          <main className="min-h-0 md:min-h-screen pt-20 relative z-10 gfj-main">{children}</main>
           <WhatsAppButton />
           <Footer />
         </Providers>

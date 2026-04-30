@@ -13,6 +13,10 @@ import { MOTOBOY_SHIPPING_BRL_CENTS } from '@/lib/shipping/constants'
 import { getStripeBrowser } from '@/lib/stripe-browser'
 import StripePaymentModal from '@/components/checkout/StripePaymentModal'
 import { formatRingSizeLabel } from '@/lib/ring-sizes'
+import {
+  productsCentsAfterPixDiscount,
+  pixDiscountFromProductsCents,
+} from '@/lib/checkout/pix-discount'
 
 type ShippingMethod = 'motoboy' | 'correios'
 
@@ -101,6 +105,19 @@ export default function CheckoutClient() {
   const totalCents =
     shippingDisplayCents != null ? productsCents + shippingDisplayCents : null
 
+  const productsCentsAfterPix = useMemo(
+    () => productsCentsAfterPixDiscount(productsCents),
+    [productsCents]
+  )
+  const pixDiscountCents = useMemo(
+    () => pixDiscountFromProductsCents(productsCents),
+    [productsCents]
+  )
+  const totalPixCents =
+    shippingDisplayCents != null
+      ? productsCentsAfterPix + shippingDisplayCents
+      : null
+
   useEffect(() => {
     if (!hydrated) return
     if (items.length === 0 && !doneBanner) {
@@ -145,6 +162,7 @@ export default function CheckoutClient() {
   const buildOrderSnapshot = useCallback(
     (paymentMethod: 'card' | 'pix'): ConfirmedOrder | null => {
       if (shippingDisplayCents == null || totalCents == null) return null
+      const isPix = paymentMethod === 'pix'
       return {
         fullName: fullName.trim(),
         email: email.trim(),
@@ -153,8 +171,8 @@ export default function CheckoutClient() {
         cep: normalizedCep,
         shippingMethod: shippingMethod!,
         shippingCents: shippingDisplayCents,
-        productsCents,
-        totalCents,
+        productsCents: isPix ? productsCentsAfterPix : productsCents,
+        totalCents: isPix ? totalPixCents! : totalCents,
         items: items.map((l) => ({
           productName: l.productName,
           quantity: l.quantity,
@@ -163,7 +181,20 @@ export default function CheckoutClient() {
         paymentMethod,
       }
     },
-    [fullName, email, phone, address, normalizedCep, shippingMethod, shippingDisplayCents, productsCents, totalCents, items]
+    [
+      fullName,
+      email,
+      phone,
+      address,
+      normalizedCep,
+      shippingMethod,
+      shippingDisplayCents,
+      productsCents,
+      productsCentsAfterPix,
+      totalCents,
+      totalPixCents,
+      items,
+    ]
   )
 
   const completeOrder = useCallback(
@@ -444,7 +475,14 @@ export default function CheckoutClient() {
             ))}
           </ul>
           <p className="mt-4 font-body text-refined-charcoal">
-            Subtotal: <strong>{formatBrlFromCents(productsCents)}</strong>
+            Subtotal (produtos): <strong>{formatBrlFromCents(productsCents)}</strong>
+          </p>
+          <p className="mt-1 font-body text-sm text-red-800">
+            Desconto Pix 5% (apenas sobre produtos, não sobre frete):{' '}
+            <strong>−{formatBrlFromCents(pixDiscountCents)}</strong>
+          </p>
+          <p className="mt-1 font-body text-sm text-refined-charcoal/85">
+            Subtotal após Pix: <strong>{formatBrlFromCents(productsCentsAfterPix)}</strong>
           </p>
         </section>
 
@@ -573,14 +611,23 @@ export default function CheckoutClient() {
         {/* Totais */}
         <section className="mt-10 border border-refined-gold/40 bg-refined-ivory/90 p-6">
           <p className="font-body text-refined-charcoal">
-            Frete:{' '}
+            Frete (sem desconto):{' '}
             <strong>
               {shippingDisplayCents != null ? formatBrlFromCents(shippingDisplayCents) : '—'}
             </strong>
           </p>
-          <p className="mt-2 font-title text-2xl text-refined-charcoal">
-            Total:{' '}
+          <p className="mt-2 font-title text-xl text-refined-charcoal">
+            Total com cartão:{' '}
             <strong>{totalCents != null ? formatBrlFromCents(totalCents) : '—'}</strong>
+          </p>
+          <p className="mt-2 font-title text-2xl text-red-800">
+            Total com Pix:{' '}
+            <strong>
+              {totalPixCents != null ? formatBrlFromCents(totalPixCents) : '—'}
+            </strong>
+          </p>
+          <p className="mt-2 font-body text-xs text-refined-charcoal/70">
+            O Pix aplica 5% só no valor dos produtos; o frete é somado cheio.
           </p>
         </section>
 
@@ -612,8 +659,8 @@ export default function CheckoutClient() {
             </button>
           </div>
           <p className="font-body text-xs text-refined-charcoal/65">
-            O valor final cobrado é sempre recalculado no servidor (produtos + frete), igual ao
-            resumo acima.
+            O servidor confere o total: cartão = produtos + frete; Pix = produtos com −5% + frete
+            integral.
           </p>
         </section>
 
@@ -713,7 +760,11 @@ function OrderConfirmation({ order }: { order: ConfirmedOrder }) {
           </ul>
           <div className="mt-5 space-y-1 border-t border-refined-gold/25 pt-4 font-body text-sm text-refined-charcoal/80">
             <div className="flex justify-between">
-              <span>Subtotal</span>
+              <span>
+                {order.paymentMethod === 'pix'
+                  ? 'Produtos (com −5% Pix, só sobre produtos)'
+                  : 'Subtotal (produtos)'}
+              </span>
               <span>{formatBrlFromCents(order.productsCents)}</span>
             </div>
             <div className="flex justify-between">

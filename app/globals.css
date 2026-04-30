@@ -38,6 +38,11 @@
     overflow-x: hidden;
   }
 
+  /* Faixa Pix fixa abaixo do header: empurra o conteúdo sem cobrir o hero */
+  body.gfj-promo-strip-visible main.gfj-main {
+    padding-top: calc(5rem + 2.75rem);
+  }
+
   body::before {
     content: '';
     position: fixed;
