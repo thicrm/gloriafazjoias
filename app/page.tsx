@@ -208,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* Envelope Animation - Centered */}
-      <section className="w-full flex justify-center mt-[50px] mb-4 px-4 overflow-visible py-8 max-sm:overflow-x-clip max-sm:px-0 max-sm:py-20">
+      <section className="w-full flex justify-center mt-[50px] mb-4 px-4 overflow-visible py-8 max-sm:overflow-x-clip max-sm:px-0 max-sm:py-20 touch:overflow-x-clip touch:px-0">
         <EnvelopeAnimation />
       </section>
 
@@ -373,7 +373,7 @@ function EnvelopeAnimation() {
   return (
     <Link 
       href="/contato"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out [@media(hover:hover)]:hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block max-sm:w-[150%]"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out [@media(hover:hover)]:hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block touch:w-[150%] touch:shrink-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
