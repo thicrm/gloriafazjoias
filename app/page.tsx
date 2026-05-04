@@ -89,7 +89,7 @@ export default function Home() {
       </section>
 
       {/* Caderno Animation - Centered below button */}
-      <section className="w-full flex justify-center -mt-[20px] sm:-mt-[60px] md:-mt-[90px] lg:-mt-[120px] -mb-[30px] sm:-mb-[50px] md:-mb-[80px] lg:-mb-[115px] pt-4 pb-10 sm:pt-14 sm:pb-14 md:pt-0 md:pb-0 px-4 overflow-hidden">
+      <section className="w-full flex justify-center -mt-[20px] sm:-mt-[60px] md:-mt-[90px] lg:-mt-[120px] -mb-[30px] sm:-mb-[50px] md:-mb-[80px] lg:-mb-[115px] pt-4 pb-10 sm:pt-14 sm:pb-14 md:pt-0 md:pb-0 px-4 overflow-hidden touch:overflow-visible">
         <CadernoAnimation />
       </section>
 
@@ -330,7 +330,7 @@ function CadernoAnimation() {
   return (
     <Link 
       href="/about"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[5px] sm:translate-x-[25px] md:translate-x-[50px] scale-[1.4] sm:scale-[0.88] md:scale-[0.9] touch:translate-x-[25px] touch:sm:translate-x-[25px] touch:md:translate-x-[50px] touch:scale-[0.88] touch:sm:scale-[0.88] touch:md:scale-[0.9] block"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out [@media(hover:hover)]:hover:scale-105 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] translate-x-[5px] sm:translate-x-[25px] md:translate-x-[50px] scale-[1.4] sm:scale-[0.88] md:scale-[0.9] touch:translate-x-[25px] touch:sm:translate-x-[25px] touch:md:translate-x-[50px] touch:scale-[0.88] touch:sm:scale-[0.88] touch:md:scale-[0.9] block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -373,7 +373,7 @@ function EnvelopeAnimation() {
   return (
     <Link 
       href="/contato"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block max-sm:scale-[1.95] max-sm:origin-center"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out [@media(hover:hover)]:hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block max-sm:scale-[2.4] max-sm:origin-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
