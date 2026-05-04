@@ -373,7 +373,7 @@ function EnvelopeAnimation() {
   return (
     <Link 
       href="/contato"
-      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out [@media(hover:hover)]:hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block max-sm:scale-[2.4] max-sm:origin-center"
+      className="relative w-full max-w-[891px] aspect-[891/594] min-h-[200px] cursor-pointer transition-all duration-700 ease-in-out [@media(hover:hover)]:hover:scale-110 hover:drop-shadow-[0_0_50px_rgba(212,175,55,0.7)] block max-sm:w-[150%]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

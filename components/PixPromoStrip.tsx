@@ -29,9 +29,9 @@ export default function PixPromoStrip() {
         className="relative isolate flex items-center justify-center border-0 bg-red-900 px-4 py-3 pr-11 text-center outline-none ring-0 sm:pr-14"
       >
         <p
-          className="font-title mx-auto max-w-[min(100%,40rem)] text-[11px] font-normal leading-relaxed tracking-[0.02em] text-refined-gold/95 sm:text-xs md:max-w-[46rem] md:text-sm [text-shadow:0_0_10px_rgba(212,175,55,0.95),0_0_22px_rgba(212,175,55,0.55),0_0_36px_rgba(212,175,55,0.25)]"
+          className="font-title mx-auto whitespace-nowrap text-[11px] font-normal leading-relaxed tracking-[0.02em] text-refined-gold/95 sm:text-xs md:text-sm [text-shadow:0_0_10px_rgba(212,175,55,0.95),0_0_22px_rgba(212,175,55,0.55),0_0_36px_rgba(212,175,55,0.25)]"
         >
-          Garanta seu presente para o Dia das Mães: 5% de desconto em todas as compras no Pix!
+          Dia das Mães: 5% de desconto em todas as compras no Pix!
         </p>
         <button
           type="button"
