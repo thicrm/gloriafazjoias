@@ -36,6 +36,7 @@ function payloadFromMetadataRecord(
   const fullName = (meta.customer_name ?? '').trim()
   const email = (meta.customer_email ?? '').trim()
   const phone = (meta.customer_phone ?? '').trim()
+  const cpf = (meta.customer_cpf ?? '').replace(/\D/g, '').slice(0, 11)
   const address = (meta.customer_address ?? '').trim()
   const cep = (meta.customer_cep ?? '').replace(/\D/g, '').slice(0, 8)
 
@@ -54,6 +55,7 @@ function payloadFromMetadataRecord(
     fullName,
     email,
     phone,
+    cpf,
     address,
     cep,
     shippingMethod,

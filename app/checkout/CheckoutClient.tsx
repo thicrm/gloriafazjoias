@@ -24,6 +24,7 @@ type ConfirmedOrder = {
   fullName: string
   email: string
   phone: string
+  cpf: string
   address: string
   cep: string
   shippingMethod: ShippingMethod
@@ -44,6 +45,7 @@ export default function CheckoutClient() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [cpf, setCpf] = useState('')
   const [address, setAddress] = useState('')
   const [cep, setCep] = useState('')
 
@@ -167,6 +169,7 @@ export default function CheckoutClient() {
         fullName: fullName.trim(),
         email: email.trim(),
         phone: phone.trim(),
+        cpf: normalizedCpf,
         address: address.trim(),
         cep: normalizedCep,
         shippingMethod: shippingMethod!,
@@ -185,6 +188,7 @@ export default function CheckoutClient() {
       fullName,
       email,
       phone,
+      normalizedCpf,
       address,
       normalizedCep,
       shippingMethod,
@@ -271,15 +275,18 @@ export default function CheckoutClient() {
     [items]
   )
 
+  const normalizedCpf = useMemo(() => cpf.replace(/\D/g, '').slice(0, 11), [cpf])
+
   const customerPayload = useMemo(
     () => ({
       fullName: fullName.trim(),
       email: email.trim(),
       phone: phone.trim(),
+      cpf: normalizedCpf,
       address: address.trim(),
       cep: normalizedCep || undefined,
     }),
-    [fullName, email, phone, address, normalizedCep]
+    [fullName, email, phone, normalizedCpf, address, normalizedCep]
   )
 
   const phoneDigits = phone.replace(/\D/g, '').length
@@ -290,6 +297,7 @@ export default function CheckoutClient() {
     fullName.trim().length >= 3 &&
     email.includes('@') &&
     phoneDigits >= 10 &&
+    normalizedCpf.length === 11 &&
     address.trim().length >= 8 &&
     normalizedCep.length === 8 &&
     shippingMethod != null &&
@@ -523,6 +531,19 @@ export default function CheckoutClient() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               autoComplete="tel"
+              className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
+            />
+          </div>
+          <div>
+            <label className="block font-body text-sm text-refined-charcoal" htmlFor="ck-cpf">
+              CPF
+            </label>
+            <input
+              id="ck-cpf"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              autoComplete="off"
+              placeholder="000.000.000-00"
               className="mt-1 w-full border border-refined-charcoal/30 bg-white px-4 py-3 font-body text-refined-charcoal focus:outline-none focus:ring-2 focus:ring-refined-gold/40"
             />
           </div>
@@ -788,6 +809,8 @@ function OrderConfirmation({ order }: { order: ConfirmedOrder }) {
             <dd className="text-refined-charcoal">{order.email}</dd>
             <dt className="text-refined-charcoal/55">Telefone</dt>
             <dd className="text-refined-charcoal">{order.phone}</dd>
+            <dt className="text-refined-charcoal/55">CPF</dt>
+            <dd className="text-refined-charcoal">{order.cpf || '—'}</dd>
             <dt className="text-refined-charcoal/55">Endereço</dt>
             <dd className="text-refined-charcoal">{order.address}</dd>
             <dt className="text-refined-charcoal/55">CEP</dt>

@@ -21,6 +21,7 @@ export type OrderConfirmationPayload = {
   fullName: string
   email: string
   phone: string
+  cpf: string
   address: string
   cep: string
   shippingMethod: 'motoboy' | 'correios'
@@ -235,6 +236,10 @@ function buildStoreHtml(order: OrderConfirmationPayload) {
                 <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#3a3a3a;">${order.phone}</td>
               </tr>
               <tr>
+                <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#888;">CPF</td>
+                <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#3a3a3a;">${order.cpf || '—'}</td>
+              </tr>
+              <tr>
                 <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#888;">Endereço</td>
                 <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#3a3a3a;">${order.address}</td>
               </tr>
@@ -355,6 +360,7 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
         `Cliente: ${body.fullName}`,
         `E-mail: ${body.email}`,
         `Telefone: ${body.phone}`,
+        `CPF: ${body.cpf || '—'}`,
         `Endereço: ${body.address} — CEP ${body.cep}`,
         `Frete: ${shippingLabel(body.shippingMethod)}`,
         `Pagamento: ${paymentLabel(body.paymentMethod)}`,

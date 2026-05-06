@@ -67,6 +67,7 @@ export async function POST(request: Request) {
     fullName: String(body.customer?.fullName ?? '').trim(),
     email: String(body.customer?.email ?? '').trim(),
     phone: String(body.customer?.phone ?? '').trim(),
+    cpf: String(body.customer?.cpf ?? '').trim(),
     address: String(body.customer?.address ?? '').trim(),
     cep: body.customer?.cep != null ? String(body.customer.cep) : undefined,
   }

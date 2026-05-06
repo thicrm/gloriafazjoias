@@ -89,6 +89,20 @@ export function decodeSnapshotFromRecord(meta: Record<string, string>): PaymentO
   }
 }
 
+/**
+ * Converts a camelCase key to snake_case.
+ * Mercado Pago's SDK deserializes metadata keys from snake_case to camelCase,
+ * so we must normalize them back before looking up fields like `products_cents`,
+ * `customer_name`, or `gfj_ord`.
+ * Examples: "productsCents" → "products_cents", "gfjOrd0" → "gfj_ord_0"
+ */
+function mpKeyToSnake(key: string): string {
+  return key
+    .replace(/([A-Z])/g, '_$1')
+    .replace(/([a-zA-Z])(\d)/g, '$1_$2')
+    .toLowerCase()
+}
+
 export function recordFromMercadoPagoMetadata(
   meta: Record<string, unknown> | null | undefined
 ): Record<string, string> {
@@ -96,7 +110,8 @@ export function recordFromMercadoPagoMetadata(
   if (!meta || typeof meta !== 'object') return o
   for (const [k, v] of Object.entries(meta)) {
     if (v == null) continue
-    o[k] = typeof v === 'string' ? v : String(v)
+    const normalizedKey = mpKeyToSnake(k)
+    o[normalizedKey] = typeof v === 'string' ? v : String(v)
   }
   return o
 }

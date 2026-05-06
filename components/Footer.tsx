@@ -86,6 +86,7 @@ export default function Footer() {
           </Link>
 
           <p className="text-white font-body italic text-xs">© Glória Faz Jóias 2026</p>
+          <p className="text-white/50 font-body text-[10px] mt-1">26.144.748/0001-51</p>
         </div>
 
         {/* Tablet/Desktop layout (>=640px) */}
@@ -146,6 +147,7 @@ export default function Footer() {
                 />
               </div>
               <p className="text-white font-body italic text-[10px] md:text-sm mt-4 mr-0 md:mr-[20px] -translate-y-[20px] translate-x-[20px]">© Glória Faz Jóias 2026</p>
+              <p className="text-white/50 font-body text-[9px] md:text-[10px] -translate-y-[16px] translate-x-[20px] md:mr-[20px]">26.144.748/0001-51</p>
             </div>
           </Link>
         </div>

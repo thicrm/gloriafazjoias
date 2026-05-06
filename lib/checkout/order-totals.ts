@@ -11,6 +11,7 @@ export type CheckoutCustomer = {
   fullName: string
   email: string
   phone: string
+  cpf: string
   address: string
   cep?: string
 }
@@ -119,6 +120,7 @@ export function trimCustomer(c: CheckoutCustomer | undefined): Record<string, st
     customer_name: (c.fullName ?? '').slice(0, 120).trim(),
     customer_email: (c.email ?? '').slice(0, 120).trim(),
     customer_phone: (c.phone ?? '').slice(0, 40).trim(),
+    customer_cpf: (c.cpf ?? '').replace(/\D/g, '').slice(0, 11),
     customer_address: (c.address ?? '').slice(0, 450).trim(),
     customer_cep: (c.cep ?? '').replace(/\D/g, '').slice(0, 8),
   }

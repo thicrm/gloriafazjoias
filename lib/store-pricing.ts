@@ -9,7 +9,7 @@ export interface StorePriceEntry {
 
 export const STORE_PRICING: Record<string, StorePriceEntry> = {
   'anel-reservatorio': { priceBrl: null },
-  'colar-explosao': { priceBrl: 1205 },
+  'colar-explosao': { priceBrl: 971 },
   'alianca-estrela': { priceBrl: 197 },
   'broche-estrela': { priceBrl: 215 },
   'colar-em-orbita': { priceBrl: 206 },
@@ -27,7 +27,7 @@ export const STORE_PRICING: Record<string, StorePriceEntry> = {
   'anel-ondas-cru': { priceBrl: 728 },
   'brinco-andorinhas': { priceBrl: 539 },
   'brinco-sobreposicao-ii': { priceBrl: 305 },
-  'anel-vao': { priceBrl: 413 },
+  'anel-vao': { priceBrl: 323 },
   'bracelete-oco': { priceBrl: 2357 },
   'brinco-estrelas': { priceBrl: 782 },
   'brinco-mae': { priceBrl: 413 },
