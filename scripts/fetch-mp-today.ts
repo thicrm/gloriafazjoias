@@ -55,14 +55,8 @@ async function main() {
 
   while (offset < total) {
     const result = await paymentApi.search({
-      options: {
-        limit,
-        offset,
-        begin_date: beginDate,
-        end_date: endDate,
-        sort: 'date_created',
-        criteria: 'desc',
-      } as Parameters<typeof paymentApi.search>[0]['options'],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      options: { limit, offset, begin_date: beginDate, end_date: endDate, sort: 'date_created', criteria: 'desc' } as any,
     })
 
     const results = result.results ?? []
