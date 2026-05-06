@@ -60,7 +60,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${oldBaskerville.variable} ${amasisMT.variable}`}>
-      <head>
+      <body className="font-body antialiased">
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18135021895"
           strategy="afterInteractive"
@@ -71,8 +71,6 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'AW-18135021895');
         `}</Script>
-      </head>
-      <body className="font-body antialiased">
         <Providers>
           <Navigation />
           <PixPromoStrip />
