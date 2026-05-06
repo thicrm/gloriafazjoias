@@ -94,6 +94,7 @@ export default function CheckoutClient() {
   const stripePromise = useMemo(() => getStripeBrowser(), [])
 
   const normalizedCep = useMemo(() => cep.replace(/\D/g, '').slice(0, 8), [cep])
+  const normalizedCpf = useMemo(() => cpf.replace(/\D/g, '').slice(0, 11), [cpf])
 
   const productsCents = useMemo(() => cartProductsSubtotalCents(items), [items])
   const invalid = useMemo(() => cartHasInvalidPrices(items), [items])
@@ -274,8 +275,6 @@ export default function CheckoutClient() {
     () => items.map((l) => `${l.productName} ×${l.quantity}`).join(' · ').slice(0, 200),
     [items]
   )
-
-  const normalizedCpf = useMemo(() => cpf.replace(/\D/g, '').slice(0, 11), [cpf])
 
   const customerPayload = useMemo(
     () => ({
