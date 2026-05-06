@@ -149,6 +149,10 @@ function buildClientHtml(order: OrderConfirmationPayload) {
                 <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#3a3a3a;">${order.phone}</td>
               </tr>
               <tr>
+                <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#888;">CPF</td>
+                <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#3a3a3a;">${order.cpf || '—'}</td>
+              </tr>
+              <tr>
                 <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#888;">Endereço</td>
                 <td style="padding:5px 0;font-family:Arial,sans-serif;font-size:13px;color:#3a3a3a;">${order.address}</td>
               </tr>
@@ -338,6 +342,7 @@ export async function sendOrderConfirmationEmails(body: OrderConfirmationPayload
         `Frete (${shippingLabel(body.shippingMethod)}): ${formatBrl(body.shippingCents)}`,
         `Total: ${formatBrl(body.totalCents)}`,
         '',
+        `CPF: ${body.cpf || '—'}`,
         `Endereço: ${body.address} — CEP ${body.cep}`,
         `Pagamento: ${paymentLabel(body.paymentMethod)}`,
         ok ? '' : 'Status: não aprovado',
